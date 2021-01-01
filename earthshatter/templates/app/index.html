@@ -1,11 +1,23 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Earthshatter</title>
 </head>
 <body>
-    <h1>Hello World!</h1>
-    <h2>Go to /users to see the list of user information!</h2>
+<div class="page">
+    <h1>Hammer Down!</h1>
+    <div class="links">
+        <ol>
+            <li><a href="users/">Users</a></li>
+            <li><a href="formpage/">Forms</a></li>
+        </ol>
+    </div>
+    <div class="picture">
+        <img src="{% static "images/rein.jpg" %}" alt="Uh Oh, didn't show!">
+    </div>
+</div>
+
 </body>
 </html>
