@@ -20,8 +20,17 @@ STATIC_DIR = BASE_DIR / 'static'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'm2kc!anm(qgza0eb8)cnhe*p^7p7sp!f7k=@=a#ycq6h0nn-)-'
+# Secret key check and generation
+try:
+    from secret_key import SECRET_KEY
+except ModuleNotFoundError:
+    from django.core.management.utils import get_random_secret_key
+    SECRET_KEY_DIR = BASE_DIR / 'secret_key.py'
+    secret_file = open(SECRET_KEY_DIR, "w")
+    secret = "SECRET_KEY = " + "\"" + get_random_secret_key() + "\"" + "\n"
+    secret_file.write(secret)
+    secret_file.close()
+    from secret_key import SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
