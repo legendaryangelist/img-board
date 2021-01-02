@@ -5,24 +5,32 @@
     <meta charset="UTF-8">
     <title>Earthshatter</title>
     <link rel="icon" href="{% static 'images/quake.ico' %}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'images/bootstrap_overrides.css' %}">
 </head>
 <body>
-    <div class="nav-container">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
+    <div class="nav_container">
+        <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <div class="nav-container-links">
                 <ul class="nav navbar-nav">
-                    <li><a class="navbar-brand" href="#">Brand</a></li>
-                    <li><a class="navbar-link" href="#">Admin</a></li>
-                    <li><a class="navbar-link" href="#">Other</a></li>
+                    <li><a class="navbar-brand" href="{% url 'index' %}">Home</a></li>
+                    <li><a class="navbar-link" href="#">Create</a></li> <!-- TODO -->
+                    <li><a class="navbar-link" href="#">Explore</a></li> <!-- TODO -->
+                    <li><a class="navbar-link" href="{% url 'admin:index' %}">Admin</a></li>
+                    <li><a class="navbar-link" href="{% url 'other' %}">Other</a></li>
+                    <li><a class="navbar-link" href="{% url 'users' %}">Users</a></li>
                 </ul>
             </div>
         </nav>
     </div>
-    <div class="container">
-        {% block body_block %}
-        {# Anything outside of this will be inherited if you use extend.#}
-        {% endblock %}
+
+    <div class="container-fluid bg-dark text-white">
+        <div class="container">
+            {% block body_block %}
+            {# Anything outside of this will be inherited if you use extend.#}
+            {% endblock %}
+        </div>
     </div>
 </body>
 </html>

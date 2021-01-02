@@ -1,26 +1,21 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Users</title>
-</head>
-<body>
-<h1>Here are your users:</h1>
+{% extends "app/base.html" %}
+    {% load static %}
+    {% block body_block %}
 
-{% if users%}
+    <h1>Totally authentic people:</h1>
 
-<ol>
-    {% for person in users %}
-    <li>User Info</li>
-    <ul>
-        <li>First Name: {{person.first_name}}</li>
-        <li>Last Name: {{person.last_name}}</li>
-        <li>Email: {{person.email}}</li>
-    </ul>
-    {% endfor %}
-</ol>
+    {% if users%}
+
+    <ol>
+        {% for person in users %}
+        <li>{{person.first_name}} {{person.last_name}}, {{person.email}}</li>
+        {% endfor %}
+    </ol>
 
 
-{% endif %}
-</body>
-</html>
+    {% endif %}
+
+    {% endblock %}
+
+
