@@ -47,3 +47,6 @@ db.sqlite3
 
 # Secret key
 secret_key.py
+
+# vscode
+.vscode/

@@ -24,6 +24,7 @@ def populate(N=5):
         fake_email = fakegen.email()
 
         # Create new User Entry
+        # pylint: disable=no-member
         user = User.objects.get_or_create(first_name=fake_first_name,
                                           last_name=fake_last_name,
                                           email=fake_email)[0]
