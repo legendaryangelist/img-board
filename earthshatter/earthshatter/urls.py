@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 from app import views
 
 urlpatterns = [
@@ -24,3 +25,7 @@ urlpatterns = [
     path('users/', views.users, name='users'),
     path('app/', include("app.urls")),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [path('__debug__/', include(debug_toolbar.urls)), ] + urlpatterns
