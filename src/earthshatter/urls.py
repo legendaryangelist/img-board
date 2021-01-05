@@ -21,11 +21,10 @@ from app import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('admin/', admin.site.urls),
-    path('other/', views.other, name='other'),
     path('users/', views.users, name='users'),
     path('app/', include("app.urls")),
 ]
 
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns = [path('__debug__/', include(debug_toolbar.urls)), ] + urlpatterns
+# if settings.DEBUG:
+#     import debug_toolbar
+#     urlpatterns = [path('__debug__/', include(debug_toolbar.urls)), ] + urlpatterns
