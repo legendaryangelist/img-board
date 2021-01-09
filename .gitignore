@@ -136,3 +136,6 @@ secret_key.py
 
 # pycharm
 .idea/
+
+# ndoe
+node_modules/
