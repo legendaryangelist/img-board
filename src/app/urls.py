@@ -1,9 +1,10 @@
+from django.urls import path
 from django.conf.urls import url
-from app import views
+from . import views
 
 # SET THE NAMESPACE!
 app_name = 'app'
 
 urlpatterns = [
-    url(r'^$', views.users, name='users'),
+    path('api/', views.UserListCreate.as_view()),
 ]
