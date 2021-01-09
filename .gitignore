@@ -133,3 +133,6 @@ secret_key.py
 
 # vscode
 .vscode/
+
+# pycharm
+.idea/
