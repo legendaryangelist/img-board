@@ -22,7 +22,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("backend.urls")),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('', include('frontend.urls')),
+]
+
+if settings.DEBUG:
+    urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # if settings.DEBUG:
 #     import debug_toolbar

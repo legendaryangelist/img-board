@@ -11,4 +11,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('users/', views.users, name='users'),
     path('api/', views.UserListCreate.as_view()),
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+
+if settings.DEBUG:
+    urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
