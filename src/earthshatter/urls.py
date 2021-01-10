@@ -16,13 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
-from app import views
+from backend import views
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('admin/', admin.site.urls),
     path('users/', views.users, name='users'),
-    path('', include("app.urls")),
+    path('', include("backend.urls")),
 ]
 
 # if settings.DEBUG:

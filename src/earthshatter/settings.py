@@ -10,12 +10,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = BASE_DIR / 'templates'
 STATIC_DIR = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'static'
+BACKEND_DIR = BASE_DIR / 'backend'
+FRONTEND_DIR = BASE_DIR / 'frontend'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -48,7 +52,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'app',
+    # 'webpack_loader',
+    'backend',
+    'frontend',
 ]
 
 MIDDLEWARE = [
@@ -130,9 +136,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
-    STATIC_DIR,
+    FRONTEND_DIR / 'static' / 'frontend',
 ]
+
+# WEBPACK_LOADER = {
+#   'DEFAULT': {
+#     'BUNDLE_DIR_NAME': 'frontend/',
+#     'STATS_FILE': BASE_DIR / 'webpack-stats.json'
+#   }
+# }
 
 # Only operable locally - debug_toolbar settings
 # if DEBUG:
