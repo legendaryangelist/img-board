@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    # 'webpack_loader',
+    'webpack_loader',
     'backend',
     'frontend',
 ]
@@ -140,6 +140,13 @@ STATICFILES_DIRS = [
     BACKEND_DIR / 'static' / 'backend',
     FRONTEND_DIR / 'static' / 'frontend',
 ]
+
+WEBPACK_LOADER = {
+  'DEFAULT': {
+    'BUNDLE_DIR_NAME': 'frontend/',
+    'STATS_FILE': BASE_DIR / 'webpack-stats.json'
+  }
+}
 
 # WEBPACK_LOADER = {
 #   'DEFAULT': {
