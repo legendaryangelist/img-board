@@ -16,7 +16,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = BASE_DIR / 'templates'
-STATIC_DIR = BASE_DIR / 'static'
 STATIC_ROOT = BASE_DIR / 'static'
 BACKEND_DIR = BASE_DIR / 'backend'
 FRONTEND_DIR = BASE_DIR / 'frontend'
@@ -138,6 +137,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
+    BACKEND_DIR / 'static' / 'backend',
     FRONTEND_DIR / 'static' / 'frontend',
 ]
 
