@@ -2,12 +2,12 @@
 {% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8" http-equiv="Content-Type" content="text/html">
     <title>Earthshatter</title>
     <base href=".">
     <link rel="icon" href="{% static 'icons/favicon.ico' %}">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8" http-equiv="Content-Type">
 </head>
 <body>
     <div class="nav_container">
@@ -17,7 +17,7 @@
                     <li><a class="navbar-brand" href="{% url 'backend:index' %}">Home</a></li>
                     <li><a class="navbar-link" href="{% url 'admin:index' %}">Admin</a></li>                   
                     <li><a class="navbar-link" href="{% url 'backend:users' %}">Users</a></li>
-                    <li><a class="navbar-link" href="{% url 'react' %}">React</a></li>
+                    <li><a class="navbar-link" href="{% url 'frontend:index' %}">React</a></li>
                 </ul>
             </div>
         </nav>

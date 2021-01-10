@@ -1,7 +1,6 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "webpack --config webpack.config.js --watch --mode development",
@@ -26,5 +25,6 @@
     "webpack": "^4.44.2",
     "webpack-bundle-tracker": "^0.4.3",
     "webpack-cli": "^4.3.1"
-  }
+  },
+  "description": ""
 }

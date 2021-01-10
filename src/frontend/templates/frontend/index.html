@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+    {% load static %} 
+    {% load render_bundle from webpack_loader %}
+    {% block body_block %}
+
+    <div id="app"></div>
+    {% render_bundle 'frontend' %}
+
+    {% endblock %}
+

@@ -1,4 +1,4 @@
 from django.shortcuts import render
 
-def react(request):
-  return render(request, 'frontend/react.html')
+def index(request):
+  return render(request, 'frontend/index.html')

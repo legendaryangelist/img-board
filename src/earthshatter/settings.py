@@ -144,16 +144,9 @@ STATICFILES_DIRS = [
 WEBPACK_LOADER = {
   'DEFAULT': {
     'BUNDLE_DIR_NAME': 'frontend/',
-    'STATS_FILE': BASE_DIR / 'webpack-stats.json'
+    'STATS_FILE': FRONTEND_DIR / 'webpack-stats.json'
   }
 }
-
-# WEBPACK_LOADER = {
-#   'DEFAULT': {
-#     'BUNDLE_DIR_NAME': 'frontend/',
-#     'STATS_FILE': BASE_DIR / 'webpack-stats.json'
-#   }
-# }
 
 # Only operable locally - debug_toolbar settings
 # if DEBUG:
