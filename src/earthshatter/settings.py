@@ -16,7 +16,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = BASE_DIR / 'templates'
-STATIC_ROOT = BASE_DIR / 'static'
 BACKEND_DIR = BASE_DIR / 'backend'
 FRONTEND_DIR = BASE_DIR / 'frontend'
 
@@ -51,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'webpack_loader',
+    # 'webpack_loader',
     'backend',
     'frontend',
 ]
@@ -130,23 +129,33 @@ USE_L10N = True
 
 USE_TZ = True
 
+# for PRODUCTION disable the browseable API with this configuration: 
+# REST_FRAMEWORK = {
+#     'DEFAULT_RENDERER_CLASSES': (
+#         'rest_framework.renderers.JSONRenderer',
+#     )
+# }
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
+
+STATIC_FRONTEND_URL = '/frontend/static/'
+STATIC_FRONTEND_ROOT = BASE_DIR /  'frontend/static/frontend/'
 
 STATICFILES_DIRS = [
-    BACKEND_DIR / 'static' / 'backend',
-    FRONTEND_DIR / 'static' / 'frontend',
+    BACKEND_DIR / 'static',
+    FRONTEND_DIR / 'static',
 ]
 
-WEBPACK_LOADER = {
-  'DEFAULT': {
-    'BUNDLE_DIR_NAME': 'frontend/',
-    'STATS_FILE': FRONTEND_DIR / 'webpack-stats.json'
-  }
-}
+# WEBPACK_LOADER = {
+#   'DEFAULT': {
+#     'BUNDLE_DIR_NAME': 'frontend/',
+#     'STATS_FILE': BASE_DIR / 'webpack-stats.json'
+#   }
+# }
 
 # Only operable locally - debug_toolbar settings
 # if DEBUG:

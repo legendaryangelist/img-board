@@ -8,10 +8,10 @@ from . import views
 app_name = 'backend'
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('users/', views.users, name='users'),
+    # path('', views.index, name='index'),
+    # path('users/', views.users, name='users'),
     path('api/', views.UserListCreate.as_view()),
 ]
 
 if settings.DEBUG:
-    urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load render_bundle from webpack_loader %}
 <html lang="en">
 <head>
     <title>Earthshatter</title>
@@ -14,21 +15,13 @@
         <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
             <div class="nav-container-links">
                 <ul class="nav navbar-nav">
-                    <li><a class="navbar-brand" href="{% url 'backend:index' %}">Home</a></li>
-                    <li><a class="navbar-link" href="{% url 'admin:index' %}">Admin</a></li>                   
-                    <li><a class="navbar-link" href="{% url 'backend:users' %}">Users</a></li>
-                    <li><a class="navbar-link" href="{% url 'frontend:index' %}">React</a></li>
                 </ul>
             </div>
         </nav>
     </div>
 
-    <div class="container-fluid bg-dark text-white">
-        <div class="container">
-            {% block body_block %}
-            {# Anything outside of this will be inherited if you use extend.#}
-            {% endblock %}
-        </div>
-    </div>
+    {% block body_block %}
+    {# Anything outside of this will be inherited if you use extend.#}
+    {% endblock %}
 </body>
 </html>
