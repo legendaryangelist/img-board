@@ -1,52 +1,47 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
+import React from "react";
+import { Switch, Route, useHistory } from "react-router-dom";
+import TopNavBar from "./ui/topbar";
+import Comments from "./ui/comments";
+import FromComment from "./ui/formComment";
+import { useSelector } from "react-redux";
+import BotBar from "./ui/botbar";
+import Fivorits from "./pages/fivorits";
+import "./App.css";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-      loaded: false,
-      placeholder: "Loading"
-    };
-  }
+function App() {
+  const commentsData = useSelector((state) => {
+    console.log(state);
+    return state.commentArr;
+  });
 
-  componentDidMount() {
-    fetch("api/")
-      .then(response => {
-        if (response.status > 400) {
-          return this.setState(() => {
-            return { placeholder: "Something went wrong!" };
-          });
-        }
-        return response.json();
-      })
-      .then(data => {
-        this.setState(() => {
-          return {
-            data,
-            loaded: true
-          };
-        });
-      });
-  }
+  const history = useHistory();
+  return (
+    <div className="App">
+      <TopNavBar history={history} Comments={Comments} />
+      <Switch>
+        <Route path="/" exact>
+          <Home></Home>
+        </Route>
+        <Route path="/fromcomment/:id">
+          <FromComment history={history}></FromComment>
+        </Route>
 
-  render() {
-    return (
-      <ul>
-        {this.state.data.map(contact => {
-          return (
-            <li key={contact.id}>
-              {contact.name} - {contact.email}
-            </li>
-          );
-        })}
-      </ul>
-    );
-  }
+        <Route path="/commets" exact>
+          <Comments history={history} commentsData={commentsData} />
+        </Route>
+        <Route path="/fivorits">
+          <Fivorits />
+        </Route>
+      </Switch>
+      <BotBar></BotBar>
+    </div>
+  );
 }
-
+const Home = () => {
+  return (
+    <div style={{}}>
+      <h1>logo</h1>
+    </div>
+  );
+};
 export default App;
-
-const container = document.getElementById("app");
-render(<App />, container);

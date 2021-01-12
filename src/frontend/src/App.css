@@ -1,0 +1,8 @@
+.App {
+  text-align: center;
+  background-color: #808080;
+  min-height: 100vh;
+}
+input.InpTextForm1::placeholder {
+  color: black;
+}
