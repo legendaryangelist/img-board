@@ -1,15 +1,16 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Django REST with React</title>
+  <title>Earthshatter</title>
+    <base href=".">
+    <link rel="icon" href="{% static 'icons/favicon.ico' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8" http-equiv="Content-Type">
 </head>
 <body>
 <div id="app">
     <!-- React will load here -->
 </div>
 </body>
-{% load static %}
 <script src="{% static "frontend/main.js" %}"></script>
 </html>
