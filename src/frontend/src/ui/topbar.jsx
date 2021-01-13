@@ -13,7 +13,7 @@ const TopNavBar = (props) => {
   return (
     <>
       <Navbar sticky="top" bg="dark" variant="dark">
-        <Navbar.Brand href="#home">forom name</Navbar.Brand>
+        <Navbar.Brand href="#home">Group name</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link href="" onClick={() => history.push("/")}>
             <AiFillHome />
@@ -34,7 +34,7 @@ const TopNavBar = (props) => {
             onChange={(e) => searchComment(e.target.value)}
             className="InpTextForm1"
             type="text"
-            placeholder="Search forom"
+            placeholder="Search"
             className="mr-sm-2"
             style={{ backgroundColor: "##B0B0B0" }}
           />

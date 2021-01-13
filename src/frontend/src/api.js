@@ -1,4 +1,4 @@
-export const foromComments = () => {
+export const groupComments = () => {
   return fetch("http...").then((re) => re.json());
 };
 export const myComments = () => {
