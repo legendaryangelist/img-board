@@ -5,7 +5,7 @@ import Comments from "./ui/comments";
 import FromComment from "./ui/formComment";
 import { useSelector } from "react-redux";
 import BotBar from "./ui/botbar";
-import Fivorits from "./pages/fivorits";
+import Favourites from "./pages/favourites";
 import "./App.css";
 
 function App() {
@@ -29,8 +29,8 @@ function App() {
         <Route path="/commets" exact>
           <Comments history={history} commentsData={commentsData} />
         </Route>
-        <Route path="/fivorits">
-          <Fivorits />
+        <Route path="/favourites">
+          <Favourites />
         </Route>
       </Switch>
       <BotBar></BotBar>

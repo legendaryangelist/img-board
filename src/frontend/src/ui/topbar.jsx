@@ -21,10 +21,10 @@ const TopNavBar = (props) => {
           <Nav.Link href={""} onClick={() => history.push("/commets")}>
             <BiComment />
           </Nav.Link>
-          <Nav.Link href="" onClick={() => history.push("/fivorits")}>
+          <Nav.Link href="" onClick={() => history.push("/favourites")}>
             <MdFavorite />
           </Nav.Link>
-          <Nav.Link href="" onClick={() => history.push("/fivorits")}>
+          <Nav.Link href="" onClick={() => history.push("/favourites")}>
             <MdForum />
           </Nav.Link>
         </Nav>
