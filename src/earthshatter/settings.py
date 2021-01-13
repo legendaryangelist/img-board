@@ -128,6 +128,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Authenticated custom user model from Backend
+AUTH_USER_MODEL = 'backend.User'
+
 # for PRODUCTION disable the browseable API with this configuration: 
 # REST_FRAMEWORK = {
 #     'DEFAULT_RENDERER_CLASSES': (

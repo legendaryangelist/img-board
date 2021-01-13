@@ -18,16 +18,13 @@ def populate(N=5):
 
     for entry in range(N):
         # Create Fake Data for entry
-        fake_name = fakegen.name().split()
-        fake_first_name = fake_name[0]
-        fake_last_name = fake_name[1]
+        fake_name = fakegen.name().split()[0]
         fake_email = fakegen.email()
 
         # Create new User Entry
         # pylint: disable=no-member
-        user = User.objects.get_or_create(first_name=fake_first_name,
-                                          last_name=fake_last_name,
-                                          email=fake_email)[0]
+        # user = User.objects.get_or_create(name=fake_name,
+        #                                   email=fake_email)[0] # TODO fix populate
 
 if __name__ == '__main__':
     print("Populating the databases...Please Wait")

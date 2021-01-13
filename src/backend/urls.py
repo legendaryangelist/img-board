@@ -8,10 +8,11 @@ from . import views
 app_name = 'backend'
 
 urlpatterns = [
-    # path('', views.index, name='index'),
-    # path('users/', views.users, name='users'),
-    path('api/', views.UserListCreate.as_view()),
+    path('api/create/', views.CreateUserView.as_view(), name='create'),
+    path('api/token/', views.CreateTokenView.as_view(), name='token'),
+    path('api/me/', views.ManageUserView.as_view(), name='me'),
+    path('api/users/', views.UserListCreate.as_view(), name='users') # TODO fix list all viewers (populate)
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# if settings.DEBUG:
+#     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
