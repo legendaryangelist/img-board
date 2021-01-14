@@ -1,45 +1,45 @@
 import { actionsTypes } from "./actions";
-let furomData = [
-  { titel: "sport", discripsn: "aaa", id: 1 },
-  { titel: "computers", discripsn: "bbb", id: 2 },
-  { titel: "ccc", discripsn: "ccc", id: 3 },
-  { titel: "ddd", discripsn: "ddd", id: 4 },
+let forumData = [
+  { title: "sport", description: "aaa", id: 1 },
+  { title: "computers", description: "bbb", id: 2 },
+  { title: "ccc", description: "ccc", id: 3 },
+  { title: "ddd", description: "ddd", id: 4 },
 ];
 let commentArr = [
   {
-    titel: "aaa",
+    title: "aaa",
     text: "asdasdas",
-    nikname: "a",
+    nickname: "a",
     id: Math.random() * 99999 + 1,
     forumid: 1,
   },
   {
-    titel: "bbb",
+    title: "bbb",
     text: "asdasdas",
-    nikname: "b",
+    nickname: "b",
     id: Math.random() * 99999 + 1,
     forumid: 2,
   },
   {
-    titel: "ccc",
+    title: "ccc",
     text: "asdasdas",
-    nikname: "c",
+    nickname: "c",
     id: Math.random() * 99999 + 1,
     forumid: 3,
   },
   {
-    titel: "ddd",
+    title: "ddd",
     text: "asdasdas",
-    nikname: "d",
+    nickname: "d",
     id: Math.random() * 99999 + 1,
     forumid: 4,
   },
 ];
-const furomSearch = [];
+const forumSearch = [];
 const commentSearch = [];
-const fivoritComments = [];
+const favoriteComments = [];
 export const commentReducer = (
-  state = { commentArr, fivoritComments, commentSearch, furomData, furomSearch },
+  state = { commentArr, favoriteComments, commentSearch, forumData, forumSearch },
   action
 ) => {
   switch (action.type) {
@@ -48,22 +48,22 @@ export const commentReducer = (
       console.log(action);
       return { ...state, commentArr: [...state.commentArr, action.comment] };
     }
-    case actionsTypes.ADD_FUROM: {
-      action.furom.id = Math.random() * 99999 + 9;
-      return { ...state, furomData: [...state.furomData, action.furom] };
+    case actionsTypes.ADD_FORUM: {
+      action.forum.id = Math.random() * 99999 + 9;
+      return { ...state, forumData: [...state.forumData, action.forum] };
     }
-    case actionsTypes.UP_DATE_COMMENT: {
+    case actionsTypes.UPDATE_COMMENT: {
       const a = state.comment.filter(
-        (e) => e.nikname !== commentArr.comment.nikname
+        (e) => e.nickname !== commentArr.comment.nickname
       );
       a.push(action.comment);
       return { ...state, commentArr: a };
     }
-    case actionsTypes.ADD_TO_FIVORIT: {
+    case actionsTypes.ADD_TO_FAVORITES: {
       const fiv = state.commentArr.find((e) => e.id === action.id);
-      return { ...state, fivoritComments: [...state.fivoritComments, fiv] };
+      return { ...state, favoriteComments: [...state.favoriteComments, fiv] };
     }
-    case actionsTypes.DELIT_COMMENT: {
+    case actionsTypes.DELETE_COMMENT: {
       const a = state.commentArr.filter((e) => e.id !== action.id);
 
       return { ...state, commentArr: a };
@@ -72,16 +72,16 @@ export const commentReducer = (
     case actionsTypes.SEARCH_COMMENT: {
       const { value } = action;
       const commentSearch = state.commentArr.filter(
-        (val) => val.titel === value || val.text === value
+        (val) => val.title === value || val.text === value
       );
       return { ...state, value, commentSearch };
     }
-    case actionsTypes.SEARCH_FUROM: {
+    case actionsTypes.SEARCH_FORUM: {
       const { value } = action;
-      const furomSearch = state.furomData.filter(
-        (val) => val.titel === value || val.text === value
+      const forumSearch = state.forumData.filter(
+        (val) => val.title === value || val.text === value
       );
-      return { ...state, value, furomSearch };
+      return { ...state, value, forumSearch };
     }
 
     case actionsTypes.EDIT_COMMENT: {

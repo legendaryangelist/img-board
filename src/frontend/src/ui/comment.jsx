@@ -2,10 +2,10 @@ import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { addToFivorit, delitComment } from "../store/actions";
+import { addToFavorites, deleteComment } from "../store/actions";
 
 const Comment = (props) => {
-  const { commnt, onaddToFivorit, ondelitComment, history } = props;
+  const { comment, onaddToFavorites, ondeleteComment, history } = props;
   return (
     <>
       <Card
@@ -17,28 +17,28 @@ const Comment = (props) => {
         }}
       >
         <Card.Body>
-          <Card.Title>{commnt.titel}</Card.Title>
+          <Card.Title>{comment.titel}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
-            {commnt.nikname}
+            {comment.nikname}
           </Card.Subtitle>
-          <Card.Text>{commnt.text}</Card.Text>
+          <Card.Text>{comment.text}</Card.Text>
           <Button
             className="commentBu"
             onClick={() =>
-              history.push(`/fromcomment/${commnt.forumid}/${commnt.id}`)
+              history.push(`/fromcomment/${comment.forumid}/${comment.id}`)
             }
           >
             edit
           </Button>
           <Button
             className="commentBu"
-            onClick={() => ondelitComment(commnt.id)}
+            onClick={() => ondeleteComment(comment.id)}
           >
             delit
           </Button>
           <Button
             className="commentBu"
-            onClick={() => onaddToFivorit(commnt.id)}
+            onClick={() => onaddToFavorites(comment.id)}
           >
             fivorit
           </Button>
@@ -50,8 +50,8 @@ const Comment = (props) => {
 const redux = (dispatch) =>
   bindActionCreators(
     {
-      onaddToFivorit: addToFivorit,
-      ondelitComment: delitComment,
+      onaddToFavorites: addToFavorites,
+      ondeleteComment: deleteComment,
     },
     dispatch
   );

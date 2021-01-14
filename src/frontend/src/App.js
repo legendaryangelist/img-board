@@ -1,31 +1,33 @@
 import React from "react";
 import { Switch, Route, useHistory, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import TopNavBar from "./ui/topbar";
 import Comments from "./ui/comments";
 import FromComment from "./ui/formComment";
-import { useSelector } from "react-redux";
 import BotBar from "./ui/botbar";
-import Fivorits from "./pages/fivorits";
-import "./App.css";
-import Forums from "../src/ui/forums";
-import FromFurom from "./ui/formFurom";
+import Favorites from "./ui/favorites";
+import Forums from "./ui/forums";
+import FromFurom from "./ui/formForum";
 import Forum from "./ui/forum";
+
+import "../static/css/App.css";
+import rein from "../static/images/rein.jpg";
 
 function App() {
   const commentsData = useSelector((state) => {
     return state.commentArr;
   });
-
   const commentSearch = useSelector((state) => {
     return state.commentSearch;
   });
   const furomData = useSelector((state) => {
     return state.furomData;
   });
-  const furomSearch = useSelector((state) => {
-    return state.furomSearch;
+  const forumsearch = useSelector((state) => {
+    return state.forumsearch;
   });
-  console.log(furomSearch);
+  console.log(forumsearch);
   const params = useParams();
   const history = useHistory();
   return (
@@ -46,12 +48,12 @@ function App() {
             commentsData={commentsData}
           />
         </Route>
-        <Route path="/fivorits">
-          <Fivorits />
+        <Route path="/favorites">
+          <Favorites />
         </Route>
-        <Route path="/furoms">
+        <Route path="/forums">
           <Forums
-            furomSearch={furomSearch}
+            forumsearch={forumsearch}
             history={history}
             furomData={furomData}
           />
@@ -75,7 +77,8 @@ function App() {
 const Home = () => {
   return (
     <div style={{}}>
-      <h1>logo</h1>
+      <h1>Hammer Down!</h1>
+      <img src={rein} alt="rein" />
     </div>
   );
 };

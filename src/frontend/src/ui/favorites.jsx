@@ -2,16 +2,16 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Comment from "./comment";
 
-const Fivorits = () => {
+const Favorites = () => {
   const commentsData = useSelector((state) => {
     return state.fivoritComments;
   });
   return (
     <div>
       {commentsData.map((e) => (
-        <Comment key={e.id} commnt={e} />
+        <Comment key={e.id} comment={e} />
       ))}
     </div>
   );
 };
-export default Fivorits;
+export default Favorites;

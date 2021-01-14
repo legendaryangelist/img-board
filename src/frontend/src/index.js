@@ -1,16 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import "bootstrap/dist/css/bootstrap.css";
-import { BrowserRouter as Router } from "react-router-dom";
-import { createStore, compose, combineReducers } from "redux";
-import { commentReducer } from "./store/reducer";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
+import { createStore, compose, combineReducers } from "redux";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter as Router } from "react-router-dom";
 
-const rootReducer = combineReducers({ commentss: commentReducer });
+import App from "./App";
+import { commentReducer } from "./store/reducer";
+
+import "bootstrap/dist/css/bootstrap.css";
+import "../static/css/index.css";
+
+const rootReducer = combineReducers({ comments: commentReducer });
 const store = createStore(
   commentReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

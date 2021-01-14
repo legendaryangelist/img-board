@@ -1,0 +1,13 @@
+.App {
+  text-align: center;
+  background-color: #9babdd;
+  min-height: 100vh;
+}
+input.InpTextForm1::placeholder {
+  color: black;
+}
+
+.commentBu {
+  border-radius: 24px !important;
+  margin-right: 17px;
+}
