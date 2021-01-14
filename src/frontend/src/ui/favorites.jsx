@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Comment from "../ui/comment";
+import Comment from "./comment";
 
 const Fivorits = () => {
   const commentsData = useSelector((state) => {
