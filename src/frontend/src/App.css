@@ -6,3 +6,8 @@
 input.InpTextForm1::placeholder {
   color: black;
 }
+
+.commentBu {
+  border-radius: 24px !important;
+  margin-right: 17px;
+}

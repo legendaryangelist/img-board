@@ -6,14 +6,20 @@ import { MdForum } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { searchComment } from "../stor/actions";
+import { searchComment, seacrhFurom } from "../store/actions";
+import Midbar from "./midbar";
 const TopNavBar = (props) => {
-  const { Comments, history, searchComment, value } = props;
+  const { Comments, history, searchComment, value, seacrhFurom } = props;
+
+  seacrhFurom(value);
+  searchComment(value);
 
   return (
     <>
       <Navbar sticky="top" bg="dark" variant="dark">
-        <Navbar.Brand href="#home">Group name</Navbar.Brand>
+        <Midbar />
+
+        <Navbar.Brand href="#home">Grop name</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link href="" onClick={() => history.push("/")}>
             <AiFillHome />
@@ -21,24 +27,26 @@ const TopNavBar = (props) => {
           <Nav.Link href={""} onClick={() => history.push("/commets")}>
             <BiComment />
           </Nav.Link>
-          <Nav.Link href="" onClick={() => history.push("/favourites")}>
+          <Nav.Link href="" onClick={() => history.push("/fivorits")}>
             <MdFavorite />
           </Nav.Link>
-          <Nav.Link href="" onClick={() => history.push("/favourites")}>
+          <Nav.Link href="" onClick={() => history.push("/furoms")}>
             <MdForum />
           </Nav.Link>
         </Nav>
         <Form inline>
           <FormControl
             value={value}
-            onChange={(e) => searchComment(e.target.value)}
+            onChange={(e) => {
+              seacrhFurom(e.target.value);
+              searchComment(e.target.value);
+            }}
             className="InpTextForm1"
             type="text"
             placeholder="Search"
-            className="mr-sm-2"
+            className="mr-md-4"
             style={{ backgroundColor: "##B0B0B0" }}
           />
-          <Button variant="outline-info">Search</Button>
         </Form>
       </Navbar>
     </>
@@ -48,6 +56,7 @@ const redux = (dispatch) =>
   bindActionCreators(
     {
       searchComment: searchComment,
+      seacrhFurom: seacrhFurom,
     },
     dispatch
   );

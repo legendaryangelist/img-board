@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { createStore, compose, combineReducers } from "redux";
-import { commentReducer } from "./stor/reducer";
+import { commentReducer } from "./store/reducer";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 
