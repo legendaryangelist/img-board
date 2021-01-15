@@ -144,6 +144,9 @@ AUTH_USER_MODEL = 'backend.User'
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 STATIC_FRONTEND_URL = '/frontend/static/'
 STATIC_FRONTEND_ROOT = BASE_DIR /  'frontend/static/frontend/'
 
