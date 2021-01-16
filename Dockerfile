@@ -1,3 +1,13 @@
+# ---- Node.js ----
+# FROM node:15.5.1-alpine3.10
+
+# WORKDIR /src/frontend
+# COPY ./src/frontend/package.json /src/frontend/package.json
+# RUN npm install --no-optional && npm cache clean --force
+
+# WORKDIR /src
+
+# ---- Python ----
 FROM python:3.7-alpine
 LABEL maintainer="garyb9"
 
@@ -13,6 +23,7 @@ RUN apk del .tmp-build-deps
 RUN mkdir /src
 WORKDIR /src
 COPY ./src /src
+
 
 RUN adduser -D user
 USER user
