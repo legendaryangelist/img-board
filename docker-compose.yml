@@ -9,6 +9,7 @@ services:
    volumes:
      - ./src:/src
    command: >
-     sh -c "echo goto dev server at: http://127.0.0.1:8000/ &&
+     sh -c "python manage.py wait_for_db && 
             python manage.py migrate &&
+            echo Development Server: http://127.0.0.1:8000/ &&
             python manage.py runserver 0.0.0.0:8000"
