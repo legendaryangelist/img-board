@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { connect } from 'react-redux';
+// import { useHistory, useLocation } from "react-router-dom";
 import * as actions from '../store/authActions';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Login(props) {
   const classes = useStyles();
-
+ 
   const [username, setuserName] = React.useState(null);
   const [email, setEmail]       = React.useState(null);
   const [password, setPassword] = React.useState(null);
@@ -52,6 +53,14 @@ function Login(props) {
     e.preventDefault();
     props.onAuth(username, email, password);
   }
+  
+  // let history = useHistory();
+  // let location = useLocation();
+  // let { from } = location.state || { from: { pathname: "/" } };
+
+  // React.useEffect(() => {
+  //   if (props.isAuthenticated) { history.replace(from) };
+  // });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -112,6 +121,7 @@ function Login(props) {
       </div>
     </Container>
   );
+  
 }
 
 const mapDispatchToProps = dispatch => {

@@ -6,7 +6,12 @@ function Home() {
         <React.Fragment>
             <CssBaseline />
 
-            <div>
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '25vh', width: '60vw'}}>
+                
+                <img src={process.env.PUBLIC_URL + "rein.jpg"} alt="rein" height="200" />
+                <h1>Hammer Down!</h1>
+
+                <img src={process.env.PUBLIC_URL + "rein.jpg"} alt="rein" height="200" />
                 <h1>Hammer Down!</h1>
             </div>
 
