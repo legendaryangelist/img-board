@@ -139,7 +139,9 @@ secret_key.py
 
 # ndoe
 node_modules/
+.eslintcache
+.cache
 
 # settings
-settings.development.py
-settings.production.py
+settings_development.py
+settings_production.py
