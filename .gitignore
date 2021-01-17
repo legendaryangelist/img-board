@@ -139,3 +139,7 @@ secret_key.py
 
 # ndoe
 node_modules/
+
+# settings
+settings.development.py
+settings.production.py
