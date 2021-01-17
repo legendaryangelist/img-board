@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { connect } from 'react-redux';
-// import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import * as actions from '../store/authActions';
 
 const useStyles = makeStyles((theme) => ({
@@ -54,13 +54,13 @@ function Login(props) {
     props.onAuth(username, email, password);
   }
   
-  // let history = useHistory();
-  // let location = useLocation();
-  // let { from } = location.state || { from: { pathname: "/" } };
+  let history = useHistory();
+  let location = useLocation();
+  let { from } = location.state || { from: { pathname: "/" } };
 
-  // React.useEffect(() => {
-  //   if (props.isAuthenticated) { history.replace(from) };
-  // });
+  React.useEffect(() => {
+    if (props.isAuthenticated) { history.replace(from) };
+  });
 
   return (
     <Container component="main" maxWidth="xs">

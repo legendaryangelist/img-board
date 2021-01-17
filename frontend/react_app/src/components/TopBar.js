@@ -1,13 +1,8 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { AppBar, Toolbar, Typography, Button, IconButton, InputBase, fade, makeStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import Button from '@material-ui/core/Button';
+import HomeIcon from '@material-ui/icons/Home';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchAppBar() {
+export default function TopBar(props) {
   const classes = useStyles();
 
   return (
@@ -95,7 +90,11 @@ export default function SearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />           
           </div>
-          <Button color="inherit">Login</Button>
+          <IconButton aria-label="home page" color="inherit" href="/">
+            <HomeIcon />
+          </IconButton>
+          {props.isAuthenticated ? <Button color="inherit" href="/password_update">Update Password</Button> : null}
+          {props.isAuthenticated ? <Button color="inherit" onClick={()=>props.logout()}>Logout</Button> : null}
         </Toolbar>
       </AppBar>
     </div>
