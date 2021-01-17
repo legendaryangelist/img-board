@@ -144,6 +144,6 @@ AUTH_USER_MODEL = 'users.User'
 # For development
 
 try:
-    from .settings.development import *
+    from .settings_development import *
 except ImportError:
     pass
