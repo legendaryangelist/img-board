@@ -3,13 +3,31 @@ import uuid
 from django.db import models
 from django.conf import settings
 from django.core.files.base import ContentFile
+from mptt.models import MPTTModel, TreeForeignKey
 from datetime import datetime
+from django.utils.translation import gettext_lazy as _
 from io import BytesIO
 from PIL import Image
 
-def get_board_image_upload_to(instance, filename):
+def get_image_upload_to(instance, filename):
     """ Returns a valid upload path for an image file associated with a board instance. """
     return instance.get_image_upload_to(filename)
+
+
+class CreatedModel(models.Model):
+    """ Represents an abstract dated model.
+
+    An abstract base class model that provides a name, created and a updated fields to store creation date
+    and last updated date.
+
+    """
+    name    = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation date'))
+    updated = models.DateTimeField(auto_now=True, verbose_name=_('Update date'))
+
+    class Meta:
+        abstract = True
+
 
 # --------------------------------------------------
 # ---------------------- Post ----------------------
@@ -24,51 +42,57 @@ class PostManager(models.Manager):
         else:
             post = Post.objects.create(
                 text=post_data['text'],
-                creator=post_data['creator'],
+                name=post_data['name'],
             )
             post.save(using=self._db)
             return post
 
-class Post(models.Model):
+class Post(CreatedModel):
     """Post object"""   
-    text        = models.TextField()
-    creator     = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    created_at  = models.DateTimeField(auto_now_add=True)
-    updated_at  = models.DateTimeField(auto_now=True)
+    
+    is_op       = models.BooleanField(default=False)
+    is_pinned   = models.BooleanField(default=False)
+    getID       = models.CharField(default=uuid.uuid4, max_length=36)
+    text        = models.TextField(default=None, max_length=20000)
+    replies     = models.ManyToManyField("self", blank=True)  
+    file_name   = models.CharField(default=None, max_length=255, blank=True, null=True)
+    thumbnail   = models.ImageField(default=None, blank=True, null=True, upload_to=get_image_upload_to)
+    image       = models.ImageField(default=None, blank=True, null=True, upload_to=get_image_upload_to)
 
     objects = PostManager()
 
-    # def __str__(self):
-    #     return self.title
+    def __str__(self):
+        return self.getID
 
 # --------------------------------------------------
-# ---------------------- Page ----------------------
+# ---------------------- Thread ----------------------
 # --------------------------------------------------
-class PageManager(models.Manager):
-    """Page Manager object"""
-    def create_page(self, page_data):
+class ThreadManager(CreatedModel):
+    """Thread Manager object"""
+    def create_thread(self, thread_data):
         errors = []
 
         if errors:
             return errors
         else:
-            page = Page.objects.create(
-                creator=page_data['creator'],
+            thread = Thread.objects.create(
+                name=thread_data['name'],
             )
-            page.save(using=self._db)
-            return page
+            thread.save(using=self._db)
+            return thread
 
-class Page(models.Model):
-    """Page object"""   
-    creator     = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    created_at  = models.DateTimeField(auto_now_add=True)
-    updated_at  = models.DateTimeField(auto_now=True)
+class Thread(models.Model):
+    """Thread object"""   
+
+    is_pinned   = models.BooleanField(default=False)
+    getID       = models.CharField(default=uuid.uuid4, max_length=36)
+    subject     = models.CharField(default=None, max_length=255, blank=True, null=True)
     posts       = models.ManyToManyField("self", blank=True, related_name="Post")
 
-    objects = PageManager()
+    objects = ThreadManager()
 
-    # def __str__(self): TODO return first post title
-    #     return self.title
+    def __str__(self):
+        return self.getID
 
 
 # ---------------------------------------------------
@@ -83,9 +107,9 @@ class BoardManager(models.Manager):
             return errors
         else:
             board = Board.objects.create(
-                is_private=False,
-                title=board_data['title'],
-                creator=board_data['creator'],
+                name=board_data['name'],
+                tag=board_data['tag'],
+                title=board_data['title'],               
                 description=board_data['description'],
             )
             board.save(using=self._db)
@@ -94,16 +118,18 @@ class BoardManager(models.Manager):
 
 class Board(models.Model):
     """Board object"""   
-    is_private   = models.BooleanField()
-    title       = models.CharField(max_length=255)
-    creator     = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    description = models.CharField(max_length=255, default=None, blank=True, null=True)
-    thumbnail   = models.ImageField(upload_to="boards", default=None, blank=True, null=True) 
-    created_at  = models.DateTimeField(auto_now_add=True)
-    updated_at  = models.DateTimeField(auto_now=True)
-    pages       = models.ManyToManyField("self", blank=True, related_name="Page")
+    is_private  = models.BooleanField(default=False)
+    is_official = models.BooleanField(default=False)
+    getID       = models.CharField(default=uuid.uuid4, max_length=36)
+    tag         = models.CharField(default=None, max_length=10)
+    title       = models.CharField(default=None, max_length=100)
+    description = models.CharField(default=None, max_length=255, blank=True, null=True)
+    file_name   = models.CharField(default=None, max_length=255, blank=True, null=True)
+    thumbnail   = models.ImageField(default=None, blank=True, null=True, upload_to=get_image_upload_to)
+    image       = models.ImageField(default=None, blank=True, null=True, upload_to=get_image_upload_to)    
+    threads     = models.ManyToManyField("self", blank=True, related_name="Thread")
 
     objects = BoardManager()
 
     def __str__(self):
-        return self.title
+        return self.tag
