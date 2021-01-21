@@ -8,8 +8,9 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('id', 'is_op', 'is_pinned','text',)
+        fields = ('id', 'is_op', 'is_pinned', 'getID', 'text', 'file_name', 'image', )
         read_only_Fields = ('id',)
+        extra_kwargs = {'getID':{'read_only':True,}}
 
 
 class ThreadSerializer(serializers.ModelSerializer):
@@ -24,6 +25,7 @@ class ThreadSerializer(serializers.ModelSerializer):
         model = Thread
         fields = ('id', 'is_pinned', 'getID', 'subject', 'posts',)
         read_only_Fields = ('id',)
+        extra_kwargs = {'getID':{'read_only':True,}}
 
 
 class BoardSerializer(serializers.ModelSerializer):
@@ -36,5 +38,6 @@ class BoardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Board
-        fields = ('is_private', 'is_official', 'getID', 'tag', 'title', 'description', 'threads',)
+        fields = ('is_private', 'is_official', 'getID', 'tag', 'title', 'description', 'threads', 'file_name', 'image', )
         read_only_Fields = ('id',)
+        extra_kwargs = {'getID':{'read_only':True,}}

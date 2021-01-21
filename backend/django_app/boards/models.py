@@ -87,7 +87,7 @@ class Thread(models.Model):
     is_pinned   = models.BooleanField(default=False)
     getID       = models.CharField(default=uuid.uuid4, max_length=36)
     subject     = models.CharField(default=None, max_length=255, blank=True, null=True)
-    posts       = models.ManyToManyField("self", blank=True, related_name="Post")
+    posts       = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
 
     objects = ThreadManager()
 
@@ -127,7 +127,7 @@ class Board(models.Model):
     file_name   = models.CharField(default=None, max_length=255, blank=True, null=True)
     thumbnail   = models.ImageField(default=None, blank=True, null=True, upload_to=get_image_upload_to)
     image       = models.ImageField(default=None, blank=True, null=True, upload_to=get_image_upload_to)    
-    threads     = models.ManyToManyField("self", blank=True, related_name="Thread")
+    threads     = models.ForeignKey(Thread, on_delete=models.CASCADE, blank=True, null=True)
 
     objects = BoardManager()
 
