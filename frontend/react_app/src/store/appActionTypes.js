@@ -1,0 +1,8 @@
+export const ADD_COMMENT = "ADD_COMMENT";
+export const UPDATE_COMMENT = "UPDATE_COMMENT";
+export const ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
+export const DELETE_COMMENT = "DELETE_COMMENT";
+export const EDIT_COMMENT = "EDIT_COMMENT";
+export const SEARCH_COMMENT = "SEARCH_COMMENT";
+export const ADD_FORUM = "ADD_FORUM";
+export const SEARCH_FORUM = "SEARCH_FORUM";
