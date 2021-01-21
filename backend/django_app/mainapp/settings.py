@@ -137,14 +137,34 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+STATIC_URL      = '/static/'
+MEDIA_URL       = '/media/'
 
+STATIC_ROOT     = BASE_DIR / 'static'
+MEDIA_ROOT      = BASE_DIR / 'media'
+
+
+# Custom User authentication
 
 AUTH_USER_MODEL = 'users.User'
 
 
-# For development
+# File upload settings
+
+MAX_THREADS = 200
+
+MAX_POSTS = 500
+
+BOARD_THUMB_SIZE = (400, 400)
+
+POST_THUMB_SIZE = (200, 200)
+
+MAX_UPLOAD_SIZE = 5242880
+
+ALLOWED_EXTENSIONS = ("jpg", "jpeg", "gif", "png")
+
+
+# For development & production
 
 try:
     from .local_settings import *
