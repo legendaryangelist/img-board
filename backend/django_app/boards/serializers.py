@@ -15,15 +15,16 @@ class BoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Board
         fields = (
+            'id', 
             'creator', 'created', 'updated', 
-            'id', 'isPrivate', 'isOfficial', 
+            'isPrivate',
             'tag', 'title', # 'slug', 
-            'description', 'maxThreads', 'fileName', 
-            'thumbnail', 'image', 'link',
+            'description', 'maxThreads', 'link',
+            'fileName', 'thumbnail', 'image', 
             'threads',  
         )
         read_only_Fields = ('id',)
-        extra_kwargs = {'getID':{'read_only':True,}}
+        # extra_kwargs = {'id':{'read_only':True,}}
 
 
 
@@ -32,14 +33,27 @@ class ThreadSerializer(serializers.ModelSerializer):
 
     posts = serializers.PrimaryKeyRelatedField(
         many=True,
-        queryset=Post.objects.all()
+        read_only=True
+    )
+
+    replies = serializers.PrimaryKeyRelatedField(
+        many=True,
+        read_only=True
     )
 
     class Meta:
         model = Thread
-        fields = ('id', 'is_pinned', 'getID', 'subject', 'posts',)
+        fields = (
+            'id', 
+            'creator', 'created', 'updated', 
+            'isPinned', 'isPruned',
+            'subject', 'text',
+            'replies', 'replies_to', 'maxPosts', 
+            'fileName', 'thumbnail', 'image', 
+            'board', 'posts',  
+        )
         read_only_Fields = ('id',)
-        extra_kwargs = {'getID':{'read_only':True,}}
+        # extra_kwargs = {'id':{'read_only':True,}}
 
         
 class PostSerializer(serializers.ModelSerializer):
