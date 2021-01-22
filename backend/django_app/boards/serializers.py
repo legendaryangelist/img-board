@@ -27,8 +27,8 @@ class BoardSerializer(serializers.ModelSerializer):
         # extra_kwargs = {'id':{'read_only':True,}}
     
     # def create(self, validated_data):
-    #     """Create a new user with encrypted password and return it"""
-    #     return get_user_model().objects.create_user(**validated_data)
+    #     """Create a new board and return it"""
+    #     return Board().objects.create_board(**validated_data)
 
     # def update(self, instance, validated_data):
     #     """Update a user, setting the password correctly and return it"""
@@ -65,14 +65,25 @@ class ThreadSerializer(serializers.ModelSerializer):
         # extra_kwargs = {'id':{'read_only':True,}}
 
         
+
 class PostSerializer(serializers.ModelSerializer):
     """Serializer for post object"""
 
+    replies     = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    replies_to  = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
     class Meta:
         model = Post
-        fields = ('id', 'is_op', 'is_pinned', 'getID', 'text', 'file_name', 'image', )
+        fields = (
+            'id', 
+            'creator', 'created', 'updated', 
+            'text',
+            'replies', 'replies_to',
+            'fileName', 'thumbnail', 'image', 
+            'board', 'thread',  
+        )
         read_only_Fields = ('id',)
-        extra_kwargs = {'getID':{'read_only':True,}}
+        # extra_kwargs = {'id':{'read_only':True,}}
 
 
 
