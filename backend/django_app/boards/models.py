@@ -25,8 +25,8 @@ def get_image_upload_to(instance, filename):
 
 
 
-class CreatedModel(models.Model):
-    """ Represents an abstract dated model.
+class BaseModel(models.Model):
+    """ Represents a basic model.
 
     An abstract base class model that provides a name, created and a updated fields to store creation date
     and last updated date.
@@ -37,6 +37,23 @@ class CreatedModel(models.Model):
     creator = models.CharField(default='Anonymous', max_length=255, blank=True, null=True, verbose_name=_('Creator'))
     created = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation date'))
     updated = models.DateTimeField(auto_now=True, verbose_name=_('Update date'))
+
+    class Meta:
+        abstract = True
+
+
+class BasePostModel(BaseModel):
+    """ Represents a basic post model. """
+    
+    id          = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID'))  
+    isOP        = models.BooleanField(default=False, verbose_name=_('Is OP'))
+    isPinned    = models.BooleanField(default=False, verbose_name=_('Is Pinned'))
+    subject     = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('Subject'))
+    text        = models.TextField(default=None, max_length=20000, verbose_name=_('Text'))
+    replies     = models.ManyToManyField("self", blank=True, verbose_name=_('Replies'))  
+    fileName    = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('File Name'))
+    thumbnail   = models.ImageField(default=None, blank=True, null=True, upload_to=get_image_upload_to, verbose_name=_('Thumbnail'))
+    image       = models.ImageField(default=None, blank=True, null=True, upload_to=get_image_upload_to, verbose_name=_('Image'))
 
     class Meta:
         abstract = True
@@ -96,7 +113,7 @@ class BoardManager(models.Manager):
             return board
 
 
-class Board(models.Model):
+class Board(BaseModel):
     """Board object"""  
     id          = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID')) 
     isPrivate   = models.BooleanField(default=False, verbose_name=_('Is Private'))
@@ -114,7 +131,7 @@ class Board(models.Model):
     objects = BoardManager()
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
     # def save(self, *args, **kwargs):    
@@ -158,9 +175,9 @@ class Board(models.Model):
 
     #     return True
 
-# --------------------------------------------------
+# ----------------------------------------------------
 # ---------------------- Thread ----------------------
-# --------------------------------------------------
+# ----------------------------------------------------
 class ThreadManager(models.Manager):
     """Thread Manager object"""
     def create_thread(self, thread_data):
@@ -176,20 +193,17 @@ class ThreadManager(models.Manager):
             thread.save(using=self._db)
             return thread
 
-class Thread(CreatedModel):
+class Thread(BasePostModel):
     """Thread object"""   
 
-    id          = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID')) 
-    isPinned    = models.BooleanField(default=False, verbose_name=_('Is Pinned'))
     # slug        = models.SlugField(unique=True, max_length=255, blank=True, null=True, verbose_name=_('Slug'))
-    subject     = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('Subject'))
     maxPosts    = models.IntegerField(default=MAX_POSTS, verbose_name=_('Maximum number of Posts'))
-    board       = models.ForeignKey(Board, on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Parent Board'))
+    board       = models.ForeignKey("Board", related_name='threads', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Parent Board'))
 
     objects = ThreadManager()
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
 
@@ -211,20 +225,12 @@ class PostManager(models.Manager):
             post.save(using=self._db)
             return post
 
-class Post(CreatedModel):
+class Post(BasePostModel):
     """Post object"""   
     
-    id          = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID'))  
-    isOP        = models.BooleanField(default=False, verbose_name=_('Is OP'))
-    isPinned    = models.BooleanField(default=False, verbose_name=_('Is Pinned'))
-    text        = models.TextField(default=None, max_length=20000, verbose_name=_('Text'))
-    replies     = models.ManyToManyField("self", blank=True, verbose_name=_('Replies'))  
-    file_name   = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('File Name'))
-    thumbnail   = models.ImageField(default=None, blank=True, null=True, upload_to=get_image_upload_to, verbose_name=_('Thumbnail'))
-    image       = models.ImageField(default=None, blank=True, null=True, upload_to=get_image_upload_to, verbose_name=_('Image'))
-    thread      = models.ForeignKey(Thread, on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Parent Thread'))
+    thread      = models.ForeignKey("Thread", related_name='posts', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Parent Thread'))
 
     objects = PostManager()
 
     def __str__(self):
-        return self.id
+        return str(self.id)

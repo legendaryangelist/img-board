@@ -9,12 +9,19 @@ class BoardSerializer(serializers.ModelSerializer):
 
     threads = serializers.PrimaryKeyRelatedField(
         many=True,
-        queryset=Thread.objects.all()
+        read_only=True
     )
 
     class Meta:
         model = Board
-        fields = ('is_private', 'is_official', 'getID', 'tag', 'title', 'description', 'threads', 'file_name', 'image', )
+        fields = (
+            'creator', 'created', 'updated', 
+            'id', 'isPrivate', 'isOfficial', 
+            'tag', 'title', # 'slug', 
+            'description', 'maxThreads', 'fileName', 
+            'thumbnail', 'image', 'link',
+            'threads',  
+        )
         read_only_Fields = ('id',)
         extra_kwargs = {'getID':{'read_only':True,}}
 
