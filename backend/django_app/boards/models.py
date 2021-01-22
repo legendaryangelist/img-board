@@ -62,7 +62,6 @@ class BoardManager(models.Manager):
         title = board_data['title']
         description = board_data['description']
         maxThreads = board_data['maxThreads'] if board_data['maxThreads'] <= MAX_THREADS else MAX_THREADS
-        link = board_data['link'] if board_data['link'] else None
         
         if board_data["image"]:
             if board_data["image"].name.find(".") == -1:
@@ -92,7 +91,6 @@ class BoardManager(models.Manager):
                 maxThreads=maxThreads,
                 image=image,
                 fileName=fileName,
-                link=link,
             )
             board.save(using=self._db)
             return board
@@ -105,7 +103,7 @@ class Board(BaseModel):
     title       = models.CharField(default=None, max_length=100, verbose_name=_('Title'))
     # slug        = models.SlugField(unique=True, max_length=255, blank=True, null=True, verbose_name=_('Slug'))
     description = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('Description'))
-    maxThreads  = models.IntegerField(default=MAX_THREADS, verbose_name=_('Maximum number of Threads'))
+    maxThreads  = models.IntegerField(default=MAX_THREADS, verbose_name=_('Max Threads'))
     link        = models.URLField(default=None, null=True, blank=True, verbose_name=_('Board link'))
 
     objects = BoardManager()
@@ -196,7 +194,7 @@ class Thread(BasePostModel):
     subject     = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('Subject'))
     isPinned    = models.BooleanField(default=False, verbose_name=_('Is Pinned'))
     isPruned    = models.BooleanField(default=False, verbose_name=_('Is Pruned'))
-    maxPosts    = models.IntegerField(default=MAX_POSTS, verbose_name=_('Maximum number of Posts'))
+    maxPosts    = models.IntegerField(default=MAX_POSTS, verbose_name=_('Max Posts'))
     board       = models.ForeignKey("Board", related_name='threads', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Parent Board'))
 
     objects     = ThreadManager()
