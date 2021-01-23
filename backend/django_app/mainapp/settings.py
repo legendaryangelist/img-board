@@ -149,19 +149,8 @@ MEDIA_ROOT      = BASE_DIR / 'media'
 AUTH_USER_MODEL = 'users.User'
 
 
-# File upload settings
-
-MAX_THREADS = 200
-
-MAX_POSTS = 500
-
-BOARD_THUMB_SIZE = (400, 400)
-
-POST_THUMB_SIZE = (200, 200)
-
-MAX_UPLOAD_SIZE = 5242880
-
-ALLOWED_EXTENSIONS = ("jpg", "jpeg", "gif", "png")
+# Parameters
+from .parameters import *
 
 
 # For development & production
