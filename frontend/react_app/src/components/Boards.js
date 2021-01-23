@@ -18,6 +18,7 @@ const Boards = (props) => {
       {boardSearch.length === 0
         ? boardData.map((e) => <Board key={e.id} boards={e} />)
         : boardSearch.map((e) => <Board key={e.id} boards={e} />)}
+      {"   "}
     </div>
   );
 };
