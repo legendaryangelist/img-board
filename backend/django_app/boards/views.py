@@ -17,21 +17,13 @@ class BoardViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BoardSerializer
     queryset = Board.objects.all()
 
-    
     def _params_to_ints(self, qs):
         """Convert a list of string IDs to a list of integers"""
         return [int(str_id) for str_id in qs.split(',')]
 
-
     def get_queryset(self):
         """Retrieve the boards"""
-        threads = self.request.query_params.get('threads')
-        queryset = self.queryset
-        if threads:
-            thread_ids = self._params_to_ints(threads)
-            queryset = queryset.filter(threads__id__in=thread_ids)
-
-        return queryset # .filter(user=self.request.user)
+        return Board.objects.all()  # Return all boards queryset to reload REST Viewset
     
     def get_serializer_class(self):
         """Return appropriate serializer class"""
@@ -78,6 +70,14 @@ class ThreadViewSet(viewsets.ModelViewSet):
             return Thread.objects.filter(board_id=self.kwargs['boards_pk'])
         else:
             return Thread.objects.all()
+    
+    def get_serializer_class(self):
+        """Return appropriate serializer class"""
+        return self.serializer_class
+    
+    def perform_create(self, serializer):
+        """Create a new thread"""
+        serializer.save(board_id=self.kwargs['boards_pk'])
 
 
 # ----------------------------------------------------

@@ -32,7 +32,7 @@ class BoardSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         """Create a new board and return it"""
-        return Board.objects.create_board(validated_data)
+        return Board.objects.create_board(**validated_data)
 
     # def update(self, instance, validated_data):
     #     """Update a user, setting the password correctly and return it"""
@@ -67,15 +67,16 @@ class ThreadSerializer(serializers.ModelSerializer):
         )
         read_only_Fields = ('id', )
         extra_kwargs = {
+            'board':{'read_only':True,},
             'isPruned':{'read_only':True,},
             'link':{'read_only':True,},
             'fileName':{'read_only':True,},
             'thumbnail':{'read_only':True,},
         }
 
-    # def create(self, validated_data):
-    #     """Create a new thread and return it"""
-    #     return Thread.objects.create_thread(validated_data)
+    def create(self, validated_data):
+        """Create a new thread and return it"""
+        return Thread.objects.create_thread(**validated_data)
         
 
 class PostSerializer(serializers.ModelSerializer):
