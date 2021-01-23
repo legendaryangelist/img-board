@@ -2,10 +2,10 @@ import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { addToFavorites, deleteComment } from "../store/appActions";
+import { addToFavorites, deletePost } from "../store/appActions";
 import { useHistory } from "react-router";
-const Comment = (props) => {
-  const { comment, onaddToFavorites, ondeleteComment } = props;
+const Post = (props) => {
+  const { posts, onaddToFavorites, ondeletePost } = props;
   const history = useHistory();
   return (
     <>
@@ -18,29 +18,23 @@ const Comment = (props) => {
         }}
       >
         <Card.Body>
-          <Card.Title>{comment.title}</Card.Title>
+          <Card.Title>{posts.title}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
-            {comment.nickname}
+            {posts.nickname}
           </Card.Subtitle>
-          <Card.Text>{comment.text}</Card.Text>
+          <Card.Text>{posts.text}</Card.Text>
           <Button
-            className="commentBu"
+            className="postBu"
             onClick={() =>
-              history.push(`/forumcomment/${comment.forumid}/${comment.id}`)
+              history.push(`/boardpost/${posts.boardid}/${posts.id}`)
             }
           >
             edit
           </Button>
-          <Button
-            className="commentBu"
-            onClick={() => ondeleteComment(comment.id)}
-          >
+          <Button className="postBu" onClick={() => ondeletePost(posts.id)}>
             delit
           </Button>
-          <Button
-            className="commentBu"
-            onClick={() => onaddToFavorites(comment.id)}
-          >
+          <Button className="postBu" onClick={() => onaddToFavorites(posts.id)}>
             fivorit
           </Button>
         </Card.Body>
@@ -52,8 +46,8 @@ const redux = (dispatch) =>
   bindActionCreators(
     {
       onaddToFavorites: addToFavorites,
-      ondeleteComment: deleteComment,
+      ondeletePost: deletePost,
     },
     dispatch
   );
-export default connect(null, redux)(Comment);
+export default connect(null, redux)(Post);

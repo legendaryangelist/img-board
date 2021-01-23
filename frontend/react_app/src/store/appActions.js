@@ -1,26 +1,26 @@
 import * as actionsTypes from "./appActionTypes";
 
-export const addComments = (comment) => {
-  return { type: actionsTypes.ADD_COMMENT, comment };
+export const addPosts = (post) => {
+  return { type: actionsTypes.ADD_POST, post };
 };
-export const addForum = (forum) => {
-  return { type: actionsTypes.ADD_FORUM, forum };
+export const addBoard = (board) => {
+  return { type: actionsTypes.ADD_BOARD, board };
 };
-export const updateComment = () => {
-  return { type: actionsTypes.UPDATE_COMMENT };
+export const updatePost = () => {
+  return { type: actionsTypes.UPDATE_POST };
 };
 export const addToFavorites = (id) => {
   return { type: actionsTypes.ADD_TO_FAVORITES, id };
 };
-export const deleteComment = (id) => {
-  return { type: actionsTypes.DELETE_COMMENT, id };
+export const deletePost = (id) => {
+  return { type: actionsTypes.DELETE_POST, id };
 };
-export const editComment = (comment) => {
-  return { type: actionsTypes.EDIT_COMMENT, comment };
+export const editPost = (post) => {
+  return { type: actionsTypes.EDIT_POST, post };
 };
-export const searchComment = (value) => {
-  return { type: actionsTypes.SEARCH_COMMENT, value };
+export const searchPost = (value) => {
+  return { type: actionsTypes.SEARCH_POST, value };
 };
-export const searchForum = (value) => {
-  return { type: actionsTypes.SEARCH_FORUM, value };
+export const searchBoard = (value) => {
+  return { type: actionsTypes.SEARCH_BOARD, value };
 };

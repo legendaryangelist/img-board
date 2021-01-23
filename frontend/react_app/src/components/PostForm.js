@@ -2,43 +2,41 @@ import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { connect, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { addComments, editComment } from "../store/appActions";
+import { addPosts, editPost } from "../store/appActions";
 import { useHistory, useParams } from "react-router-dom";
-const FromComment = (props) => {
-  const { onAddComments, editComment } = props;
+const PostFrom = (props) => {
+  const { onAddPosts, editPost } = props;
   const [title, settitle] = useState("");
   const [text, settext] = useState("");
   const [nickname, setnickname] = useState("");
-  const commentArr = useSelector((state) => {
-    return state.appstate.commentArr;
+  const postArr = useSelector((state) => {
+    return state.appstate.postArr;
   });
   const history = useHistory();
   const params = useParams();
 
   useEffect(() => {
-    if (+params.commentid > 0) {
-      const filteredComment = commentArr.find(
-        (e) => e.id === +params.commentid
-      );
-      if (filteredComment) {
-        settitle(filteredComment.title);
-        settext(filteredComment.text);
-        setnickname(filteredComment.nickname);
+    if (+params.postid > 0) {
+      const filteredpost = postArr.find((e) => e.id === +params.postid);
+      if (filteredpost) {
+        settitle(filteredpost.title);
+        settext(filteredpost.text);
+        setnickname(filteredpost.nickname);
       }
     }
   }, [params]);
 
   const buttonfun = () => {
-    if (+params.commentid > 0) {
-      editComment({
+    if (+params.postid > 0) {
+      editPost({
         title,
         text,
         nickname,
-        forumid: +params.forumsid,
-        id: +params.commentid,
+        forumid: +params.boardid,
+        id: +params.postid,
       });
     } else {
-      onAddComments({ title, text, nickname, forumid: +params.forumsid });
+      onAddPosts({ title, text, nickname, boardid: +params.boardid });
     }
 
     history.push("/forums");
@@ -100,9 +98,9 @@ const FromComment = (props) => {
 const redux = (dispatch) =>
   bindActionCreators(
     {
-      onAddComments: addComments,
-      editComment: editComment,
+      onAddPosts: addPosts,
+      editPost: editPost,
     },
     dispatch
   );
-export default connect(null, redux)(FromComment);
+export default connect(null, redux)(PostFrom);

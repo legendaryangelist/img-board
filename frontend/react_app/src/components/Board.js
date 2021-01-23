@@ -3,16 +3,16 @@ import { useHistory } from "react-router-dom";
 import { Card, Button, Container, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import Comments from "./Comments";
+import Posts from "./Posts";
 import { useSelector } from "react-redux";
-const Forum = (props) => {
-  const { forums } = props;
+const Board = (props) => {
+  const { boards } = props;
   const history = useHistory();
-  const commentsData = useSelector((state) => {
-    return state.appstate.commentArr;
+  const postsData = useSelector((state) => {
+    return state.appstate.postArr;
   });
-  const commentSearch = useSelector((state) => {
-    return state.appstate.commentSearch;
+  const postSearch = useSelector((state) => {
+    return state.appstate.postSearch;
   });
   return (
     <div>
@@ -37,18 +37,18 @@ const Forum = (props) => {
               alt="Card image"
             />
             <Card.ImgOverlay style={{}}>
-              <Card.Title style={{}}>{forums.title}</Card.Title>
-              <Card.Text>{forums.description}</Card.Text>
+              <Card.Title style={{}}>{boards.title}</Card.Title>
+              <Card.Text>{boards.description}</Card.Text>
 
               <Button
                 className="commentBu"
-                onClick={() => history.push(`/forumcomment/${forums.id}/0`)}
+                onClick={() => history.push(`/boardpost/${boards.id}/0`)}
               >
                 add comment
               </Button>
             </Card.ImgOverlay>
           </Card>
-          <Comments forumid={forums.id} />
+          <Posts boardid={boards.id} />
         </Row>
       </Container>
       <br />
@@ -56,4 +56,4 @@ const Forum = (props) => {
   );
 };
 const redux = (dispatch) => bindActionCreators({}, dispatch);
-export default connect(null, redux)(Forum);
+export default connect(null, redux)(Board);

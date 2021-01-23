@@ -12,14 +12,12 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import HomeIcon from "@material-ui/icons/Home";
-import { AiFillHome } from "react-icons/ai";
 import { BiComment } from "react-icons/bi";
 import { MdForum } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import MidBar from "./MidBar";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -82,14 +80,15 @@ export default function TopBar(props) {
     <div className={classes.root}>
       <AppBar position="static" style={{ backgroundColor: "#000000" }}>
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
+          <MidBar />
           <Typography className={classes.title} variant="h6" noWrap>
             Shatter
           </Typography>
@@ -111,11 +110,11 @@ export default function TopBar(props) {
             <HomeIcon />
           </IconButton>
 
-          <IconButton href="/comments" color="inherit">
+          <IconButton href="/posts" color="inherit">
             <BiComment />
           </IconButton>
 
-          <IconButton color="inherit" href="/forums">
+          <IconButton color="inherit" href="/board">
             <MdForum />
           </IconButton>
 

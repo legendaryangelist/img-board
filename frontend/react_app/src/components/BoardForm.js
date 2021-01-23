@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { addForum } from "../store/appActions";
+import { addBoard } from "../store/appActions";
 import { useHistory } from "react-router-dom";
-const FromForum = (props) => {
-  const { addForum } = props;
+const BoardForm = (props) => {
+  const { addBoard } = props;
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
   const history = useHistory();
   const buttonfun = () => {
-    addForum({ title, description });
-    history.push("/forums");
+    addBoard({ title, description });
+    history.push("/boards");
   };
   return (
     <>
@@ -58,8 +58,8 @@ const FromForum = (props) => {
 const redux = (dispatch) =>
   bindActionCreators(
     {
-      addForum: addForum,
+      addBoard: addBoard,
     },
     dispatch
   );
-export default connect(null, redux)(FromForum);
+export default connect(null, redux)(BoardForm);

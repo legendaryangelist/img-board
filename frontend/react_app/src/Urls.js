@@ -3,12 +3,13 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Login from "./components/Login";
 import PasswordUpdate from "./components/PasswordUpdate";
 import Home from "./components/Home";
-import Comments from "./components/Comments";
-import FromComment from "./components/FormComment";
+import Posts from "./components/Posts";
+import PostFrom from "./components/PostForm";
 import Favorites from "./components/Favorites";
-import Forums from "./components/Forums";
-import FromFurom from "./components/FormForum";
-import Forum from "./components/Forum";
+import Boards from "./components/Boards";
+import boardForm from "./components/BoardForm";
+import Board from "./components/Board";
+import BoardForm from "./components/BoardForm";
 // A wrapper for <Route> that redirects to the login screen if you're not yet authenticated.
 function PrivateRoute({ isAuthenticated, children, ...rest }) {
   return (
@@ -49,23 +50,23 @@ function Urls(props) {
           <PrivateRoute exact path="/" isAuthenticated={props.isAuthenticated}>
             <Home {...props} />
           </PrivateRoute>
-          <Route exact path="/comments">
-            <Comments />
+          <Route exact path="/Posts">
+            <Posts />
           </Route>
-          <Route exact path="/forumcomment/:forumsid/:commentid">
-            <FromComment />
+          <Route exact path="/boardpost/:boardsid/:postid">
+            <PostFrom />
           </Route>
           <Route exact path="/favorites">
             <Favorites />
           </Route>
-          <Route exact path="/forums">
-            <Forums />
+          <Route exact path="/boards">
+            <Boards />
           </Route>
-          <Route exact path="/fromFurom">
-            <FromFurom />
+          <Route exact path="/boardForm">
+            <BoardForm />
           </Route>
-          <Route exact path="forum/:forumid">
-            <Forum />
+          <Route exact path="board/:boardid">
+            <Board />
           </Route>
         </Switch>
       </BrowserRouter>

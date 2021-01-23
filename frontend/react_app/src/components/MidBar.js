@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { SidebarData } from "./SidebarData";
+import { SidebarData } from "./MidBarData";
 import { IconContext } from "react-icons";
-import "../../static/css/midBar.css";
+import "../css/midBar.css";
 
 const Midbar = () => {
   const [sidebar, setSidebar] = useState(false);

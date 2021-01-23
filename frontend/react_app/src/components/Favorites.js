@@ -1,15 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Comment from "./Comment";
+import Post from "./Post";
 
 const Favorites = () => {
-  const favoriteComments = useSelector((state) => {
-    return state.appstate.favoriteComments;
+  const favoritePosts = useSelector((state) => {
+    return state.appstate.favoritePosts;
   });
   return (
     <div>
-      {favoriteComments.map((e) => (
-        <Comment key={e.id} comment={e} />
+      {favoritePosts.map((e) => (
+        <post key={e.id} post={e} />
       ))}
     </div>
   );
