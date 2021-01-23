@@ -39,6 +39,7 @@ class BaseModel(models.Model):
     fileName    = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('File name'))
     thumbnail   = models.ImageField(default=None, blank=True, null=True, upload_to=get_image_upload_to, verbose_name=_('Thumbnail'))
     image       = models.ImageField(default=None, blank=True, null=True, upload_to=get_image_upload_to, verbose_name=_('Image'))  
+    link        = models.URLField(default=None, null=True, blank=True, verbose_name=_('Link'))
 
     class Meta:
         abstract = True
@@ -102,7 +103,6 @@ class Board(BaseModel):
     # slug        = models.SlugField(unique=True, max_length=255, blank=True, null=True, verbose_name=_('Slug'))
     description = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('Description'))
     maxThreads  = models.IntegerField(default=MAX_THREADS, verbose_name=_('Max Threads'))
-    link        = models.URLField(default=None, null=True, blank=True, verbose_name=_('Board link'))
 
     objects = BoardManager()
 
@@ -193,7 +193,7 @@ class Thread(BasePostModel):
     isPinned    = models.BooleanField(default=False, verbose_name=_('Is Pinned'))
     isPruned    = models.BooleanField(default=False, verbose_name=_('Is Pruned'))
     maxPosts    = models.IntegerField(default=MAX_POSTS, verbose_name=_('Max Posts'))
-    board       = models.ForeignKey("Board", related_name='threads', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Parent Board'))
+    board       = models.ForeignKey("Board", related_name='threads', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Board'))
 
     objects     = ThreadManager()
 
@@ -223,8 +223,8 @@ class PostManager(models.Manager):
 class Post(BasePostModel):
     """Post object"""   
     
-    board       = models.ForeignKey("Board", related_name='posts', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Parent Board'))
-    thread      = models.ForeignKey("Thread", related_name='posts', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Parent Thread'))
+    board       = models.ForeignKey("Board", related_name='posts', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Board'))
+    thread      = models.ForeignKey("Thread", related_name='posts', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Thread'))
 
     objects     = PostManager()
 

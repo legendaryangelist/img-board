@@ -71,9 +71,13 @@ class BoardViewSet(viewsets.ModelViewSet):
 class ThreadViewSet(viewsets.ModelViewSet):
     """A viewset that provides the standard actions for 'Thread' model"""
     serializer_class = serializers.ThreadSerializer
-    queryset = Thread.objects.all()
 
-
+    def get_queryset(self):
+        """Retrieve the threads which apply to board_id=boards_pk"""
+        if 'boards_pk' in self.kwargs:
+            return Thread.objects.filter(board_id=self.kwargs['boards_pk'])
+        else:
+            return Thread.objects.all()
 
 
 # ----------------------------------------------------
@@ -81,7 +85,13 @@ class ThreadViewSet(viewsets.ModelViewSet):
 # ----------------------------------------------------
 class PostViewSet(viewsets.ModelViewSet):
     """A viewset that provides the standard actions for 'Post' model"""
-    queryset = Post.objects.all()
     serializer_class = serializers.PostSerializer
+    
+    def get_queryset(self):
+        """Retrieve the posts which apply to thread_id=threads_pk"""
+        if 'threads_pk' in self.kwargs:
+            return Post.objects.filter(thread_id=self.kwargs['threads_pk'])
+        else:
+            return Post.objects.all()
 
 

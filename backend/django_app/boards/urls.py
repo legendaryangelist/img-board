@@ -14,13 +14,13 @@ boards_router.register('boards', views.BoardViewSet, basename='boards')
 # /boards/{boards_pk}/threads/
 # /boards/{boards_pk}/threads/{threads_pk}/
 threads_router = NestedSimpleRouter(boards_router, 'boards', lookup='boards')
-threads_router.register('threads', views.ThreadViewSet, basename='threads') # TODO fix nested views
+threads_router.register('threads', views.ThreadViewSet, basename='threads')
 
 ## Posts Nested Router, generates:
 # /boards/{boards_pk}/threads/{threads_pk}/posts/
 # /boards/{boards_pk}/threads/{threads_pk}/posts/{posts_pk}/
 posts_router = NestedSimpleRouter(threads_router, 'threads', lookup='threads')
-posts_router.register('posts', views.PostViewSet, basename='posts')  # TODO fix nested views
+posts_router.register('posts', views.PostViewSet, basename='posts')
 
 app_name = 'boards'
 
