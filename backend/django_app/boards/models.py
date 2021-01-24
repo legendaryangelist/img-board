@@ -136,21 +136,6 @@ class Board(BaseModel):
 
 
 
-
-# --------------------------------------------------------------------
-# ---------------------- Base Thread/Post Model ----------------------
-# --------------------------------------------------------------------
-class BasePostModel(BaseModel):
-    """ Represents a basic post model. """
-    text        = models.TextField(default=None, max_length=20000, blank=True, null=True, verbose_name=_('Text'))
-    replies     = models.ManyToManyField("self", blank=True, verbose_name=_('Replies'))
-    replies_to  = models.ManyToManyField("self", blank=True, verbose_name=_('Replies To'))
-
-    class Meta:
-        abstract = True
-
-
-
 # ----------------------------------------------------
 # ---------------------- Thread ----------------------
 # ----------------------------------------------------
@@ -190,8 +175,6 @@ class ThreadManager(BaseModelManager):
             validated_data['board'] = board_id_query
         else:
             raise ValidationError(message="Something went wrong with retrieving the Board id when creating a new Thread.")
-        
-        # TODO Fix replies and replies_to
 
         # Create object, save and return
         thread = Thread.objects.create(
@@ -210,9 +193,9 @@ class ThreadManager(BaseModelManager):
         thread.save(using=self._db)
         return thread
 
-class Thread(BasePostModel):
+class Thread(BaseModel):
     """Thread object - a.k.a OP"""   
-
+    text        = models.TextField(default=None, max_length=20000, blank=True, null=True, verbose_name=_('Text'))
     subject     = models.CharField(default=None, max_length=255, verbose_name=_('Subject'))
     isPinned    = models.BooleanField(default=False, verbose_name=_('Is Pinned'))
     isPruned    = models.BooleanField(default=False, verbose_name=_('Is Pruned'))
@@ -256,7 +239,7 @@ class PostManager(BaseModelManager):
             raise ValidationError(message="Something went wrong with retrieving the Thread id when creating a new Post.")
         
         # TODO Check at least text or image
-        # TODO Fix replies and replies_to
+        # TODO Fix replyto
 
         # Create object, save and return
         post = Post.objects.create(
@@ -273,11 +256,12 @@ class PostManager(BaseModelManager):
         return post
 
 
-class Post(BasePostModel):
+class Post(BaseModel):
     """Post object"""   
-    
+    text        = models.TextField(default=None, max_length=20000, blank=True, verbose_name=_('Text'))
     board       = models.ForeignKey("Board", related_name='posts', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Board'))
     thread      = models.ForeignKey("Thread", related_name='posts', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Thread'))
+    replyto     = models.ForeignKey("Post", related_name='posts', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Replies To'))
 
     objects     = PostManager()
 

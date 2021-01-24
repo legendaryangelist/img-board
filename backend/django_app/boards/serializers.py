@@ -51,8 +51,6 @@ class ThreadSerializer(serializers.ModelSerializer):
     """Serializer for thread object"""
 
     posts       = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    replies     = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    replies_to  = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Thread
@@ -61,7 +59,7 @@ class ThreadSerializer(serializers.ModelSerializer):
             'creator', 'created', 'updated', 
             'isPinned', 'isPruned',
             'subject', 'text',
-            'replies', 'replies_to', 'maxPosts', 
+            'maxPosts', 
             'fileName', 'thumbnail', 'image', 
             'board', 'posts',  
         )
@@ -82,8 +80,7 @@ class ThreadSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     """Serializer for post object"""
 
-    replies     = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    replies_to  = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    replyto  = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Post
@@ -91,7 +88,7 @@ class PostSerializer(serializers.ModelSerializer):
             'id', 
             'creator', 'created', 'updated', 
             'text',
-            'replies', 'replies_to',
+            'replyto',
             'fileName', 'thumbnail', 'image', 
             'board', 'thread',  
         )
