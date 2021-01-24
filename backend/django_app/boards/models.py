@@ -14,6 +14,7 @@ from django.core.exceptions import ValidationError
 # From settings.py
 MIN_THREADS = settings.MIN_THREADS
 MAX_THREADS = settings.MAX_THREADS
+MIN_POSTS = settings.MIN_POSTS
 MAX_POSTS = settings.MAX_POSTS
 BOARD_THUMB_SIZE = settings.BOARD_THUMB_SIZE
 POST_THUMB_SIZE = settings.POST_THUMB_SIZE
@@ -80,35 +81,28 @@ class BoardManager(BaseModelManager):
 
         self.update_validated_data(validated_data)
 
-        isPrivate = validated_data['isPrivate'] if validated_data['isPrivate'] else False
+        if 'isPrivate' not in validated_data:
+            validated_data['isPrivate'] = False
 
-        if 'tag' in validated_data:
-            tag = validated_data['tag']
-        else:
+        if 'tag' not in validated_data:
             raise ValidationError(message="No 'tag' provided, please provide a unique 'tag'.")
 
-        if 'title' in validated_data:
-            title = validated_data['title']
-        else:
+        if 'title' not in validated_data:
             raise ValidationError(message="No 'title' provided, please provide a unique 'title'.")
         
-        if 'description' in validated_data:
-            description = validated_data['description']
-        else:
-            description = None
+        if 'description' not in validated_data:
+            validated_data['description'] = None
         
         if 'maxThreads' in validated_data:
             if validated_data['maxThreads']:
                 if validated_data['maxThreads'] < MIN_THREADS:
-                    maxThreads = MIN_THREADS
+                    validated_data['maxThreads'] = MIN_THREADS
                 elif validated_data['maxThreads'] > MAX_THREADS:
-                    maxThreads = MAX_THREADS
-                else:
-                    maxThreads = validated_data['maxThreads']
+                    validated_data['maxThreads'] = MAX_THREADS
             else:
-                maxThreads = MAX_THREADS
+                validated_data['maxThreads'] = MAX_THREADS
         else:
-            raise ValidationError(message="No 'maxThreads' provided, please provide a unique 'maxThreads'.")
+            validated_data['maxThreads'] = MAX_THREADS
         
         # Create object, save and return
         board = Board.objects.create(
@@ -162,15 +156,54 @@ class BasePostModel(BaseModel):
 # ----------------------------------------------------
 class ThreadManager(BaseModelManager):
     """Thread Manager object"""
-    def create_thread(self, **thread_data):
+    def create_thread(self, **validated_data):
 
-        ## TODO here
-        print(thread_data)
-        ## TODO here
+        self.update_validated_data(validated_data)
 
+        if 'isPinned' not in validated_data:
+            validated_data['isPinned'] = False
+        
+        if 'isPruned' not in validated_data:
+            validated_data['isPruned'] = False
+
+        if 'subject' not in validated_data:
+            raise ValidationError(message="No 'subject' provided, please provide a 'subject'.")
+
+        if 'text' not in validated_data:
+            validated_data['text'] = ''
+        
+        if 'maxPosts' in validated_data:
+            if validated_data['maxPosts']:
+                if validated_data['maxPosts'] < MIN_POSTS:
+                    validated_data['maxPosts'] = MIN_POSTS
+                elif validated_data['maxPosts'] > MAX_POSTS:
+                    validated_data['maxPosts'] = MAX_POSTS
+            else:
+                validated_data['maxPosts'] = MAX_POSTS
+        else:
+            validated_data['maxPosts'] = MAX_POSTS
+
+        if 'board_id' not in validated_data:
+            raise ValidationError(message="Something went wrong with retrieving the Board id when creating a new Thread.")
+        board_id_query = Board.objects.get(id=validated_data['board_id'])
+        if board_id_query:
+            validated_data['board'] = board_id_query
+        else:
+            raise ValidationError(message="Something went wrong with retrieving the Board id when creating a new Thread.")
+
+        # Create object, save and return
         thread = Thread.objects.create(
-                creator=thread_data['creator'],
-                subject=thread_data['subject'],
+                creator=validated_data['creator'],
+                created=validated_data['created'],
+                updated=validated_data['updated'],
+                isPinned=validated_data['isPinned'],
+                isPruned=validated_data['isPruned'],
+                subject=validated_data['subject'],
+                text=validated_data['text'],               
+                maxPosts=validated_data['maxPosts'],
+                image=validated_data['image'],
+                fileName=validated_data['fileName'],
+                board=validated_data['board'],
             )
         thread.save(using=self._db)
         return thread
@@ -178,7 +211,7 @@ class ThreadManager(BaseModelManager):
 class Thread(BasePostModel):
     """Thread object - a.k.a OP"""   
 
-    subject     = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('Subject'))
+    subject     = models.CharField(default=None, max_length=255, verbose_name=_('Subject'))
     isPinned    = models.BooleanField(default=False, verbose_name=_('Is Pinned'))
     isPruned    = models.BooleanField(default=False, verbose_name=_('Is Pruned'))
     maxPosts    = models.IntegerField(default=MAX_POSTS, verbose_name=_('Max Posts'))
@@ -187,7 +220,7 @@ class Thread(BasePostModel):
     objects     = ThreadManager()
 
     def __str__(self):
-        return str(self.id)
+        return str(self.subject)
 
 
 
