@@ -23,7 +23,7 @@ class BoardViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """Retrieve the boards"""
-        return Board.objects.all()  # Return all boards queryset to reload REST Viewset
+        return Board.objects.all().order_by('-created')  # Return all boards queryset to reload REST Viewset
     
     def get_serializer_class(self):
         """Return appropriate serializer class"""
