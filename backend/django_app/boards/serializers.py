@@ -97,14 +97,16 @@ class PostSerializer(serializers.ModelSerializer):
         )
         read_only_Fields = ('id',)
         extra_kwargs = {
+            'board':{'read_only':True,},
+            'thread':{'read_only':True,},
             'link':{'read_only':True,},
             'fileName':{'read_only':True,},
             'thumbnail':{'read_only':True,},
         }
 
-    # def create(self, validated_data):
-    #     """Create a new post and return it"""
-    #     return Post.objects.create_post(validated_data)
+    def create(self, validated_data):
+        """Create a new post and return it"""
+        return Post.objects.create_post(**validated_data)
 
 
 

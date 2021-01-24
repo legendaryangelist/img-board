@@ -190,6 +190,8 @@ class ThreadManager(BaseModelManager):
             validated_data['board'] = board_id_query
         else:
             raise ValidationError(message="Something went wrong with retrieving the Board id when creating a new Thread.")
+        
+        # TODO Fix replies and replies_to
 
         # Create object, save and return
         thread = Thread.objects.create(
@@ -229,12 +231,43 @@ class Thread(BasePostModel):
 # --------------------------------------------------
 class PostManager(BaseModelManager):
     """Post Manager object"""
-    def create_post(self, **post_data):
+    def create_post(self, **validated_data):
+        self.update_validated_data(validated_data)
 
+        if 'text' not in validated_data:
+            validated_data['text'] = ''
 
+        # Get Board ID
+        if 'board_id' not in validated_data:
+            raise ValidationError(message="Something went wrong with retrieving the Board id when creating a new Post.")
+        board_id_query = Board.objects.get(id=validated_data['board_id'])
+        if board_id_query:
+            validated_data['board'] = board_id_query
+        else:
+            raise ValidationError(message="Something went wrong with retrieving the Board id when creating a new Post.")
+        
+        # Get Thread ID
+        if 'thread_id' not in validated_data:
+            raise ValidationError(message="Something went wrong with retrieving the Thread id when creating a new Post.")
+        thread_id_query = Thread.objects.get(id=validated_data['thread_id'])
+        if thread_id_query:
+            validated_data['thread'] = thread_id_query
+        else:
+            raise ValidationError(message="Something went wrong with retrieving the Thread id when creating a new Post.")
+        
+        # TODO Check at least text or image
+        # TODO Fix replies and replies_to
+
+        # Create object, save and return
         post = Post.objects.create(
-                creator=post_data['creator'],
-                text=post_data['text'],                
+                creator=validated_data['creator'],
+                created=validated_data['created'],
+                updated=validated_data['updated'],
+                text=validated_data['text'],               
+                image=validated_data['image'],
+                fileName=validated_data['fileName'],
+                board=validated_data['board'],  
+                thread=validated_data['thread'],               
             )
         post.save(using=self._db)
         return post

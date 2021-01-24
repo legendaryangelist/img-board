@@ -90,8 +90,14 @@ class PostViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """Retrieve the posts which apply to thread_id=threads_pk"""
         if 'threads_pk' in self.kwargs:
-            return Post.objects.filter(thread_id=self.kwargs['threads_pk'])
+            return Post.objects.filter(board_id=self.kwargs['boards_pk'], thread_id=self.kwargs['threads_pk'])
         else:
             return Post.objects.all()
 
-
+    def get_serializer_class(self):
+        """Return appropriate serializer class"""
+        return self.serializer_class
+    
+    def perform_create(self, serializer):
+        """Create a new thread"""
+        serializer.save(board_id=self.kwargs['boards_pk'], thread_id=self.kwargs['threads_pk'])
