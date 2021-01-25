@@ -145,3 +145,6 @@ node_modules/
 # settings
 settings_development.py
 settings_production.py
+
+# media files
+media/

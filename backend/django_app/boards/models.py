@@ -8,8 +8,7 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django.core.files.base import ContentFile
 from django.core.exceptions import ValidationError
-# from mptt.models import MPTTModel, TreeForeignKey
-
+from versatileimagefield.fields import VersatileImageField
 
 # From settings.py
 MIN_THREADS = settings.MIN_THREADS
@@ -21,11 +20,9 @@ POST_THUMB_SIZE = settings.POST_THUMB_SIZE
 MAX_UPLOAD_SIZE = settings.MAX_UPLOAD_SIZE
 ALLOWED_EXTENSIONS = settings.ALLOWED_EXTENSIONS
 
-
 def get_image_upload_to(instance, filename):
     """ Returns a valid upload path for an image file associated with a board instance. """
     return instance.get_image_upload_to(filename)
-
 
 class BaseModelManager(models.Manager):
     """ Represents a basic manager model."""
@@ -36,15 +33,16 @@ class BaseModelManager(models.Manager):
         validated_data['updated'] = datetime.now(pytz.utc)
 
         if validated_data["image"]:
+            print(validated_data["image"])
             if validated_data["image"].name.find(".") == -1:
                 errors.append("Image must be '.jpg', '.jpeg', '.gif', or '.png'")
             elif validated_data["image"].name.split(".")[-1].lower() not in ALLOWED_EXTENSIONS:
                 errors.append("Image must be '.jpg', '.jpeg', '.gif', or '.png'")
-            elif validated_data["image"]._size > MAX_UPLOAD_SIZE:
-                errors.append("Image size must be 5MB or less")
+            # elif validated_data["image"]._size > MAX_UPLOAD_SIZE:
+            #     errors.append("Image size must be 5MB or less")
             else:
                 # image = validated_data["image"]
-                fileName = "{}.{}".format(uuid.uuid4().hex, validated_data["image"].name.split(".")[-1])
+                validated_data["fileName"] = "{}.{}".format(uuid.uuid4().hex, validated_data["image"].name.split(".")[-1])
         else:
             validated_data["image"] = None
             validated_data["fileName"] = None
@@ -63,8 +61,8 @@ class BaseModel(models.Model):
     created     = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation date'))
     updated     = models.DateTimeField(auto_now=True, verbose_name=_('Update date'))
     fileName    = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('File name'))
-    thumbnail   = models.ImageField(default=None, blank=True, null=True, upload_to=get_image_upload_to, verbose_name=_('Thumbnail'))
-    image       = models.ImageField(default=None, blank=True, null=True, upload_to=get_image_upload_to, verbose_name=_('Image'))  
+    thumbnail   = models.ImageField(default=None, blank=True, null=True, verbose_name=_('Thumbnail'))
+    image       = models.ImageField(default=None, blank=True, null=True, verbose_name=_('Image'))  
     link        = models.URLField(default=None, null=True, blank=True, verbose_name=_('Link'))
     # slug        = models.SlugField(unique=True, max_length=255, blank=True, null=True, verbose_name=_('Slug'))
 
