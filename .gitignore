@@ -147,4 +147,7 @@ settings_development.py
 settings_production.py
 
 # media files
-media/
+*.jpg
+*.jpeg
+*.png
+!rein.jpg
