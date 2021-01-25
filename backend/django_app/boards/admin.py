@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Post, Thread, Board
 from django.utils.translation import gettext as _
-
+from .models import Post, Thread, Board
+from .forms import BoardForm
 
 class BoardAdmin(admin.ModelAdmin):
     """Board model admin"""
@@ -14,6 +14,7 @@ class BoardAdmin(admin.ModelAdmin):
         (_('Board Info'), {'fields': ('isPrivate','title','description', 'maxThreads',)}),
         (_('Image Info'), {'fields': ('fileName','thumbnail','image',)}),
     ]
+    form = BoardForm
 
 class ThreadAdmin(admin.ModelAdmin):
     """Thread model admin"""

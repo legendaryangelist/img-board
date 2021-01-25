@@ -20,7 +20,7 @@ class BoardSerializer(serializers.ModelSerializer):
             'isPrivate',
             'tag', 'title', # 'slug', 
             'description', 'maxThreads', 'link',
-            'fileName', 'thumbnail', 'image', 
+            'fileName', 'thumbnail', 'image',
             'threads',  
         )
         read_only_Fields = ('id',)
@@ -60,7 +60,7 @@ class ThreadSerializer(serializers.ModelSerializer):
             'isPinned', 'isPruned',
             'subject', 'text',
             'maxPosts', 
-            'fileName', 'thumbnail', 'image', 
+            'fileName', 'thumbnail', 'image',
             'board', 'posts',  
         )
         read_only_Fields = ('id', )
@@ -89,7 +89,7 @@ class PostSerializer(serializers.ModelSerializer):
             'creator', 'created', 'updated', 
             'text',
             'replyto',
-            'fileName', 'thumbnail', 'image', 
+            'fileName', 'thumbnail', 'image',
             'board', 'thread',  
         )
         read_only_Fields = ('id',)

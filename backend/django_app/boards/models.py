@@ -1,3 +1,4 @@
+import os
 import pytz
 import uuid
 from datetime import datetime
@@ -8,7 +9,8 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django.core.files.base import ContentFile
 from django.core.exceptions import ValidationError
-from versatileimagefield.fields import VersatileImageField
+from versatileimagefield.fields import VersatileImageField, PPOIField
+from versatileimagefield.placeholder import OnStoragePlaceholderImage
 
 # From settings.py
 MIN_THREADS = settings.MIN_THREADS
@@ -60,11 +62,14 @@ class BaseModel(models.Model):
     creator     = models.CharField(default='Anonymous', max_length=255, blank=True, null=True, verbose_name=_('Creator'))
     created     = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation date'))
     updated     = models.DateTimeField(auto_now=True, verbose_name=_('Update date'))
-    fileName    = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('File name'))
-    thumbnail   = models.ImageField(default=None, blank=True, null=True, verbose_name=_('Thumbnail'))
-    image       = models.ImageField(default=None, blank=True, null=True, verbose_name=_('Image'))  
     link        = models.URLField(default=None, null=True, blank=True, verbose_name=_('Link'))
     # slug        = models.SlugField(unique=True, max_length=255, blank=True, null=True, verbose_name=_('Slug'))
+    fileName    = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('File name'))
+    thumbnail   = models.ImageField(default=None, blank=True, null=True, verbose_name=_('Thumbnail'))
+    image       = VersatileImageField(default=None, blank=True, null=True, verbose_name=_('Image'),
+                                        placeholder_image=OnStoragePlaceholderImage(path='rein.jpg'),
+                                        ppoi_field='ppoi')  # models.ImageField
+    ppoi        = PPOIField('Image PPOI')
 
     class Meta:
         abstract = True
