@@ -30,9 +30,7 @@ def get_image_upload_to(instance, filename):
 class BaseModelManager(models.Manager):
     """ Represents a basic manager model."""
     
-    def update_validated_data(self, validated_data):
-        validated_data['creator'] = "Anonymous" if not validated_data['creator'] else validated_data['creator']
-        validated_data['created'] = datetime.now(pytz.utc)
+    def update_image_data(self, validated_data):
         validated_data['updated'] = datetime.now(pytz.utc)
 
         if validated_data["image"]:
@@ -46,11 +44,17 @@ class BaseModelManager(models.Manager):
                 validated_data["fileName"] = "{}.{}".format(uuid.uuid4().hex, validated_data["image"].name.split(".")[-1])
                 validated_data["image"].name = validated_data["fileName"]
                 validated_data["thumbnail"] = validated_data["image"]
-                
+               
         else:
             validated_data["fileName"] = None
             validated_data["image"] = None
             validated_data["thumbnail"] = None
+
+
+    def update_validated_data(self, validated_data):
+        validated_data['creator'] = "Anonymous" if not validated_data['creator'] else validated_data['creator']
+        validated_data['created'] = datetime.now(pytz.utc)
+        self.update_image_data(validated_data)
     
         return validated_data
 
@@ -68,9 +72,7 @@ class BaseModel(models.Model):
     image       = VersatileImageField(default=None, blank=True, null=True, verbose_name=_('Image'),
                                         placeholder_image=OnStoragePlaceholderImage(path='rein.jpg'),
                                         ppoi_field='ppoi')
-    thumbnail   = ThumbnailerImageField(default=None, blank=True, null=True, verbose_name=_('Thumbnail'), 
-                                        resize_source=dict(size=(200, 200), 
-                                        sharpen=True))
+    thumbnail   = ThumbnailerImageField(default=None, blank=True, null=True, verbose_name=_('Thumbnail'), resize_source=dict(size=(200, 200)))
     fileName    = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('File name'))
     ppoi        = PPOIField('Image PPOI')
 
@@ -90,7 +92,10 @@ class BaseModel(models.Model):
 # ---------------------------------------------------
 class BoardManager(BaseModelManager):
     """Board Manager object"""
+
+    # Create Board
     def create_board(self, **validated_data):
+        """Creates a new board from validate_data and returns it"""
 
         self.update_validated_data(validated_data)
 
@@ -134,6 +139,27 @@ class BoardManager(BaseModelManager):
             )
         board.save(using=self._db)
         return board
+    
+    # Update Board
+    def update_board(self, instance, validated_data):
+        """Updates and existing board from validate_data and returns it"""
+
+        self.update_image_data(validated_data)
+
+        if 'isPrivate' not in validated_data:
+            validated_data['isPrivate'] = False
+
+        board = Board.objects.get(id=instance.id)
+
+        board.updated=validated_data['updated']
+        board.isPrivate=validated_data['isPrivate']
+        board.image=validated_data['image']
+        board.thumbnail=validated_data['thumbnail']
+        board.fileName=validated_data["fileName"]
+         
+        board.save(using=self._db)
+        return board
+
 
 
 class Board(BaseModel):
