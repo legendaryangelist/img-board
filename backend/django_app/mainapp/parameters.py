@@ -16,7 +16,11 @@ MAX_UPLOAD_SIZE = 5242880
 
 ALLOWED_EXTENSIONS = ("jpg", "jpeg", "gif", "png")
 
-
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (50, 50), 'crop': True},
+    },
+}
 
 VERSATILEIMAGEFIELD_SETTINGS = {
     # The amount of time, in seconds, that references to created images

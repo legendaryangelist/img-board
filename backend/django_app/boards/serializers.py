@@ -6,11 +6,8 @@ from .models import Post, Thread, Board
 
 class BoardSerializer(serializers.ModelSerializer):
     """Serializer for board object"""
-
-    threads = serializers.PrimaryKeyRelatedField(
-        many=True,
-        read_only=True
-    )
+    id      = serializers.UUIDField(format='hex', read_only=True)
+    threads = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Board
@@ -18,13 +15,14 @@ class BoardSerializer(serializers.ModelSerializer):
             'id', 
             'creator', 'created', 'updated', 
             'isPrivate',
-            'tag', 'title', # 'slug', 
-            'description', 'maxThreads', 'link',
+            'tag', 'title', 'link', # 'slug', 
+            'description', 'maxThreads',
             'fileName', 'thumbnail', 'image',
             'threads',  
         )
         read_only_Fields = ('id',)
         extra_kwargs = {
+            'id':{'read_only':True,},
             'link':{'read_only':True,},
             'fileName':{'read_only':True,},
             'thumbnail':{'read_only':True,},
@@ -49,8 +47,8 @@ class BoardSerializer(serializers.ModelSerializer):
 
 class ThreadSerializer(serializers.ModelSerializer):
     """Serializer for thread object"""
-
-    posts       = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    id      = serializers.UUIDField(format='hex', read_only=True)
+    posts   = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Thread
@@ -65,6 +63,7 @@ class ThreadSerializer(serializers.ModelSerializer):
         )
         read_only_Fields = ('id', )
         extra_kwargs = {
+            'id':{'read_only':True,},
             'board':{'read_only':True,},
             'isPruned':{'read_only':True,},
             'link':{'read_only':True,},
@@ -79,7 +78,7 @@ class ThreadSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     """Serializer for post object"""
-
+    id       = serializers.UUIDField(format='hex', read_only=True)
     replyto  = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
@@ -94,6 +93,7 @@ class PostSerializer(serializers.ModelSerializer):
         )
         read_only_Fields = ('id',)
         extra_kwargs = {
+            'id':{'read_only':True,},
             'board':{'read_only':True,},
             'thread':{'read_only':True,},
             'link':{'read_only':True,},

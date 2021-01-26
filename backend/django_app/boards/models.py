@@ -9,6 +9,7 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django.core.files.base import ContentFile
 from django.core.exceptions import ValidationError
+from easy_thumbnails.fields import ThumbnailerImageField
 from versatileimagefield.fields import VersatileImageField, PPOIField
 from versatileimagefield.placeholder import OnStoragePlaceholderImage
 
@@ -35,19 +36,21 @@ class BaseModelManager(models.Manager):
         validated_data['updated'] = datetime.now(pytz.utc)
 
         if validated_data["image"]:
-            print(validated_data["image"])
             if validated_data["image"].name.find(".") == -1:
                 errors.append("Image must be '.jpg', '.jpeg', '.gif', or '.png'")
             elif validated_data["image"].name.split(".")[-1].lower() not in ALLOWED_EXTENSIONS:
                 errors.append("Image must be '.jpg', '.jpeg', '.gif', or '.png'")
-            # elif validated_data["image"]._size > MAX_UPLOAD_SIZE:
-            #     errors.append("Image size must be 5MB or less")
+            elif validated_data["image"].size > MAX_UPLOAD_SIZE:
+                errors.append("Image size must be 5MB or less")
             else:
-                # image = validated_data["image"]
                 validated_data["fileName"] = "{}.{}".format(uuid.uuid4().hex, validated_data["image"].name.split(".")[-1])
+                validated_data["image"].name = validated_data["fileName"]
+                validated_data["thumbnail"] = validated_data["image"]
+                
         else:
-            validated_data["image"] = None
             validated_data["fileName"] = None
+            validated_data["image"] = None
+            validated_data["thumbnail"] = None
     
         return validated_data
 
@@ -56,20 +59,27 @@ class BaseModel(models.Model):
     An abstract base class model that provides a name, created and a updated fields to store creation date
     and last updated date.
     """
-    # creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
 
     id          = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID')) 
     creator     = models.CharField(default='Anonymous', max_length=255, blank=True, null=True, verbose_name=_('Creator'))
     created     = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation date'))
     updated     = models.DateTimeField(auto_now=True, verbose_name=_('Update date'))
     link        = models.URLField(default=None, null=True, blank=True, verbose_name=_('Link'))
-    # slug        = models.SlugField(unique=True, max_length=255, blank=True, null=True, verbose_name=_('Slug'))
-    fileName    = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('File name'))
-    thumbnail   = models.ImageField(default=None, blank=True, null=True, verbose_name=_('Thumbnail'))
     image       = VersatileImageField(default=None, blank=True, null=True, verbose_name=_('Image'),
                                         placeholder_image=OnStoragePlaceholderImage(path='rein.jpg'),
-                                        ppoi_field='ppoi')  # models.ImageField
+                                        ppoi_field='ppoi')
+    thumbnail   = ThumbnailerImageField(default=None, blank=True, null=True, verbose_name=_('Thumbnail'), 
+                                        resize_source=dict(size=(200, 200), 
+                                        sharpen=True))
+    fileName    = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('File name'))
     ppoi        = PPOIField('Image PPOI')
+
+    # slug        = models.SlugField(unique=True, max_length=255, blank=True, null=True, verbose_name=_('Slug'))
+    # creator     = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
+    # image       = models.ImageField(default=None, blank=True, null=True, verbose_name=_('Image'))
+    # thumbnail   = models.ImageField(default=None, blank=True, null=True, verbose_name=_('Thumbnail'))
+    # fileName    = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('File name'))
+
 
     class Meta:
         abstract = True
@@ -109,6 +119,7 @@ class BoardManager(BaseModelManager):
         
         # Create object, save and return
         board = Board.objects.create(
+                # id=validated_data['id'],
                 creator=validated_data['creator'],
                 created=validated_data['created'],
                 updated=validated_data['updated'],
@@ -118,7 +129,8 @@ class BoardManager(BaseModelManager):
                 description=validated_data['description'],
                 maxThreads=validated_data['maxThreads'],
                 image=validated_data['image'],
-                fileName=validated_data['fileName'],
+                thumbnail=validated_data['thumbnail'],
+                fileName=validated_data["fileName"],
             )
         board.save(using=self._db)
         return board
@@ -181,6 +193,7 @@ class ThreadManager(BaseModelManager):
 
         # Create object, save and return
         thread = Thread.objects.create(
+                # id=validated_data['id'],
                 creator=validated_data['creator'],
                 created=validated_data['created'],
                 updated=validated_data['updated'],
@@ -190,7 +203,8 @@ class ThreadManager(BaseModelManager):
                 text=validated_data['text'],               
                 maxPosts=validated_data['maxPosts'],
                 image=validated_data['image'],
-                fileName=validated_data['fileName'],
+                thumbnail=validated_data['thumbnail'],
+                fileName=validated_data["fileName"],
                 board=validated_data['board'],
             )
         thread.save(using=self._db)
@@ -248,12 +262,14 @@ class PostManager(BaseModelManager):
 
         # Create object, save and return
         post = Post.objects.create(
+                # id=validated_data['id'],
                 creator=validated_data['creator'],
                 created=validated_data['created'],
                 updated=validated_data['updated'],
                 text=validated_data['text'],               
                 image=validated_data['image'],
-                fileName=validated_data['fileName'],
+                thumbnail=validated_data['thumbnail'],
+                fileName=validated_data["fileName"],
                 board=validated_data['board'],  
                 thread=validated_data['thread'],               
             )

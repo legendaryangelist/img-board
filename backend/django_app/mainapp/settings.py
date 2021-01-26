@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_auth',
     'corsheaders',
+    'easy_thumbnails',
     'versatileimagefield',
 
     # Apps
