@@ -150,4 +150,5 @@ settings_production.py
 *.jpg
 *.jpeg
 *.png
+*.gif
 !rein.jpg
