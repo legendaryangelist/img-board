@@ -1,6 +1,7 @@
 import os
 import pytz
 import uuid
+import logging
 from datetime import datetime
 from io import BytesIO
 from django.db import models
@@ -23,16 +24,12 @@ POST_THUMB_SIZE = settings.POST_THUMB_SIZE
 MAX_UPLOAD_SIZE = settings.MAX_UPLOAD_SIZE
 ALLOWED_EXTENSIONS = settings.ALLOWED_EXTENSIONS
 
-def get_image_upload_to(instance, filename):
-    """ Returns a valid upload path for an image file associated with a board instance. """
-    return instance.get_image_upload_to(filename)
+logger = logging.getLogger(__name__)
 
 class BaseModelManager(models.Manager):
     """ Represents a basic manager model."""
     
     def update_image_data(self, validated_data):
-        validated_data['updated'] = datetime.now(pytz.utc)
-
         if validated_data["image"]:
             if validated_data["image"].name.find(".") == -1:
                 errors.append("Image must be '.jpg', '.jpeg', '.gif', or '.png'")
@@ -54,9 +51,32 @@ class BaseModelManager(models.Manager):
     def update_validated_data(self, validated_data):
         validated_data['creator'] = "Anonymous" if not validated_data['creator'] else validated_data['creator']
         validated_data['created'] = datetime.now(pytz.utc)
+        validated_data['updated'] = validated_data['created']
         self.update_image_data(validated_data)
     
         return validated_data
+    
+
+    def delete_image_and_thumbnail(self, instance):
+        if instance.image:
+            name = instance.image
+            try:
+                os.remove(os.path.join(settings.MEDIA_ROOT, str(name)))
+                instance.image.delete()
+            except Exception as e:
+                logger.warning(e)
+        if instance.thumbnail:
+            name = instance.thumbnail
+            try:
+                os.remove(os.path.join(settings.MEDIA_ROOT, str(name)))
+                instance.thumbnail.delete()
+            except Exception as e:
+                logger.warning(e)
+        
+        return instance
+
+
+
 
 class BaseModel(models.Model):
     """ Represents a basic model.
@@ -143,21 +163,54 @@ class BoardManager(BaseModelManager):
     # Update Board
     def update_board(self, instance, validated_data):
         """Updates and existing board from validate_data and returns it"""
-
-        self.update_image_data(validated_data)
-
-        if 'isPrivate' not in validated_data:
-            validated_data['isPrivate'] = False
-
+        updated = 0
         board = Board.objects.get(id=instance.id)
 
-        board.updated=validated_data['updated']
-        board.isPrivate=validated_data['isPrivate']
-        board.image=validated_data['image']
-        board.thumbnail=validated_data['thumbnail']
-        board.fileName=validated_data["fileName"]
-         
-        board.save(using=self._db)
+        # if 'tag' in validated_data:
+        #     if board.tag != validated_data['tag']:
+        #         raise ValidationError(message="Cannot change 'tag' of a Board.")
+
+        if 'title' in validated_data:
+            if board.title != validated_data['title']:
+                board.title=validated_data['title'] 
+                updated = 1
+        
+        if 'description' in validated_data:
+            if board.description != validated_data['description']:
+                board.description=validated_data['description'] 
+                updated = 1
+
+        if 'isPrivate' in validated_data:
+            if board.isPrivate != validated_data['isPrivate']:
+                board.isPrivate=validated_data['isPrivate'] 
+                updated = 1
+                
+        if 'image' in validated_data:
+            if board.image != validated_data['image']:
+                # Delete image from db
+                board = self.delete_image_and_thumbnail(board)
+
+                # Update with new image
+                self.update_image_data(validated_data)
+                board.image=validated_data['image']
+                board.thumbnail=validated_data['thumbnail']
+                board.fileName=validated_data["fileName"]
+                updated = 1
+        
+        if 'maxThreads' in validated_data:
+            if board.maxThreads != validated_data['maxThreads']:
+                if validated_data['maxThreads'] < MIN_THREADS:
+                    board.maxThreads = MIN_THREADS
+                elif validated_data['maxThreads'] > MAX_THREADS:
+                    board.maxThreads = MAX_THREADS
+                else:
+                    board.maxThreads = validated_data['maxThreads']
+                updated = 1
+
+        if updated:
+            board.updated=datetime.now(pytz.utc)
+            board.save(using=self._db)
+        
         return board
 
 
