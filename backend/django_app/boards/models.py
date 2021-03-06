@@ -143,6 +143,7 @@ class BoardManager(BaseModelManager):
             validated_data['maxThreads'] = MAX_THREADS
         
         # Create object, save and return
+        print("Creating Board - /" + str(validated_data['tag']) + "/")
         board = Board.objects.create(
                 # id=validated_data['id'],
                 creator=validated_data['creator'],
@@ -186,7 +187,7 @@ class BoardManager(BaseModelManager):
                 updated = 1
                 
         if 'image' in validated_data:
-            if board.image != validated_data['image']:
+            if validated_data['image'] and board.image != validated_data['image']:
                 # Delete image from db
                 board = self.delete_image_and_thumbnail(board)
 
@@ -208,6 +209,7 @@ class BoardManager(BaseModelManager):
                 updated = 1
 
         if updated:
+            print("Updating Board - /" + str(instance.tag) + "/")
             board.updated=datetime.now(pytz.utc)
             board.save(using=self._db)
         
