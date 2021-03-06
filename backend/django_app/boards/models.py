@@ -85,7 +85,7 @@ class BaseModel(models.Model):
     """
 
     id          = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID')) 
-    creator     = models.CharField(default='Anonymous', max_length=255, blank=True, null=True, verbose_name=_('Creator'))
+    creator     = models.CharField(default='Anonymous', max_length=30, blank=True, null=True, verbose_name=_('Creator'))
     created     = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation date'))
     updated     = models.DateTimeField(auto_now=True, verbose_name=_('Update date'))
     link        = models.URLField(default=None, null=True, blank=True, verbose_name=_('Link'))

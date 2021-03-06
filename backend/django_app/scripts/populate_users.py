@@ -13,7 +13,7 @@ from faker import Faker
 
 fakegen = Faker()
 
-def populate(N=5):
+def populateUsers(N=5):
     """ Create N Entries of Dates Accessed """
 
     for entry in range(N):
@@ -26,6 +26,6 @@ def populate(N=5):
         # TODO add password gen
 
 if __name__ == '__main__':
-    print("Populating the databases...Please Wait")
-    populate(10)
-    print('Populating Complete')
+    print("Populating the database with users...Please Wait")
+    populateUsers(10)
+    print('Population Complete')
