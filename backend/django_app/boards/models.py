@@ -31,12 +31,11 @@ class BaseModelManager(models.Manager):
     
     def update_image_data(self, validated_data):
         if validated_data["image"]:
-            if validated_data["image"].name.find(".") == -1:
-                errors.append("Image must be '.jpg', '.jpeg', '.gif', or '.png'")
-            elif validated_data["image"].name.split(".")[-1].lower() not in ALLOWED_EXTENSIONS:
-                errors.append("Image must be '.jpg', '.jpeg', '.gif', or '.png'")
+            if validated_data["image"].name.find(".") == -1 or \
+               validated_data["image"].name.split(".")[-1].lower() not in ALLOWED_EXTENSIONS:
+                raise ValidationError(message="Image must be '.jpg', '.jpeg', '.gif', or '.png'")
             elif validated_data["image"].size > MAX_UPLOAD_SIZE:
-                errors.append("Image size must be 5MB or less")
+                raise ValidationError(message="Image size must be 5MB or less")
             else:
                 validated_data["fileName"] = "{}.{}".format(uuid.uuid4().hex, validated_data["image"].name.split(".")[-1])
                 validated_data["image"].name = validated_data["fileName"]
