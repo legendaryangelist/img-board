@@ -1,4 +1,6 @@
 import os
+import sys
+sys.path.append(os.getcwd())
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mainapp.settings')
 
 import django
@@ -15,18 +17,14 @@ MAX_THREADS = settings.MAX_THREADS
 def populateBoards(numBoards=10, numThreads=10, numPosts=10):
 
     for nBoards in range(numBoards):
-        letters = ascii_letters
         board = Board.objects.get_or_create(
-                # id=validated_data['id'],
-                creator=''.join(choice(letters) for i in range(30)) if randint(0, 1) else None,
+                creator=''.join(choice(ascii_letters) for i in range(30)) if randint(0, 1) else None,
                 isPrivate=randint(0, 1),
-                tag=''.join(choice(letters) for i in range(10)),
-                title=''.join(choice(letters) for i in range(100)),               
-                description=''.join(choice(letters) for i in range(255)),
+                tag=''.join(choice(ascii_letters) for i in range(10)),
+                title=''.join(choice(ascii_letters) for i in range(100)),               
+                description=''.join(choice(ascii_letters) for i in range(255)),
                 maxThreads=randint(MIN_THREADS, MAX_THREADS),
                 # image=validated_data['image'],                    # TODO
-                # thumbnail=validated_data['thumbnail'],            # TODO
-                # fileName=validated_data["fileName"],              # TODO
             )
         for nThreads in range(numThreads):
             pass
