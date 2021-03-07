@@ -274,7 +274,6 @@ class ThreadManager(BaseModelManager):
 
         # Create object, save and return
         thread = Thread.objects.create(
-                # id=validated_data['id'],
                 creator=validated_data['creator'],
                 created=validated_data['created'],
                 updated=validated_data['updated'],
