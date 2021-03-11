@@ -1,6 +1,7 @@
 import os
 import sys
 sys.path.append(os.getcwd())
+# Need to run this before calling models from application!
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mainapp.settings')
 
 import django

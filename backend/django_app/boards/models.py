@@ -224,6 +224,7 @@ class Board(BaseModel):
     description = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('Description'))
     maxThreads  = models.IntegerField(default=MAX_THREADS, blank=True, null=True, verbose_name=_('Max Threads'))
 
+    # Registering Manager to objects
     objects = BoardManager()
 
     def __str__(self):
@@ -298,6 +299,7 @@ class Thread(BaseModel):
     maxPosts    = models.IntegerField(default=MAX_POSTS, verbose_name=_('Max Posts'))
     board       = models.ForeignKey("Board", related_name='threads', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Board'))
 
+    # Registering Manager to objects
     objects     = ThreadManager()
 
     def __str__(self):
@@ -363,6 +365,7 @@ class Post(BaseModel):
     thread      = models.ForeignKey("Thread", related_name='posts', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Thread'))
     replyto     = models.ForeignKey("Post", related_name='posts', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Replies To'))
 
+    # Registering Manager to objects
     objects     = PostManager()
 
     def __str__(self):

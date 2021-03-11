@@ -42,7 +42,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     nonce           = models.PositiveBigIntegerField(default=0, verbose_name=_('Nonce'))
     public_address  = models.CharField(default="", max_length=300, verbose_name=_('Public Address'))
 
-    objects = UserManager()
+    # Registering Manager to objects
+    objects         = UserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+
+    def __str__(self):
+        return str(self.username)
