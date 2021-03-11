@@ -13,8 +13,7 @@ if not w3.isConnected():
     sys.exit(1)
 
 print("Web3 is Connected")
-
-
+# TODO do something
 sys.exit(0)
 
     
