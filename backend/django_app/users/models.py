@@ -1,6 +1,8 @@
+import uuid
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
-    PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager ,PermissionsMixin
+from django.db.models.query_utils import subclasses
+from django.utils.translation import gettext_lazy as _
 
 # User Manager - creates User and Super User
 class UserManager(BaseUserManager):
@@ -30,10 +32,15 @@ class UserManager(BaseUserManager):
 # User Model
 class User(AbstractBaseUser, PermissionsMixin):
     """Custom user model that supports using email instead of username"""
-    username = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255, unique=True)   
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
+    username        = models.CharField(max_length=30, verbose_name=_('Username'))
+    email           = models.EmailField(max_length=255, unique=True, verbose_name=_('Email'))   
+    is_active       = models.BooleanField(default=True, verbose_name=_('Is Active'))
+    is_staff        = models.BooleanField(default=False, verbose_name=_('Is Staff'))
+    sub             = models.JSONField(default=dict, verbose_name=_('Sub'));
+    super_sub       = models.JSONField(default=dict, verbose_name=_('Super Sub'));
+    posts           = models.JSONField(default=dict, verbose_name=_('Posts'));
+    nonce           = models.PositiveBigIntegerField(default=0, verbose_name=_('Nonce'))
+    public_address  = models.CharField(default="", max_length=300, verbose_name=_('Public Address'))
 
     objects = UserManager()
 
