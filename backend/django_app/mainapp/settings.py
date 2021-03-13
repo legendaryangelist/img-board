@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'core',
     'users',
     'boards',
-    'nft',
+    'blockchain',
 ]
 
 MIDDLEWARE = [
@@ -150,7 +150,7 @@ MEDIA_ROOT      = BASE_DIR / 'media'
 
 # Custom User authentication
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'core.User'
 
 
 # Parameters

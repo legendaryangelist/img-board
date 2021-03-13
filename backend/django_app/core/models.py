@@ -1,7 +1,12 @@
-
 # import all models here
+
+#  ----- Users -----
+from .models_users import *
 
 #  ----- Boards -----
 from .models_boards import *
 
-#  ----- Users -----
+#  ----- Blockchain -----
+from .models_blockchain import *
+
+

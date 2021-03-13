@@ -10,7 +10,7 @@ django.setup()
 from django.conf import settings
 
 import random
-from users.models import User
+from core.models import User
 from faker import Faker
 
 fakegen = Faker()
