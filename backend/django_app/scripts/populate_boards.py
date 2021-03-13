@@ -9,7 +9,7 @@ import django
 django.setup()
 from django.conf import settings
 
-from boards.models import Board, Thread, Post
+from core.models import Board, Thread, Post
 from random import randint, choice
 from string import ascii_letters
 

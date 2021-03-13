@@ -38,6 +38,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff        = models.BooleanField(default=False, verbose_name=_('Is Staff'))
     sub             = models.JSONField(default=dict, verbose_name=_('Sub'));
     super_sub       = models.JSONField(default=dict, verbose_name=_('Super Sub'));
+    boards          = models.JSONField(default=dict, verbose_name=_('Boards'));
+    threads         = models.JSONField(default=dict, verbose_name=_('Threads'));
     posts           = models.JSONField(default=dict, verbose_name=_('Posts'));
     nonce           = models.PositiveBigIntegerField(default=0, verbose_name=_('Nonce'))
     public_address  = models.CharField(default="", max_length=300, verbose_name=_('Public Address'))

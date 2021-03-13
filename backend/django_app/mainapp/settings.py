@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    #Tools
+    # Tools
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'versatileimagefield',
 
     # Apps
+    'core',
     'users',
     'boards',
     'nft',
