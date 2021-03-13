@@ -1,12 +1,7 @@
-import os
-import sys
-sys.path.append(os.getcwd())
-sys.path.append(os.path.normpath(os.getcwd() + os.sep + os.pardir))
-# Need to run this before calling models from application!
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mainapp.settings')
+#  ----- RUN THIS FIRST -----
+import django_setup_script
+#  --------------------------
 
-import django
-django.setup()
 from django.conf import settings
 
 import random
