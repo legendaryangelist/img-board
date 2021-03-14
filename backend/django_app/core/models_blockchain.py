@@ -8,6 +8,37 @@ from django.utils.translation import gettext_lazy as _
 # From settings.py
 OPENSEA_URL = settings.OPENSEA_URL
 
+
+# ----------------------------------------------------
+# ---------------------- Wallet ----------------------
+# ----------------------------------------------------
+class WalletManager(models.Manager):
+    """ Represents a basic Wallet Model Manager."""
+    
+    def create_wallet(self, **validated_data):
+        pass
+
+
+class Wallet(models.Model):
+    """ Represents a basic Wallet Model. """
+
+    id                = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID')) 
+    # user              = models.ForeignKey(to="User", related_name='wallet', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('User'))
+    wallet_address    = models.CharField(default=None, max_length=255, verbose_name=_('Wallet Address'))
+
+    objects = WalletManager()
+
+    def __str__(self):
+        return str(self.id)
+
+    # class Meta:
+    #     abstract = True
+
+
+
+# -------------------------------------------------
+# ---------------------- NFT ----------------------
+# -------------------------------------------------
 class NFTModelManager(models.Manager):
     """ Represents a basic NFT Model Manager."""
     
