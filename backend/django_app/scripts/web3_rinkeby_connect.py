@@ -1,9 +1,13 @@
+#  ----- RUN THIS FIRST -----
+import django_setup_script
+#  --------------------------
+
 import sys
-from hexbytes.main import HexBytes
+from django.conf import settings
 from web3 import Web3
 from web3.middleware import geth_poa_middleware
 
-rinkebyWS = "wss://rinkeby-light.eth.linkpool.io/ws"
+rinkebyWS = settings.RINKEBY_WS
 
 print("----- Initiating connection to Ethereum Rinkeby testnet -----")
 print("Using Websocket endpoint - " + rinkebyWS)

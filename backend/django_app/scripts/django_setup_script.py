@@ -6,4 +6,6 @@ sys.path.append(os.path.normpath(os.getcwd() + os.sep + os.pardir))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mainapp.settings')
 
 import django
+print("----- Setting up Django environment... -----")
 django.setup()
+print("----- Django Setup complete. -----")
