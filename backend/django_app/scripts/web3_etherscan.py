@@ -47,3 +47,9 @@ token_transations = es.get_token_transactions(
     address='0xEF68e7C694F40c8202821eDF525dE3782458639f',
 )
 print("----- token_transations -----\n", token_transations)
+
+# ERC721 data (NFT)
+import requests
+url = f"https://api.etherscan.io/api?module=account&action=tokennfttx&address={ETH_ADDRESS_LIST[0]}&startblock=0&endblock=999999999&sort=asc&apikey={ETHERSCAN_API_KEY}"
+response = requests.get(url)
+print(response.content)

@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 # From settings.py
-OPENSEA_URL = settings.OPENSEA_URL
+OPENSEA_API_URL = settings.OPENSEA_API_URL
 
 
 # ----------------------------------------------------
@@ -48,7 +48,7 @@ class NFTModelManager(models.Manager):
             "offset":"0",
             "limit":"20"
         }
-        response = requests.request("GET", OPENSEA_URL, params=querystring)
+        response = requests.request("GET", OPENSEA_API_URL, params=querystring)
         print(response.text)
 
 
