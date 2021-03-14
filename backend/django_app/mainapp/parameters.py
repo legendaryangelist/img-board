@@ -92,4 +92,10 @@ VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
 # --------------------- ETH Params ---------------------
 # ------------------------------------------------------
 
-OPENSEA_URL = "https://api.opensea.io/api/v1/assets"
+MAINNET_INFURA_HTTP     = "https://mainnet.infura.io/v3/"
+
+MAINNET_INFURA_WS       = "wss://mainnet.infura.io/ws/v3/"
+
+RINKEBY_WS              = "wss://rinkeby-light.eth.linkpool.io/ws"
+
+OPENSEA_URL             = "https://api.opensea.io/api/v1/assets"
