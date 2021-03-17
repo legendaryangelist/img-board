@@ -36,7 +36,6 @@ const Threads = (props) => {
         <div>a{threadData.length}</div>
         {threadSearch.length === 0
           ? threadData.slice(0, 4).map((e) => {
-              console.log("ferdrhcyluiyui", e);
               return (
                 <span key={e.id}>
                   <Link to={{ pathname: `thread/${e.id}` }}>{e.title}</Link>

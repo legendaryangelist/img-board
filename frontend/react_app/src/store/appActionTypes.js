@@ -9,3 +9,4 @@ export const SEARCH_BOARD = "SEARCH_BOARD";
 export const BOARD_DATA = "BOARD_DATA";
 export const THREAD_DATA = "THREAD_DATA";
 export const LOADING = "LOADING";
+export const ADD_THREAD = "ADD_THREAD";

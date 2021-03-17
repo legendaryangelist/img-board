@@ -17,6 +17,8 @@ import { MdForum } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
 import { useHistory, Link } from "react-router-dom";
 import MidBar from "./MidBar";
+import { searchBoard } from "../store/appActions";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,7 +78,10 @@ const useStyles = makeStyles((theme) => ({
 export default function TopBar(props) {
   const classes = useStyles();
   const history = useHistory();
-  const searchAll = (text) => {};
+  const dispatch = useDispatch();
+  const searchAll = (text) => {
+    dispatch(searchBoard(text));
+  };
 
   return (
     <div className={classes.root}>

@@ -64,7 +64,7 @@ const Board = (props) => {
 
               <Button
                 className="commentBu"
-                onClick={() => history.push(`/boardpost/${boards.id}/0`)}
+                onClick={() => history.push(`/threadpost/${boards.id}`)}
               >
                 add thread
               </Button>

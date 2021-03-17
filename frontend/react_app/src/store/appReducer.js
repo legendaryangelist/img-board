@@ -62,9 +62,11 @@ export const appReducer = (
     case actionsTypes.SEARCH_BOARD: {
       const { value } = action;
       const boardSearch = state.boardData.filter(
-        (val) => val.title === value || val.text === value
+        (val) =>
+          val.title.toLowerCase().includes(value.toLowerCase()) ||
+          val.description.toLowerCase().includes(value.toLowerCase())
       );
-      return { ...state, value, boardSearch };
+      return { ...state, boardSearch };
     }
 
     case actionsTypes.EDIT_POST: {
@@ -76,7 +78,6 @@ export const appReducer = (
       return { ...state, boardData: action.payload };
     }
     case actionsTypes.THREAD_DATA: {
-      console.log(action.payload);
       return {
         ...state,
         threadData: [...state.threadData, ...action.payload],

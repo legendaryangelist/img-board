@@ -24,6 +24,9 @@ export const searchPost = (value) => {
 export const searchBoard = (value) => {
   return { type: actionsTypes.SEARCH_BOARD, value };
 };
+export const addThread = (thread) => {
+  return { type: actionsTypes.ADD_THREAD, payload: thread };
+};
 export const startLoading = () => {
   return { type: actionsTypes.LOADING, payload: true };
 };

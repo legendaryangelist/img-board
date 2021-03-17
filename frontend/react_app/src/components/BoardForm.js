@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addBoard } from "../store/appActions";
 import { useHistory } from "react-router-dom";
+import { postBoardData } from "../store/dataActions/boardData";
 const BoardForm = (props) => {
   const { addBoard } = props;
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
   const history = useHistory();
+  const dispatch = useDispatch();
   const buttonfun = () => {
-    addBoard({ title, description });
+    postBoardData({ title, description })(dispatch);
     history.push("/boards");
   };
   return (
