@@ -24,3 +24,9 @@ export const searchPost = (value) => {
 export const searchBoard = (value) => {
   return { type: actionsTypes.SEARCH_BOARD, value };
 };
+export const startLoading = () => {
+  return { type: actionsTypes.LOADING, payload: true };
+};
+export const stopLoading = () => {
+  return { type: actionsTypes.LOADING, payload: false };
+};

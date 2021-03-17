@@ -6,3 +6,6 @@ export const EDIT_POST = "EDIT_POST";
 export const SEARCH_POST = "SEARCH_POST";
 export const ADD_BOARD = "ADD_BOARD";
 export const SEARCH_BOARD = "SEARCH_BOARD";
+export const BOARD_DATA = "BOARD_DATA";
+export const THREAD_DATA = "THREAD_DATA";
+export const LOADING = "LOADING";
