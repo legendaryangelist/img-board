@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Thread from "./Thread";
-import { Button, Row } from "react-bootstrap";
+import { Button, Container, Row } from "react-bootstrap";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { getThread } from "../store/appReducer";
 import { useHistory, Link } from "react-router-dom";
@@ -29,16 +29,16 @@ const Threads = (props) => {
   if (isLoading) return <div>Loading...</div>;
   return (
     <div>
-      <Button className="commentBu" onClick={() => history.push("/boardForm")}>
-        add board
-      </Button>
-      <Row style={{ display: "flex", flexWrap: "wrap" }}>
-        <div>a{threadData.length}</div>
+      <Row>
         {threadSearch.length === 0
           ? threadData.slice(0, 4).map((e) => {
               return (
                 <span key={e.id}>
-                  <Link to={{ pathname: `thread/${e.id}` }}>{e.title}</Link>
+                  <Link
+                    to={{ pathname: `thread/${e.id}`, state: { thread: e } }}
+                  >
+                    {e.title}
+                  </Link>
                   <Thread thread={e} />
                 </span>
               );

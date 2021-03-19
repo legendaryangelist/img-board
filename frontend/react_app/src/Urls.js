@@ -20,6 +20,7 @@ import { useDispatch } from "react-redux";
 import { getBoardData } from "./store/dataActions/boardData";
 import * as actions from "./store/appActions";
 import ThreadForm from "./components/ThreadForm";
+import Thread from "./components/Thread";
 // A wrapper for <Route> that redirects to the login screen if you're not yet authenticated.
 function PrivateRoute({ isAuthenticated, children, ...rest }) {
   const history = useHistory();
@@ -75,6 +76,9 @@ function Urls(props) {
         </Route>
         <Route exact path="/favorites">
           <Favorites />
+          <Route exact path="/thread/:threadid">
+            <Thread />
+          </Route>
         </Route>
         <Route exact path="/boards/:boardid">
           <Board />

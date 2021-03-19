@@ -61,22 +61,23 @@ const Board = (props) => {
             <Card.ImgOverlay style={{}}>
               <Card.Title style={{}}>{boards.title}</Card.Title>
               <Card.Text>{boards.description}</Card.Text>
-
-              <Button
-                className="commentBu"
-                onClick={() => history.push(`/threadpost/${boards.id}`)}
-              >
-                add thread
-              </Button>
-              <Button
-                style={{ marginLeft: "3px" }}
-                className="commentBu"
-                onClick={() => addToFavorite()}
-              >
-                add to fivorits
-              </Button>
             </Card.ImgOverlay>
           </Card>
+          <Button
+            className="commentBu"
+            onClick={() => history.push(`/threadpost/${boards.id}`)}
+          >
+            add thread
+          </Button>
+          <Button
+            style={{ marginLeft: "3px" }}
+            className="commentBu"
+            onClick={() => addToFavorite()}
+          >
+            add to fivorits
+          </Button>
+        </Row>
+        <Row>
           <Threads boardid={boards.id} />
         </Row>
       </Container>

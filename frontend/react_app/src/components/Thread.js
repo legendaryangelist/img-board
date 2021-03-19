@@ -16,6 +16,7 @@ const Thread = (props) => {
   return (
     <div>
       <Container>
+        <Link to={thread.id}>{thread.id}</Link>
         <Card
           style={{ width: "18vw", height: "150px" }}
           className="bg-dark text-white"
