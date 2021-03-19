@@ -48,7 +48,10 @@ class BaseModelManager(models.Manager):
 
 
     def update_validated_data(self, validated_data):
-        validated_data['creator'] = "Anonymous" if not validated_data['creator'] else validated_data['creator']
+        if validated_data.has_key('creator'):
+            validated_data['creator'] = "Anonymous" if not validated_data['creator'] else validated_data['creator']
+        else:
+            validated_data['creator'] = "Anonymous"
         validated_data['created'] = datetime.now(pytz.utc)
         validated_data['updated'] = validated_data['created']
         self.update_image_data(validated_data)
