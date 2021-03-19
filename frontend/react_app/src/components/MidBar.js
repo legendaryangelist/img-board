@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import { SidebarData } from "./MidBarData";
 import { IconContext } from "react-icons";
 import "../css/midBar.css";
+import { useSelector } from "react-redux";
 
 const Midbar = () => {
   const [sidebar, setSidebar] = useState(false);
-
+  const boardData = useSelector((state) => state.appstate.boardData);
   const showSidebar = () => setSidebar(!sidebar);
 
   return (
@@ -26,11 +27,11 @@ const Midbar = () => {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
-            {SidebarData.map((item, index) => {
+            {boardData.map((item, index) => {
               return (
-                <li key={index} className={item.cName}>
-                  <Link to={item.path}>
-                    {item.icon}
+                <li key={index}>
+                  <Link to={`/boards/${item.id}`}>
+                    <AiIcons.AiFillHome />
                     <span>{item.title}</span>
                   </Link>
                 </li>

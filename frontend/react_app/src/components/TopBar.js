@@ -15,8 +15,10 @@ import HomeIcon from "@material-ui/icons/Home";
 import { BiComment } from "react-icons/bi";
 import { MdForum } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import MidBar from "./MidBar";
+import { searchBoard } from "../store/appActions";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,6 +78,11 @@ const useStyles = makeStyles((theme) => ({
 export default function TopBar(props) {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
+  const searchAll = (text) => {
+    dispatch(searchBoard(text));
+  };
+
   return (
     <div className={classes.root}>
       <AppBar position="static" style={{ backgroundColor: "#000000" }}>
@@ -102,23 +109,31 @@ export default function TopBar(props) {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
+              onChange={(e) => searchAll(e.target.value)}
               inputProps={{ "aria-label": "search" }}
             />
           </div>
 
-          <IconButton href="/" aria-label="home page" color="inherit">
+          <IconButton
+            onClick={() => history.push("/")}
+            aria-label="home page"
+            color="inherit"
+          >
             <HomeIcon />
           </IconButton>
 
-          <IconButton href="/posts" color="inherit">
+          <IconButton onClick={() => history.push("/posts")} color="inherit">
             <BiComment />
           </IconButton>
 
-          <IconButton color="inherit" href="/board">
+          <IconButton onClick={() => history.push("/boards")} color="inherit">
             <MdForum />
           </IconButton>
 
-          <IconButton color="inherit" href="/favorites">
+          <IconButton
+            onClick={() => history.push("/favorites")}
+            color="inherit"
+          >
             <MdFavorite />
           </IconButton>
 

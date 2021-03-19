@@ -4,15 +4,15 @@ import { connect, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addBoard } from "../store/appActions";
 import { useHistory } from "react-router-dom";
-import { postBoardData } from "../store/dataActions/boardData";
-const BoardForm = (props) => {
-  const { addBoard } = props;
+import { postThreadDatas } from "../store/dataActions/threadData";
+const ThreadForm = (props) => {
+  const { boardid } = props;
   const [title, settitle] = useState("");
-  const [description, setdescription] = useState("");
+  const [text, setdescription] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
   const buttonfun = () => {
-    postBoardData({ title, description })(dispatch);
+    postThreadDatas(boardid, { title, text })(dispatch);
     history.push("/boards");
   };
   return (
@@ -35,7 +35,7 @@ const BoardForm = (props) => {
         <br />
         <Form.Control
           className="InpTextForm1"
-          value={description}
+          value={text}
           size="xl"
           onChange={(e) => setdescription(e.target.value)}
           type="text"
@@ -57,11 +57,5 @@ const BoardForm = (props) => {
     </>
   );
 };
-const redux = (dispatch) =>
-  bindActionCreators(
-    {
-      addBoard: addBoard,
-    },
-    dispatch
-  );
-export default connect(null, redux)(BoardForm);
+const redux = (dispatch) => bindActionCreators({}, dispatch);
+export default connect(null, redux)(ThreadForm);

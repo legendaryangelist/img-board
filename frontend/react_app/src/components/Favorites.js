@@ -1,15 +1,25 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Post from "./Post";
+import Board from "./Board";
 
 const Favorites = () => {
-  const favoritePosts = useSelector((state) => {
-    return state.appstate.favoritePosts;
+  const isLoading = useSelector((state) => {
+    return state.appstate.isLoading;
   });
+  const favoritePosts = useSelector((state) => {
+    if (!state.appstate.favoritePosts) {
+      return [];
+    }
+    return state.appstate.boardData.filter((e) =>
+      state.appstate.favoritePosts.includes(e.id)
+    );
+  });
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div>
       {favoritePosts.map((e) => (
-        <post key={e.id} post={e} />
+        <Board key={e.id} boards={e} />
       ))}
     </div>
   );
