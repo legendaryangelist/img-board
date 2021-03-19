@@ -23,7 +23,7 @@ class Wallet(models.Model):
     """ Represents a basic Wallet Model. """
 
     id                = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID')) 
-    # user              = models.ForeignKey(to="User", related_name='wallet', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('User'))
+    user              = models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='wallet', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('User'))
     wallet_address    = models.CharField(default=None, max_length=255, verbose_name=_('Wallet Address'))
 
     objects = WalletManager()

@@ -11,6 +11,7 @@ class WalletSerializer(serializers.ModelSerializer):
         model = Wallet
         fields = (
             'id', 
+            'user',
             'wallet_address', 
         )
         read_only_Fields = ('id',)
