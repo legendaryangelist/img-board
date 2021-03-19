@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    #Tools
+    # Tools
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
@@ -56,9 +56,10 @@ INSTALLED_APPS = [
     'versatileimagefield',
 
     # Apps
+    'core',
     'users',
     'boards',
-    'nft',
+    'blockchain',
 ]
 
 MIDDLEWARE = [
@@ -149,7 +150,7 @@ MEDIA_ROOT      = BASE_DIR / 'media'
 
 # Custom User authentication
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'core.User'
 
 
 # Parameters

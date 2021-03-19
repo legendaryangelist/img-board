@@ -36,11 +36,16 @@ class User(AbstractBaseUser, PermissionsMixin):
     email           = models.EmailField(max_length=255, unique=True, verbose_name=_('Email'))   
     is_active       = models.BooleanField(default=True, verbose_name=_('Is Active'))
     is_staff        = models.BooleanField(default=False, verbose_name=_('Is Staff'))
-    sub             = models.JSONField(default=dict, verbose_name=_('Sub'));
-    super_sub       = models.JSONField(default=dict, verbose_name=_('Super Sub'));
-    posts           = models.JSONField(default=dict, verbose_name=_('Posts'));
+    
     nonce           = models.PositiveBigIntegerField(default=0, verbose_name=_('Nonce'))
     public_address  = models.CharField(default="", max_length=300, verbose_name=_('Public Address'))
+
+    sub             = models.ManyToManyField(to="Board", related_name='sub', blank=True, verbose_name=_('Sub'));
+    super_sub       = models.ManyToManyField(to="Board", related_name='super_sub', blank=True, verbose_name=_('Super Sub'));
+    user_boards     = models.ManyToManyField(to="Board", related_name='user_boards', blank=True, verbose_name=_('User Boards'));
+    user_threads    = models.ManyToManyField(to="Thread", related_name='user_threads', blank=True, verbose_name=_('User Threads'));
+    user_posts      = models.ManyToManyField(to="Post", related_name='user_posts', blank=True, verbose_name=_('User Posts'));
+    user_wallets    = models.ManyToManyField(to="Wallet", related_name='user_wallets', blank=True, verbose_name=_('User Wallets'));
 
     # Registering Manager to objects
     objects         = UserManager()

@@ -1,8 +1,6 @@
 from rest_framework import serializers
 
-from .models import Post, Thread, Board
-
-
+from core.models import Post, Thread, Board
 
 class BoardSerializer(serializers.ModelSerializer):
     """Serializer for board object"""

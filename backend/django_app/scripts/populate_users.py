@@ -1,15 +1,11 @@
-import os
-import sys
-sys.path.append(os.getcwd())
-# Need to run this before calling models from application!
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mainapp.settings')
+#  ----- RUN THIS FIRST -----
+import django_setup_script
+#  --------------------------
 
-import django
-django.setup()
 from django.conf import settings
 
 import random
-from users.models import User
+from core.models import User
 from faker import Faker
 
 fakegen = Faker()

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.translation import gettext as _
 from easy_thumbnails.fields import ThumbnailerImageField
 from easy_thumbnails.widgets import ImageClearableFileInput
-from .models import Post, Thread, Board
+from core.models import Post, Thread, Board
 from .forms import BoardForm
 
 class BoardAdmin(admin.ModelAdmin):
