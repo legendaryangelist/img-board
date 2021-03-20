@@ -1,12 +1,25 @@
 import uuid
+from random import randint
+from faker import Faker
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager ,PermissionsMixin
 from django.db.models.query_utils import subclasses
 from django.utils.translation import gettext_lazy as _
+from secrets import token_bytes
+from coincurve import PublicKey
+from sha3 import keccak_256
 
 # User Manager - creates User and Super User
 class UserManager(BaseUserManager):
     """User Manager"""
+
+    def generate_eth_keys(self):
+        gen = {}
+        gen["private_key"] = keccak_256(token_bytes(32)).digest()
+        gen["public_key"] = PublicKey.from_valid_secret(gen["private_key"]).format(compressed=False)[1:]
+        gen["address"] = keccak_256(gen["public_key"]).digest()[-20:]
+        return gen
+
     def create_user(self, username, email, password=None, **extra_fields):
         """Creates and saves a new user"""
         if not username:
@@ -17,6 +30,9 @@ class UserManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(username=username, email=email, **extra_fields)
         user.set_password(password)
+        user.nonce      = randint(1000000, 10000000)
+        user.address    = self.generate_eth_keys()["address"].hex()
+
         user.save(using=self._db)
         return user
 
@@ -37,8 +53,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active       = models.BooleanField(default=True, verbose_name=_('Is Active'))
     is_staff        = models.BooleanField(default=False, verbose_name=_('Is Staff'))
     
-    nonce           = models.PositiveBigIntegerField(default=0, verbose_name=_('Nonce'))
-    public_address  = models.CharField(default="", max_length=300, verbose_name=_('Public Address'))
+    nonce           = models.PositiveBigIntegerField(default=0, verbose_name=_('Nonce')) 
+    public_address  = models.CharField(default=None, max_length=300, unique=True, null=False, verbose_name=_('Public Address'))
 
     sub             = models.ManyToManyField(to="Board", related_name='sub', blank=True, verbose_name=_('Sub'));
     super_sub       = models.ManyToManyField(to="Board", related_name='super_sub', blank=True, verbose_name=_('Super Sub'));

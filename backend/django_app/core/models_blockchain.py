@@ -8,6 +8,12 @@ from django.utils.translation import gettext_lazy as _
 # From settings.py
 OPENSEA_API_URL = settings.OPENSEA_API_URL
 
+if hasattr(settings, 'OPENSEA_API_KEY'):
+    OPENSEA_API_KEY = settings.OPENSEA_API_KEY
+else:
+    OPENSEA_API_KEY = ""
+
+
 
 # ----------------------------------------------------
 # ---------------------- Wallet ----------------------
