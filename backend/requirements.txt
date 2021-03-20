@@ -16,3 +16,5 @@ gunicorn==20.0.4
 graphene-django==2.15.0
 Faker==5.0.1
 etherscan==0.3.0
+coincurve==15.0.0
+pysha3==1.0.2
