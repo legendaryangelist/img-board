@@ -92,6 +92,10 @@ VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
 # --------------------- ETH Params ---------------------
 # ------------------------------------------------------
 
+ETH_ADDR_LEN            = 40
+
+ETH_HEX_ADDR_LEN        = 42
+
 MAINNET_INFURA_HTTP     = "https://mainnet.infura.io/v3/"
 
 MAINNET_INFURA_WS       = "wss://mainnet.infura.io/ws/v3/"
