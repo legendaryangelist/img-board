@@ -10,6 +10,6 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from boards.models import Post, Thread, Board
+from core.models import Post, Thread, Board
 
 from boards.serializers import BoardSerializer
