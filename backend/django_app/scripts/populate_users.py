@@ -6,6 +6,7 @@ from django.conf import settings
 
 import random
 from core.models import User
+from generate_eth_address import generate
 from faker import Faker
 
 fakegen = Faker()
@@ -15,15 +16,19 @@ def populateUsers(N=100):
 
     for entry in range(N):
         # Create Fake Data for entry
-        fake_name       = fakegen.pystr()
-        fake_email      = fakegen.email()
-        fake_password   = fakegen.pystr()
+        name       = fakegen.pystr()
+        email      = fakegen.email()
+        password   = fakegen.pystr()
+        address    = generate()["address"].hex()
+        nonce      = random.randint(1000000, 10000000)
 
         # Create new User Entry
         user = User.objects.get_or_create(
-            username=fake_name, 
-            email=fake_email,
-            password=fake_password,
+            username=name, 
+            email=email,
+            password=password,
+            public_address=address,
+            nonce=nonce,
             )[0]
         print("Populate Users - Created User " + str(user))
         
