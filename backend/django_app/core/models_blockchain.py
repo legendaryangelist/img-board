@@ -1,5 +1,6 @@
 import uuid
 import requests
+import threading
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
@@ -43,10 +44,10 @@ class Wallet(models.Model):
 
 
 # -------------------------------------------------
-# ---------------------- NFT ----------------------
+# ---------------------- ERC721 ----------------------
 # -------------------------------------------------
-class NFTModelManager(models.Manager):
-    """ Represents a basic NFT Model Manager."""
+class ERC721ModelManager(models.Manager):
+    """ Represents a basic ERC721 Model Manager."""
     
     def request_token(self):
         querystring = {
@@ -58,8 +59,8 @@ class NFTModelManager(models.Manager):
         print(response.text)
 
 
-class NFTModel(models.Model):
-    """ Represents a basic NFT Model. """
+class ERC721Model(models.Model):
+    """ Represents a basic ERC721 Model. """
 
     id      = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID')) 
     name    = models.CharField(default=None, max_length=255, verbose_name=_('Name'))
@@ -74,7 +75,7 @@ class NFTModel(models.Model):
     # traits                - A list of traits associated with the item (see traits section) -> json = JSONField()
     # last_sale             - When this item was last sold (null if there was no last sale)
 
-    objects = NFTModelManager()
+    objects = ERC721ModelManager()
 
     def __str__(self):
         return str(id)

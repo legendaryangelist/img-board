@@ -30,9 +30,8 @@ class UserManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(username=username, email=email, **extra_fields)
         user.set_password(password)
-        user.nonce      = randint(1000000, 10000000)
-        user.address    = self.generate_eth_keys()["address"].hex()
-
+        user.nonce = randint(1000000, 10000000)
+        user.public_address = "0x" + self.generate_eth_keys()["address"].hex()
         user.save(using=self._db)
         return user
 
@@ -48,13 +47,15 @@ class UserManager(BaseUserManager):
 # User Model
 class User(AbstractBaseUser, PermissionsMixin):
     """Custom user model that supports using email instead of username"""
+    id              = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID')) 
+    
     username        = models.CharField(max_length=30, verbose_name=_('Username'))
     email           = models.EmailField(max_length=255, unique=True, verbose_name=_('Email'))   
     is_active       = models.BooleanField(default=True, verbose_name=_('Is Active'))
     is_staff        = models.BooleanField(default=False, verbose_name=_('Is Staff'))
     
     nonce           = models.PositiveBigIntegerField(default=0, verbose_name=_('Nonce')) 
-    public_address  = models.CharField(default=None, max_length=300, unique=True, null=False, verbose_name=_('Public Address'))
+    public_address  = models.CharField(default=None, max_length=300, verbose_name=_('Public Address'))
 
     sub             = models.ManyToManyField(to="Board", related_name='sub', blank=True, verbose_name=_('Sub'));
     super_sub       = models.ManyToManyField(to="Board", related_name='super_sub', blank=True, verbose_name=_('Super Sub'));

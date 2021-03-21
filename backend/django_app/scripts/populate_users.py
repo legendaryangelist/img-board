@@ -19,7 +19,7 @@ def populateUsers(N=100):
         name       = fakegen.pystr()
         email      = fakegen.email()
         password   = fakegen.pystr()
-        address    = generate()["address"].hex()
+        address    = "0x" + generate()["address"].hex()
         nonce      = random.randint(1000000, 10000000)
 
         # Create new User Entry
