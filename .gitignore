@@ -152,3 +152,7 @@ settings_production.py
 *.png
 *.gif
 !rein.jpg
+
+# eth
+test_eth_addresses.txt
+scripts_dump.txt
