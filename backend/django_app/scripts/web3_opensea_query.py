@@ -26,7 +26,7 @@ import requests
 
 addressIndex = 0
 
-url = "https://api.opensea.io/api/v1/assets" + "?X-API-KEY=" + OPENSEA_API_KEY
+url = OPENSEA_API_URL + "?X-API-KEY=" + OPENSEA_API_KEY
 querystring = {
     "owner":ETH_ADDRESS_LIST[addressIndex],
     "order_direction":"desc",
