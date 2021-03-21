@@ -118,14 +118,8 @@ class Wallet(models.Model):
 class ERC20Manager(models.Manager):
     """ Represents a basic ERC20 Model Manager."""
     
-    def request_token(self):
-        querystring = {
-            "order_direction":"desc",
-            "offset":"0",
-            "limit":"20"
-        }
-        response = requests.request("GET", OPENSEA_API_URL, params=querystring)
-        print(response.text)
+    def create_erc20(self, **validated_data):
+        pass
 
 
 class ERC20(models.Model):
@@ -146,14 +140,8 @@ class ERC20(models.Model):
 class ERC721Manager(models.Manager):
     """ Represents a basic ERC721 Model Manager."""
     
-    def request_token(self):
-        querystring = {
-            "order_direction":"desc",
-            "offset":"0",
-            "limit":"20"
-        }
-        response = requests.request("GET", OPENSEA_API_URL, params=querystring)
-        print(response.text)
+    def create_erc721(self, **validated_data):
+        pass
 
 
 class ERC721(models.Model):
@@ -184,14 +172,8 @@ class ERC721(models.Model):
 class ERC1155Manager(models.Manager):
     """ Represents a basic ERC1155 Model Manager."""
     
-    def request_token(self):
-        querystring = {
-            "order_direction":"desc",
-            "offset":"0",
-            "limit":"20"
-        }
-        response = requests.request("GET", OPENSEA_API_URL, params=querystring)
-        print(response.text)
+    def create_erc1155(self, **validated_data):
+        pass
 
 
 class ERC1155(models.Model):
