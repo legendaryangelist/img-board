@@ -20,7 +20,7 @@ class BoardAdmin(admin.ModelAdmin):
         (_('Base Info'), {'fields': ('tag', 'id_hex')}),
         (_('Creation Info'), {'fields': ('creator','created','updated', 'link',)}),
         (_('Board Info'), {'fields': ('isPrivate','title','description', 'maxThreads',)}),
-        (_('Image Info'), {'fields': ('fileName','thumbnail','image',)}),
+        (_('Image Info'), {'fields': ('fileName', 'thumbnail', 'avatar', 'image',)}),
     ]
     form = BoardForm
     formfield_overrides = {
@@ -42,7 +42,7 @@ class ThreadAdmin(admin.ModelAdmin):
         (_('Base Info'), {'fields': ('id_hex', )}),
         (_('Creation Info'), {'fields': ('creator','created','updated', 'link',)}),
         (_('Thread Info'), {'fields': ('isPinned','isPruned','subject', 'text', 'maxPosts', 'board',)}),
-        (_('Image Info'), {'fields': ('fileName','thumbnail','image',)}),
+        (_('Image Info'), {'fields': ('fileName', 'thumbnail', 'avatar', 'image',)}),
     ]
     form = BoardForm
     formfield_overrides = {
@@ -65,7 +65,7 @@ class PostAdmin(admin.ModelAdmin):
         (_('Base Info'), {'fields': ('id_hex', )}),
         (_('Creation Info'), {'fields': ('creator','created','updated', 'link',)}),
         (_('Post Info'), {'fields': ('text', 'board', 'thread', 'replyto',)}),
-        (_('Image Info'), {'fields': ('fileName','thumbnail','image',)}),
+        (_('Image Info'), {'fields': ('fileName', 'thumbnail', 'avatar', 'image',)}),
     ]
     form = BoardForm
     formfield_overrides = {
