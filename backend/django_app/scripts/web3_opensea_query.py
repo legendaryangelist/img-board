@@ -23,11 +23,19 @@ else:
 
 import json
 import requests
+from datetime import datetime
+
+def start_timer():
+    return datetime.now()
+
+def print_time(start):
+    print('Runtime in seconds => ' + str(datetime.now() - start))
 
 addressIndex = 0
 
-url = OPENSEA_API_URL + "?X-API-KEY=" + OPENSEA_API_KEY
+url = OPENSEA_API_URL # + "?X-API-KEY=" + OPENSEA_API_KEY
 querystring = {
+    "X-API-KEY":OPENSEA_API_KEY,
     "owner":ETH_ADDRESS_LIST[addressIndex],
     "order_direction":"desc",
     "offset":"0",
@@ -37,12 +45,14 @@ querystring = {
 print("Querying Opensea =>")
 print("URL: " + url)
 print("Address: " + ETH_ADDRESS_LIST[addressIndex])
+startTime = datetime.now()
 response = requests.request("GET", url, params=querystring)
 
 dumpFile = "scripts_dump.txt"
 print("Writing response to =>", dumpFile)
 
 with open(dumpFile, "w") as f:
+    f.write("Time: " + str(datetime.now()) + '\n')
     f.write("URL: " + url + '\n')
     f.write("Address: " + ETH_ADDRESS_LIST[addressIndex] + '\n')
     respJSON = response.json()
@@ -53,6 +63,7 @@ with open(dumpFile, "w") as f:
             f.write("-"*20 + ' ' + str(itemCount) + ' ' + "-"*20 + '\n')
             f.write(json.dumps(item, indent = 4) + '\n')
             itemCount += 1
+print('Runtime in seconds => ' + str(datetime.now() - startTime))
 print("Done")
 
 
