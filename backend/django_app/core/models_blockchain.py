@@ -31,8 +31,9 @@ class WalletManager(models.Manager):
         else:
             OPENSEA_API_KEY = ""
 
-        url = OPENSEA_API_URL + "?X-API-KEY=" + OPENSEA_API_KEY
+        url = OPENSEA_API_URL
         querystring = {
+            "X-API-KEY":OPENSEA_API_KEY,
             "owner":address,
             "order_direction":"desc",
             "offset":"0",
@@ -44,6 +45,15 @@ class WalletManager(models.Manager):
             for key in respJSON:
                 itemCount = 1
                 for item in respJSON[key]:
+
+                    asset_contract  = item.get("asset_contract")
+                    if asset_contract["schema_name"] == "ERC721":
+                        pass
+                    elif asset_contract["schema_name"] == "ERC1155":
+                        pass
+                    else:
+                        pass
+
                     id = item.get("id")
                     token_id = item.get("token_id")
                     num_sales = item.get("num_sales")
@@ -53,7 +63,6 @@ class WalletManager(models.Manager):
                     name  = item.get("name")
                     description  = item.get("description")
                     external_link  = item.get("external_link")
-                    asset_contract  = item.get("asset_contract")
                     owner  = item.get("owner")
                     permalink  = item.get("permalink")
                     collection  = item.get("collection")

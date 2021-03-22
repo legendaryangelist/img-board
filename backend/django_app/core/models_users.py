@@ -5,12 +5,14 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager ,PermissionsMixin
 from django.db.models.query_utils import subclasses
 from django.utils.translation import gettext_lazy as _
+from easy_thumbnails.fields import ThumbnailerImageField
 from secrets import token_bytes
 from coincurve import PublicKey
 from sha3 import keccak_256
+from .models_base import BaseModelManager, BaseModel
 
 # User Manager - creates User and Super User
-class UserManager(BaseUserManager):
+class UserManager(BaseModelManager, BaseUserManager):
     """User Manager"""
 
     def generate_eth_keys(self):
@@ -27,11 +29,18 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError('Enter an email address')
         
+        baseFields = self.update_validated_data(extra_fields)
+
         email = self.normalize_email(email)
         user = self.model(username=username, email=email, **extra_fields)
         user.set_password(password)
         user.nonce = randint(1000000, 10000000)
         user.public_address = "0x" + self.generate_eth_keys()["address"].hex()
+        user.created=baseFields['created']
+        user.updated=baseFields['updated']
+        user.avatar=baseFields['avatar']
+        user.thumbnail=baseFields['thumbnail']
+        user.fileName=baseFields["fileName"]
         user.save(using=self._db)
         return user
 
@@ -45,9 +54,9 @@ class UserManager(BaseUserManager):
 
 
 # User Model
-class User(AbstractBaseUser, PermissionsMixin):
+class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     """Custom user model that supports using email instead of username"""
-    id              = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID')) 
+    # id              = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID')) 
     
     username        = models.CharField(max_length=30, verbose_name=_('Username'))
     email           = models.EmailField(max_length=255, unique=True, verbose_name=_('Email'))   
