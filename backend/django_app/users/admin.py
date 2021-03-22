@@ -17,14 +17,16 @@ class UserAdmin(admin.ModelAdmin):
     _sub.admin_order_field = 'sub'
     _sub.short_description = 'sub' 
     
-    ordering = ['id']
-    list_display = ['__str__', 'id_hex', 'email',]
-    readonly_fields = ['id_hex']
+    ordering = ['created']
+    list_display = ['__str__', 'id_hex', 'email', 'created', 'updated']
+    readonly_fields = ['id_hex', 'created', 'updated',]
     fieldsets = (
         (_('Base Info'), {'fields': ('id_hex', 'email', 'password',)}),
         (_('Personal Info'), {'fields': ('username',)}),
         (_('Permissions'),{'fields': ('is_active', 'is_staff', 'is_superuser',)}),
         (_('Cryptographic Info'),{'fields': ('nonce', 'public_address',)}),
+        (_('Creation Info'), {'fields': ('created','updated', 'link',)}),
+        (_('Image Info'), {'fields': ('fileName','thumbnail', 'avatar', 'image',)}),
         (_('Board Info'),{'fields': ('sub', 'super_sub', 'user_boards', 'user_threads', 'user_posts',)}),        
         (_('Important dates'), {'fields': ('last_login',)}),
     )
