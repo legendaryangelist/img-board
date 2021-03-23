@@ -104,4 +104,4 @@ RINKEBY_WS              = "wss://rinkeby-light.eth.linkpool.io/ws"
 
 OPENSEA_API_URL         = "https://api.opensea.io/api/v1/assets"
 
-LIMIT_OPENSEA           = "25"  # default is 20, caps at 50
+LIMIT_OPENSEA           = "30"  # default is 20, caps at 50

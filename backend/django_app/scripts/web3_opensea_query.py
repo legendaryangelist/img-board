@@ -16,6 +16,8 @@ ETH_ADDRESS_LIST = settings.ETH_ADDRESS_LIST
 
 OPENSEA_API_URL = settings.OPENSEA_API_URL
 
+LIMIT_OPENSEA = settings.LIMIT_OPENSEA
+
 if hasattr(settings, 'OPENSEA_API_KEY'):
     OPENSEA_API_KEY = settings.OPENSEA_API_KEY
 else:
@@ -31,7 +33,7 @@ def start_timer():
 def print_time(start):
     print('Runtime in seconds => ' + str(datetime.now() - start))
 
-addressIndex = 0
+addressIndex = 2
 
 url = OPENSEA_API_URL # + "?X-API-KEY=" + OPENSEA_API_KEY
 querystring = {
@@ -39,7 +41,7 @@ querystring = {
     "owner":ETH_ADDRESS_LIST[addressIndex],
     "order_direction":"desc",
     "offset":"0",
-    "limit":"20"
+    "limit":LIMIT_OPENSEA
     }
 
 print("Querying Opensea =>")

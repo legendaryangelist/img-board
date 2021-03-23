@@ -47,7 +47,7 @@ class WalletManager(models.Manager):
                 for item in respJSON[key]:
 
                     asset_contract  = item.get("asset_contract")
-                    if asset_contract["schema_name"] == "ERC721":
+                    if asset_contract["schema_name"] == "NFT":
                         pass
                     elif asset_contract["schema_name"] == "ERC1155":
                         pass
@@ -122,45 +122,45 @@ class Wallet(models.Model):
 
 
 # -------------------------------------------------
-# ---------------------- ERC20 --------------------
+# ---------------------- ETH --------------------
 # -------------------------------------------------
-class ERC20Manager(models.Manager):
-    """ Represents a basic ERC20 Model Manager."""
+class ETHManager(models.Manager):
+    """ Represents a basic ETH Model Manager. Contains data of ETH and other ERC20 Tokens by Address."""
     
-    def create_erc20(self, **validated_data):
+    def create_ETH(self, **validated_data):
         pass
 
 
-class ERC20(models.Model):
-    """ Represents a basic ERC20 Model. """
+class ETH(models.Model):
+    """ Represents a basic ETH Model. """
 
     id      = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID'))
-    wallet  = models.ForeignKey(Wallet, related_name='erc20', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Wallet'))
+    wallet  = models.ForeignKey(Wallet, related_name='ETH', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Wallet'))
 
-    objects = ERC20Manager()
+    objects = ETHManager()
 
     def __str__(self):
         return str(id)
 
 
 # ----------------------------------------------------
-# ---------------------- ERC721 ----------------------
+# ---------------------- NFT ----------------------
 # ----------------------------------------------------
-class ERC721Manager(models.Manager):
-    """ Represents a basic ERC721 Model Manager."""
+class NFTManager(models.Manager):
+    """ Represents a basic NFT Model Manager. Contains data of ERC721 and ERC1155 holdings by Address. """
     
-    def create_erc721(self, **validated_data):
+    def create_NFT(self, **validated_data):
         pass
 
 
-class ERC721(models.Model):
-    """ Represents a basic ERC721 Model. """
+class NFT(models.Model):
+    """ Represents a basic NFT Model. """
 
     id      = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID'))
-    wallet  = models.ForeignKey(Wallet, related_name='erc721', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Wallet'))
+    wallet  = models.ForeignKey(Wallet, related_name='NFT', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Wallet'))
     name    = models.CharField(default=None, max_length=255, verbose_name=_('Name'))
 
-    # token_id              - The token ID of the ERC721 asset
+    # token_id              - The token ID of the NFT asset
     # image_url             - An image for the item
     # background_color      - The background color to be displayed with the item
       
@@ -170,31 +170,10 @@ class ERC721(models.Model):
     # traits                - A list of traits associated with the item (see traits section) -> json = JSONField()
     # last_sale             - When this item was last sold (null if there was no last sale)
 
-    objects = ERC721Manager()
+    objects = NFTManager()
 
     def __str__(self):
         return str(id)
 
-# -------------------------------------------------
-# ---------------------- ERC721 ----------------------
-# -------------------------------------------------
-class ERC1155Manager(models.Manager):
-    """ Represents a basic ERC1155 Model Manager."""
-    
-    def create_erc1155(self, **validated_data):
-        pass
-
-
-class ERC1155(models.Model):
-    """ Represents a basic ERC1155 Model. """
-
-    id      = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID'))
-    wallet  = models.ForeignKey(Wallet, related_name='erc1155', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Wallet'))
-    name    = models.CharField(default=None, max_length=255, verbose_name=_('Name'))
-
-    objects = ERC1155Manager()
-
-    def __str__(self):
-        return str(id)
 
     
