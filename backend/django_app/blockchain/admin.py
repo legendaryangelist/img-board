@@ -7,6 +7,7 @@ class WalletAdmin(admin.ModelAdmin):
     
     ordering = ['id']
     list_display = ['id',]
+    readonly_fields = ['id',]
     fieldsets = (
         (_('Base Info'), {'fields': ('id',)}),
         (_('Wallet Info'),{'fields': ('address',)}),
@@ -19,6 +20,7 @@ class ETHAdmin(admin.ModelAdmin):
     
     ordering = ['id']
     list_display = ['id',]
+    readonly_fields = ['id',]
     fieldsets = (
         (_('Base Info'), {'fields': ('id',)}),
         (_('Wallet Info'),{'fields': ('wallet',)}),
@@ -30,6 +32,7 @@ class NFTAdmin(admin.ModelAdmin):
     
     ordering = ['id']
     list_display = ['id',]
+    readonly_fields = ['id',]
     fieldsets = (
         (_('Base Info'), {'fields': ('id',)}),
         (_('Wallet Info'),{'fields': ('wallet',)}),

@@ -7,7 +7,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
-
+from django.contrib.postgres.fields import ArrayField
 
 
 # ----------------------------------------------------
@@ -31,52 +31,32 @@ class WalletManager(models.Manager):
         else:
             OPENSEA_API_KEY = ""
 
+        LIMIT_OPENSEA = settings.LIMIT_OPENSEA
+
         url = OPENSEA_API_URL
         querystring = {
             "X-API-KEY":OPENSEA_API_KEY,
             "owner":address,
             "order_direction":"desc",
             "offset":"0",
-            "limit":"20"    # TODO modify order limit, caps at 50
+            "limit":LIMIT_OPENSEA
         }
         response = requests.request("GET", url, params=querystring)
         if response.ok:
             respJSON = response.json()
             for key in respJSON:
-                itemCount = 1
                 for item in respJSON[key]:
-
                     asset_contract  = item.get("asset_contract")
-                    if asset_contract["schema_name"] == "NFT":
-                        pass
-                    elif asset_contract["schema_name"] == "ERC1155":
-                        pass
-                    else:
-                        pass
-
-                    id = item.get("id")
-                    token_id = item.get("token_id")
-                    num_sales = item.get("num_sales")
-                    image_url = item.get("image_url")
-                    image_thumbnail_url = item.get("image_thumbnail_url")
-                    animation_url  = item.get("animation_url")
-                    name  = item.get("name")
-                    description  = item.get("description")
-                    external_link  = item.get("external_link")
-                    owner  = item.get("owner")
-                    permalink  = item.get("permalink")
-                    collection  = item.get("collection")
-                    top_bid  = item.get("top_bid")
-                    decimals  = item.get("decimals")
-                    sell_orders  = item.get("sell_orders")
-                    traits  = item.get("traits")
-                    last_sale  = item.get("last_sale")
-                    top_bid  = item.get("top_bid")
-                    listing_date  = item.get("listing_date")
-                    is_presale  = item.get("is_presale")
-                    transfer_fee_payment_token  = item.get("transfer_fee_payment_token")
-                    transfer_fee  = item.get("transfer_fee")
-                    itemCount += 1
+                    if asset_contract["schema_name"] == "ERC721" or asset_contract["schema_name"] == "ERC1155":
+                        mutex.acquire()
+                        try:
+                            NFT.objects.get_or_create(
+                                wallet=walletID,
+                                erc_type=asset_contract["schema_name"],
+                                asset_onject=item,
+                            )[0]
+                        finally:
+                            mutex.release()
 
 
     def create_wallet(self, **validated_data):
@@ -132,7 +112,7 @@ class ETHManager(models.Manager):
 
 
 class ETH(models.Model):
-    """ Represents a basic ETH Model. """
+    """ Represents a basic ETH Model. Contains data of ETH and other ERC20 Tokens by Address. """
 
     id      = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID'))
     wallet  = models.ForeignKey(Wallet, related_name='ETH', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Wallet'))
@@ -154,21 +134,37 @@ class NFTManager(models.Manager):
 
 
 class NFT(models.Model):
-    """ Represents a basic NFT Model. """
+    """ 
+    Represents a basic NFT Model.  
+    Contains data of ERC721 and ERC1155 holdings by Address. 
+    Queried from Opensea API. 
+    """
 
     id      = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID'))
     wallet  = models.ForeignKey(Wallet, related_name='NFT', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Wallet'))
-    name    = models.CharField(default=None, max_length=255, verbose_name=_('Name'))
+    
+    erc_type        = models.CharField(default=None, max_length=7, verbose_name=_('ERC Type'))
+    asset_object    = models.JSONField(default=dict, verbose_name=_('Asset Object'))
 
-    # token_id              - The token ID of the NFT asset
-    # image_url             - An image for the item
-    # background_color      - The background color to be displayed with the item
-      
-    # external_link         - External link to the original website for the item
-    # asset_contract        - Dictionary of data on the contract itself (see asset contract section)
-    # owner                 - Dictionary of data on the owner (see account section)
-    # traits                - A list of traits associated with the item (see traits section) -> json = JSONField()
-    # last_sale             - When this item was last sold (null if there was no last sale)
+    # nft_id              = models.IntegerField(default=None, verbose_name=_('NFT ID'))
+    # token_id            = models.CharField(default=None, max_length=255, verbose_name=_('Token ID'))
+    # num_sales           = models.IntegerField(default=None, verbose_name=_('Num Sales'))
+    # background_color    = models.CharField(default=None, max_length=7, verbose_name=_('Background Color'))
+    # image_url           = models.URLField(default=None, verbose_name=_('Image URL'))
+    # image_preview_url   = models.URLField(default=None, verbose_name=_('Image Preview URL'))
+    # image_thumbnail_url = models.URLField(default=None, verbose_name=_('Image Thumbnail URL'))
+    # image_original_url  = models.URLField(default=None, verbose_name=_('Image Original URL'))
+    # animation_url       = models.URLField(default=None, verbose_name=_('Animation URL'))
+    # animation_original_url    = models.URLField(default=None, verbose_name=_('Animation Original URL'))
+    # name                = models.CharField(default=None, max_length=255, verbose_name=_('Name'))
+    # description         = models.CharField(default=None, max_length=1000, verbose_name=_('Description'))
+    # external_link       = models.URLField(default=None, verbose_name=_('External Link'))
+    # asset_contract      = models.JSONField(default=dict, verbose_name=_('Asset Contract'))
+    # owner               = models.JSONField(default=dict, verbose_name=_('Owner'))
+    # permalink           = models.URLField(default=None, verbose_name=_('Permaink'))
+    # collection          = models.JSONField(default=dict, verbose_name=_('Collection'))
+    # decimals            = models.IntegerField(default=None, verbose_name=_('Decimals'))
+    # sell_orders         = ArrayField(base_field=models.JSONField(default=dict), verbose_name='Sell Orders')
 
     objects = NFTManager()
 

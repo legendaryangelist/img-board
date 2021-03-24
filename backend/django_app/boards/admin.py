@@ -14,15 +14,16 @@ class BoardAdmin(admin.ModelAdmin):
     id_hex.short_description = 'ID' 
 
     ordering = ['created']
-    list_display = ['__str__', 'tag', 'id_hex', 'creator', 'created', 'updated']
-    readonly_fields = ['tag', 'id_hex', 'created', 'updated',]
+    list_display = ['__str__', 'tag', 'id_hex', 'creator', 'created', 'updated',]
+    readonly_fields = ['id_hex', 'created', 'updated',]
     fieldsets = [
-        (_('Base Info'), {'fields': ('tag', 'id_hex')}),
+        (_('Base Info'), {'fields': ('tag', 'id_hex',)}),
         (_('Creation Info'), {'fields': ('creator','created','updated', 'link',)}),
         (_('Board Info'), {'fields': ('isPrivate','title','description', 'maxThreads',)}),
         (_('Image Info'), {'fields': ('fileName', 'thumbnail', 'avatar', 'image',)}),
     ]
     form = BoardForm
+
     formfield_overrides = {
         ThumbnailerImageField: {'widget': ImageClearableFileInput},
     }
