@@ -24,7 +24,7 @@ class BaseModelManager(models.Manager):
     """ Represents a basic manager model."""
     
     def update_image_data(self, validated_data):
-        if validated_data["image"]:
+        if validated_data.get("image"):
             if validated_data["image"].name.find(".") == -1 or \
                validated_data["image"].name.split(".")[-1].lower() not in ALLOWED_EXTENSIONS:
                 raise ValidationError(message="Image must be '.jpg', '.jpeg', '.gif', or '.png'")

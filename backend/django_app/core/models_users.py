@@ -30,7 +30,7 @@ class UserManager(BaseModelManager, BaseUserManager):
             raise ValueError('Enter an email address')
         
         baseFields = self.update_validated_data(extra_fields)
-
+        
         email = self.normalize_email(email)
         user = self.model(username=username, email=email, **extra_fields)
         user.set_password(password)
