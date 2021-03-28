@@ -1,5 +1,6 @@
 import React from 'react';
 import Web3 from 'web3';
+import * as settings from '../settings';
 
 export default function CheckWeb3(props) {
     var web3 = new Web3();
@@ -19,17 +20,17 @@ export default function CheckWeb3(props) {
     }
     // Non-DApp Browsers
     else {
-        alert("You have to install MetaMask !");
+        alert("You have to install MetaMask!");
     }
     window.ethereum.enable();
-    console.log(" typoe of = ", typeof web3);
+    console.log("type of = ", typeof web3);
 
     if (typeof web3 != "undefined") {
         this.web3Provider = web3.currentProvider;
         window.ethereum.enable();
     } 
     else {
-        this.web3Provider = new Web3.providers.HttpProvider("http://127.0.0.1:8545"); // TODO: fix to infura websocket
+        this.web3Provider = new Web3.providers.WebsocketProvider(settings.INFURA_WEBSOCKET_API);
         window.ethereum.enable();
     }
 

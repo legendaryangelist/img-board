@@ -6,6 +6,7 @@ import * as actions from "./store/authActions";
 import { BrowserRouter, Switch, Route, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./css/app.css";
+
 function App(props) {
   // Similar to componentDidMount and componentDidUpdate:
   React.useEffect(() => {

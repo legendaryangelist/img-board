@@ -12,7 +12,7 @@ const Boards = (props) => {
   const boardData = useSelector((state) => state.appstate.boardData);
   const boardSearch = useSelector((state) => state.appstate.boardSearch);
   const { board } = props;
-
+  
   useEffect(() => {
     getBoardData()(dispatch);
   }, []);
