@@ -102,7 +102,7 @@ class Wallet(models.Model):
 
 
 # -------------------------------------------------
-# ---------------------- ETH --------------------
+# ---------------------- ETH ----------------------
 # -------------------------------------------------
 class ETHManager(models.Manager):
     """ Represents a basic ETH Model Manager. Contains data of ETH and other ERC20 Tokens by Address."""
@@ -145,26 +145,6 @@ class NFT(models.Model):
     
     erc_type        = models.CharField(default=None, max_length=7, verbose_name=_('ERC Type'))
     asset_object    = models.JSONField(default=dict, verbose_name=_('Asset Object'))
-
-    # nft_id              = models.IntegerField(default=None, verbose_name=_('NFT ID'))
-    # token_id            = models.CharField(default=None, max_length=255, verbose_name=_('Token ID'))
-    # num_sales           = models.IntegerField(default=None, verbose_name=_('Num Sales'))
-    # background_color    = models.CharField(default=None, max_length=7, verbose_name=_('Background Color'))
-    # image_url           = models.URLField(default=None, verbose_name=_('Image URL'))
-    # image_preview_url   = models.URLField(default=None, verbose_name=_('Image Preview URL'))
-    # image_thumbnail_url = models.URLField(default=None, verbose_name=_('Image Thumbnail URL'))
-    # image_original_url  = models.URLField(default=None, verbose_name=_('Image Original URL'))
-    # animation_url       = models.URLField(default=None, verbose_name=_('Animation URL'))
-    # animation_original_url    = models.URLField(default=None, verbose_name=_('Animation Original URL'))
-    # name                = models.CharField(default=None, max_length=255, verbose_name=_('Name'))
-    # description         = models.CharField(default=None, max_length=1000, verbose_name=_('Description'))
-    # external_link       = models.URLField(default=None, verbose_name=_('External Link'))
-    # asset_contract      = models.JSONField(default=dict, verbose_name=_('Asset Contract'))
-    # owner               = models.JSONField(default=dict, verbose_name=_('Owner'))
-    # permalink           = models.URLField(default=None, verbose_name=_('Permaink'))
-    # collection          = models.JSONField(default=dict, verbose_name=_('Collection'))
-    # decimals            = models.IntegerField(default=None, verbose_name=_('Decimals'))
-    # sell_orders         = ArrayField(base_field=models.JSONField(default=dict), verbose_name='Sell Orders')
 
     objects = NFTManager()
 
