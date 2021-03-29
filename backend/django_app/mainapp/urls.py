@@ -23,9 +23,9 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested.routers import NestedSimpleRouter
 
-from users.views import *
-from boards.views import *
-from blockchain.views import *
+from users.views import LoginUserView, LogoutUserView, PasswordUpdateUserView, CreateUserView, ListUserView, CreateTokenView, ManageUserView
+from boards.views import BoardViewSet, ThreadViewSet, PostViewSet
+from blockchain.views import WalletViewSet
 
 default_router = DefaultRouter()
 
