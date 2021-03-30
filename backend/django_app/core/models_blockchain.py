@@ -53,7 +53,7 @@ class WalletManager(models.Manager):
                             NFT.objects.get_or_create(
                                 wallet=walletID,
                                 erc_type=asset_contract["schema_name"],
-                                asset_onject=item,
+                                asset_object=item,
                             )[0]
                         finally:
                             mutex.release()
@@ -77,7 +77,7 @@ class WalletManager(models.Manager):
             )[0]
 
         wallet.save(using=self._db)
-        walletID = wallet.id
+        walletID = wallet
         mutex = threading.Lock()
         threading.Thread(target=self.queryWeb3, args=(address, walletID, mutex)).start()
         threading.Thread(target=self.queryEtherscan, args=(address, walletID, mutex)).start()
