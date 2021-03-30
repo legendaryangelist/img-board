@@ -1,6 +1,6 @@
 import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
-
+import CheckWeb3 from "./Web3Utils";
 function Home() {
   return (
     <React.Fragment>
@@ -22,6 +22,7 @@ function Home() {
           alt="rein"
           height="200"
         />
+        <button onClick={() => CheckWeb3()}>meta</button>
       </div>
     </React.Fragment>
   );
