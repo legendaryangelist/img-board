@@ -4,6 +4,7 @@ import { useHistory, useParams, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { useSelector } from "react-redux";
+import Posts from "./Posts";
 const Thread = (props) => {
   const params = useParams();
   const history = useHistory();
@@ -21,14 +22,11 @@ const Thread = (props) => {
           style={{ width: "18vw", height: "150px" }}
           className="bg-dark text-white"
         >
-          <Card.ImgOverlay style={{}}>
-            <Card.Title style={{}}>{thread.id}</Card.Title>
-            <Card.Title style={{}}>
-              {thread.subject.substring(0, 20)}
-            </Card.Title>
-            <Card.Text>{thread.text.substring(0, 20)}</Card.Text>
-          </Card.ImgOverlay>
+          <Card.Title style={{}}>{thread.id}</Card.Title>
+          <Card.Title style={{}}>{thread.subject.substring(0, 20)}</Card.Title>
+          <Card.Text>{thread.text.substring(0, 20)}</Card.Text>
         </Card>
+        <Posts threadid={thread.id}></Posts>
       </Container>
       <br />
     </div>
