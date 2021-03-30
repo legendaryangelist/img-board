@@ -16,13 +16,13 @@ from django.contrib.postgres.fields import ArrayField
 class WalletManager(models.Manager):
     """ Represents a basic Wallet Model Manager."""
     
-    def queryWeb3(address, walletID, mutex):
+    def queryWeb3(self, address, walletID, mutex):
         pass
 
-    def queryEtherscan(address, walletID, mutex):
+    def queryEtherscan(self, address, walletID, mutex):
         pass
 
-    def queryOpensea(address, walletID, mutex):
+    def queryOpensea(self, address, walletID, mutex):
         # From settings.py
         OPENSEA_API_URL = settings.OPENSEA_API_URL
 

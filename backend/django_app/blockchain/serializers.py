@@ -12,7 +12,7 @@ class WalletSerializer(serializers.ModelSerializer):
         fields = (
             'id', 
             'user',
-            'wallet_address', 
+            'address', 
         )
         read_only_Fields = ('id',)
         extra_kwargs = {

@@ -6,10 +6,11 @@ class WalletAdmin(admin.ModelAdmin):
     """Wallet model admin"""
     
     ordering = ['id']
-    list_display = ['id',]
+    list_display = ['id', 'address',]
     readonly_fields = ['id',]
     fieldsets = (
         (_('Base Info'), {'fields': ('id',)}),
+        (_('User Info'), {'fields': ('user',)}),
         (_('Wallet Info'),{'fields': ('address',)}),
     )
     
