@@ -5,16 +5,19 @@ import { connect, useSelector, useDispatch } from "react-redux";
 import { getBoard } from "../store/appReducer";
 import { useHistory, Link } from "react-router-dom";
 import { getBoardData } from "../store/dataActions/boardData";
-
+import { getUserData } from "../store/dataActions/userData";
+import { getPostDatas } from "../store/dataActions/postData";
 const Boards = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const boardData = useSelector((state) => state.appstate.boardData);
   const boardSearch = useSelector((state) => state.appstate.boardSearch);
   const { board } = props;
-  
+
   useEffect(() => {
     getBoardData()(dispatch);
+    getUserData()(dispatch);
+    getPostDatas()(dispatch);
   }, []);
   return (
     <div>

@@ -19,7 +19,9 @@ import { useHistory, Link } from "react-router-dom";
 import MidBar from "./MidBar";
 import { searchBoard } from "../store/appActions";
 import { useDispatch } from "react-redux";
-
+import { Nav, NavDropdown } from "react-bootstrap";
+import { SidebarData } from "./UserBarData";
+import { MdLocalGroceryStore } from "react-icons/md";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -136,6 +138,9 @@ export default function TopBar(props) {
           >
             <MdFavorite />
           </IconButton>
+          <IconButton color="inherit">
+            <MdLocalGroceryStore />
+          </IconButton>
 
           {props.isAuthenticated ? (
             <Button color="inherit" href="/password_update">
@@ -148,6 +153,21 @@ export default function TopBar(props) {
             </Button>
           ) : null}
         </Toolbar>
+        {/* <Nav pullRight>
+          <NavDropdown
+            eventKey={1}
+            title={
+              <div className="pull-left">
+                <img className="thumbnail-image" src={} alt="user pic" />
+
+                {userData.Username}
+              </div>
+            }
+            id="basic-nav-dropdown"
+          >
+            <SidebarData />
+          </NavDropdown>
+        </Nav> */}
       </AppBar>
     </div>
   );
