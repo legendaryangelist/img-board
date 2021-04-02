@@ -6,29 +6,31 @@ import { addPosts, editPost } from "../store/appActions";
 import { useHistory, useParams } from "react-router-dom";
 
 
-const PostFrom = (props) => {
+const PostForm = (props) => {
   const { onAddPosts, editPost } = props;
-  const [title, settitle] = useState("");
-  const [text, settext] = useState("");
+
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
   const [nickname, setnickname] = useState("");
-  const postArr = useSelector((state) => {
-    return state.appstate.postArr;
+
+  const postData = useSelector((state) => {
+    return state.appstate.postData;
   });
   const history = useHistory();
   const params = useParams();
 
   useEffect(() => {
     if (+params.postid > 0) {
-      const filteredpost = postArr.find((e) => e.id === +params.postid);
+      const filteredpost = postData.find((e) => e.id === +params.postid);
       if (filteredpost) {
-        settitle(filteredpost.title);
-        settext(filteredpost.text);
+        setTitle(filteredpost.title);
+        setText(filteredpost.text);
         setnickname(filteredpost.nickname);
       }
     }
-  }, [params]);
+  }, [params, postData]);
 
-  const buttonfun = () => {
+  const buttonFunc = () => {
     if (+params.postid > 0) {
       editPost({
         title,
@@ -49,10 +51,10 @@ const PostFrom = (props) => {
         <Form.Control
           className="InpTextForm1"
           value={title}
-          onChange={(e) => settitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
           size="lg"
           type="text"
-          placeholder="title"
+          placeholder="Title"
           style={{
             backgroundColor: "#D8D8D8",
             color: "black",
@@ -65,9 +67,9 @@ const PostFrom = (props) => {
           className="InpTextForm1"
           value={text}
           size="xl"
-          onChange={(e) => settext(e.target.value)}
+          onChange={(e) => setText(e.target.value)}
           type="text"
-          placeholder=" text"
+          placeholder="Text"
           style={{
             backgroundColor: "#D8D8D8",
             color: "black",
@@ -91,7 +93,9 @@ const PostFrom = (props) => {
             marginLeft: "450px",
           }}
         />
-        <Button onClick={() => buttonfun()}>send</Button>
+        <Button onClick={() => buttonFunc()}>
+          Send
+        </Button>
       </Form.Group>
     </>
   );
@@ -105,4 +109,4 @@ const redux = (dispatch) =>
     },
     dispatch
   );
-export default connect(null, redux)(PostFrom);
+export default connect(null, redux)(PostForm);

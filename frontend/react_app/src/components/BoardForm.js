@@ -13,7 +13,7 @@ const BoardForm = (props) => {
   const [description, setdescription] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
-  const buttonfun = () => {
+  const buttonFunc = () => {
     postBoardData({ title, description })(dispatch);
     history.push("/boards");
   };
@@ -52,7 +52,7 @@ const BoardForm = (props) => {
         />
         <br />
         <Form.File id="exampleFormControlFile1" />
-        <Button className="SendButton" onClick={() => buttonfun()}>
+        <Button className="SendButton" onClick={() => buttonFunc()}>
           Send
         </Button>
       </Form.Group>

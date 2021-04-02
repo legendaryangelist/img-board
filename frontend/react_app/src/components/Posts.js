@@ -22,7 +22,7 @@ const Posts = (props) => {
   const thread = useSelector((state) =>
     state.appstate.threadData.find((e) => e.id === threadid)
   );
-  console.log(postData);
+  
   useEffect(() => {
     getPostData(thread.board.split("-").join(""), threadid)(dispatch);
   }, []);

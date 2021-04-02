@@ -4,7 +4,7 @@ import Login from "./components/Login";
 import PasswordUpdate from "./components/PasswordUpdate";
 import Home from "./components/Home";
 import Posts from "./components/Posts";
-import PostFrom from "./components/PostForm";
+import PostForm from "./components/PostForm";
 import Favorites from "./components/Favorites";
 import Board from "./components/Board";
 import Boards from "./components/Boards";
@@ -81,7 +81,7 @@ function Urls(props) {
         </Route>
 
         {/* ----- Thread Form ----- */}
-        <Route exact path="/thread-form/:boardid/:threadid">
+        <Route exact path="/thread-form/:boardid/">
           <ThreadForm />
         </Route>
 
@@ -92,7 +92,7 @@ function Urls(props) {
 
         {/* ----- Post Form ----- */}
         <Route exact path="/post-form/:boardid/:threadid/:postid">
-          <PostFrom />
+          <PostForm />
         </Route>           
 
         {/* ----- Favorites ----- */}

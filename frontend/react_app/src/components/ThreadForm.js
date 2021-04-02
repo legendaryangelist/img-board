@@ -13,7 +13,7 @@ const ThreadForm = (props) => {
   const [text, setdescription] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
-  const buttonfun = () => {
+  const buttonFunc = () => {
     postThreadData(boardid, { title, text })(dispatch);
     history.push("/boards");
   };
@@ -27,7 +27,7 @@ const ThreadForm = (props) => {
           onChange={(e) => settitle(e.target.value)}
           size="lg"
           type="text"
-          placeholder="title"
+          placeholder="Title"
           style={{
             backgroundColor: "#D8D8D8",
             color: "black",
@@ -42,7 +42,7 @@ const ThreadForm = (props) => {
           size="xl"
           onChange={(e) => setdescription(e.target.value)}
           type="text"
-          placeholder=" text"
+          placeholder="Text"
           style={{
             backgroundColor: "#D8D8D8",
             color: "black",
@@ -53,8 +53,8 @@ const ThreadForm = (props) => {
         />
         <br />
         <Form.File id="exampleFormControlFile1" />
-        <Button className="commentButton" onClick={() => buttonfun()}>
-          send
+        <Button className="commentButton" onClick={() => buttonFunc()}>
+          Send
         </Button>
       </Form.Group>
     </>

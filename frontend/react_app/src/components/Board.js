@@ -28,7 +28,7 @@ const Board = (props) => {
 
   // const boards = props.boards || history.location.state.boards;
   const postsData = useSelector((state) => {
-    return state.appstate.postArr;
+    return state.appstate.postData;
   });
 
   const isLoading = useSelector((state) => {
@@ -71,14 +71,14 @@ const Board = (props) => {
             className="commentButton"
             onClick={() => history.push(`/thread-form/${boards.id}`)}
           >
-            add thread
+            Add Thread
           </Button>
           <Button
             style={{ marginLeft: "3px" }}
             className="commentButton"
             onClick={() => addToFavorite()}
           >
-            add to favorites
+            Add To Favorites
           </Button>
         </Row>
         <Row>
