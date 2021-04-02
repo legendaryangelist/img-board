@@ -25,7 +25,8 @@ from rest_framework_nested.routers import NestedSimpleRouter
 
 from users.views import LoginUserView, LogoutUserView, PasswordUpdateUserView, CreateUserView, ListUserView, CreateTokenView, ManageUserView
 from boards.views import BoardViewSet, ThreadViewSet, PostViewSet
-from blockchain.views import WalletViewSet
+from blockchain.views import WalletViewSet, TokenURIViewSet
+
 
 default_router = DefaultRouter()
 
@@ -39,6 +40,11 @@ default_router.register('boards', BoardViewSet, basename='boards')
 # /wallets/{pk}/
 default_router.register('wallets', WalletViewSet, basename='wallets')
 
+## tokenuri Router, generates:
+# /tokenuri/
+# /tokenuri/{pk}/
+default_router.register('tokenuri', TokenURIViewSet, basename='tokenuri')
+
 ## Threads Nested Router, generates:
 # /boards/{boards_pk}/threads/
 # /boards/{boards_pk}/threads/{threads_pk}/
@@ -50,6 +56,7 @@ threads_nested_router.register('threads', ThreadViewSet, basename='threads')
 # /boards/{boards_pk}/threads/{threads_pk}/posts/{posts_pk}/
 posts_nested_router = NestedSimpleRouter(threads_nested_router, 'threads', lookup='threads')
 posts_nested_router.register('posts', PostViewSet, basename='posts')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
