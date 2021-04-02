@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { useSelector } from "react-redux";
 import Posts from "./Posts";
+import Board from "./Board";
 const Thread = (props) => {
   const params = useParams();
   const history = useHistory();
@@ -13,11 +14,11 @@ const Thread = (props) => {
       (e) => e.id === params.threadid || props.thread.id
     );
   });
-  // console.log(thread);
+
   return (
     <div>
       <Container>
-        <Link to={thread.id}>{thread.id}</Link>
+        <Link to={{ pathname: `posts/${thread.id}` }}>{thread.id}</Link>
         <Card
           style={{ width: "18vw", height: "150px" }}
           className="bg-dark text-white"
@@ -26,7 +27,7 @@ const Thread = (props) => {
           <Card.Title style={{}}>{thread.subject.substring(0, 20)}</Card.Title>
           <Card.Text>{thread.text.substring(0, 20)}</Card.Text>
         </Card>
-        <Posts threadid={thread.id}></Posts>
+        <Posts boardid={thread.board} threadid={thread.id}></Posts>
       </Container>
       <br />
     </div>

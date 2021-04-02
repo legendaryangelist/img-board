@@ -9,7 +9,6 @@ export function getThreadDatas(boardid) {
 
   return (dispatch) => {
     threadData.then((data) => {
-      // console.log(data);
       dispatch({ type: "THREAD_DATA", payload: data.data });
       dispatch(actions.stopLoading());
     });
@@ -24,7 +23,6 @@ export function postThreadDatas(boardid, thread) {
 
   return (dispatch) => {
     threadData.then((data) => {
-      console.log(data);
       dispatch({ type: "ADD_THREAD", payload: data.data });
       dispatch(actions.stopLoading());
     });

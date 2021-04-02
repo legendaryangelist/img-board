@@ -18,7 +18,6 @@ const Board = (props) => {
   });
   const addToFavorite = () => {
     favoritePosts.push(boards.id);
-    console.log(favoritePosts);
   };
   const boards = props.boards || board;
 
@@ -74,7 +73,7 @@ const Board = (props) => {
             className="commentBu"
             onClick={() => addToFavorite()}
           >
-            add to fivorits
+            add to favorites
           </Button>
         </Row>
         <Row>

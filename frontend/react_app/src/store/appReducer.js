@@ -3,11 +3,13 @@ import * as actionsTypes from "./appActionTypes";
 import * as settings from "../settings";
 import boardDatas from "./dataActions/boardData";
 import threadDatas from "./dataActions/threadData";
+import postDatas from "./dataActions/postData";
 import userDatas from "./dataActions/userData";
 let threadData = [];
 let boardData = [];
 let postArr = [];
 let userData = [];
+let postData = [];
 const boardSearch = [];
 const postSearch = [];
 const threadSearch = [];
@@ -24,6 +26,7 @@ export const appReducer = (
     threadSearch,
     isLoading: false,
     userData,
+    postData,
   },
   action
 ) => {
@@ -89,7 +92,7 @@ export const appReducer = (
     case actionsTypes.POST_DATA: {
       return {
         ...state,
-        postArr: [...state.postArr, ...action.payload],
+        postData: [...state.postData, ...action.payload],
       };
     }
     case actionsTypes.USER_DATA: {
