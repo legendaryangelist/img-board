@@ -38,7 +38,7 @@ class BoardManager(BaseModelManager):
 
         self.update_validated_data(validated_data)
 
-        if validated_data.has_key('creator'):
+        if 'creator' in validated_data:
             validated_data['creator'] = "Anonymous" if not validated_data['creator'] else validated_data['creator']
         else:
             validated_data['creator'] = "Anonymous"
@@ -167,7 +167,7 @@ class ThreadManager(BaseModelManager):
 
         self.update_validated_data(validated_data)
 
-        if validated_data.has_key('creator'):
+        if 'creator' in validated_data:
             validated_data['creator'] = "Anonymous" if not validated_data['creator'] else validated_data['creator']
         else:
             validated_data['creator'] = "Anonymous"
@@ -249,7 +249,7 @@ class PostManager(BaseModelManager):
     def create_post(self, **validated_data):
         self.update_validated_data(validated_data)
 
-        if validated_data.has_key('creator'):
+        if 'creator' in validated_data:
             validated_data['creator'] = "Anonymous" if not validated_data['creator'] else validated_data['creator']
         else:
             validated_data['creator'] = "Anonymous"
