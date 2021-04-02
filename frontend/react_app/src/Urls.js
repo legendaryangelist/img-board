@@ -22,9 +22,7 @@ function PrivateRoute({ isAuthenticated, children, ...rest }) {
     <Route
       {...rest}
       render={({ location }) =>
-        isAuthenticated ? (
-          children
-        ) : (
+        isAuthenticated ? (children) : (
           <Redirect
             to={{
               pathname: "/login/",
@@ -36,6 +34,7 @@ function PrivateRoute({ isAuthenticated, children, ...rest }) {
     />
   );
 }
+
 
 function Urls(props) {
   const dispatch = useDispatch();
