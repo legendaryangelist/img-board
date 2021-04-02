@@ -161,11 +161,11 @@ class TokenURIManager(models.Manager):
     
     def create_TokenURI(self, **validated_data):
         tokenURI = TokenURI.objects.get_or_create(
-            address=validated_data["address"],
-            name=validated_data["name"],
-            description=validated_data["description"],
-            imageURL=validated_data["imageURL"],
-            traits=validated_data["traits"],
+            address=validated_data.get("address", None),
+            name=validated_data.get("name", None),
+            description=validated_data.get("description", None),
+            imageURL=validated_data.get("imageURL", None),
+            traits=validated_data.get("traits", []),
         )[0]
         tokenURI.save(using=self._db)
         return tokenURI
