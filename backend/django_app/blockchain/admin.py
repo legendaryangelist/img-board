@@ -32,11 +32,12 @@ class NFTAdmin(admin.ModelAdmin):
     """ETH model admin"""
     
     ordering = ['id']
-    list_display = ['id',]
+    list_display = ['id', 'wallet', 'erc_type',]
     readonly_fields = ['id',]
     fieldsets = (
         (_('Base Info'), {'fields': ('id',)}),
         (_('Wallet Info'),{'fields': ('wallet',)}),
+        (_('Chain Info'),{'fields': ('erc_type', 'asset_object',)}),
     )
     
 
