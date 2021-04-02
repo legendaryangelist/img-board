@@ -4,7 +4,9 @@ import { connect, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addBoard } from "../store/appActions";
 import { useHistory } from "react-router-dom";
-import { postThreadDatas } from "../store/dataActions/threadData";
+import { postThreadData } from "../store/dataActions/threadData";
+
+
 const ThreadForm = (props) => {
   const { boardid } = props;
   const [title, settitle] = useState("");
@@ -12,9 +14,10 @@ const ThreadForm = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const buttonfun = () => {
-    postThreadDatas(boardid, { title, text })(dispatch);
+    postThreadData(boardid, { title, text })(dispatch);
     history.push("/boards");
   };
+  
   return (
     <>
       <Form.Group>
@@ -50,7 +53,7 @@ const ThreadForm = (props) => {
         />
         <br />
         <Form.File id="exampleFormControlFile1" />
-        <Button className="commentBu" onClick={() => buttonfun()}>
+        <Button className="commentButton" onClick={() => buttonfun()}>
           send
         </Button>
       </Form.Group>

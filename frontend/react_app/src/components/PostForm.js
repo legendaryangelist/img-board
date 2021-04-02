@@ -4,6 +4,8 @@ import { connect, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addPosts, editPost } from "../store/appActions";
 import { useHistory, useParams } from "react-router-dom";
+
+
 const PostFrom = (props) => {
   const { onAddPosts, editPost } = props;
   const [title, settitle] = useState("");
@@ -39,7 +41,7 @@ const PostFrom = (props) => {
       onAddPosts({ title, text, nickname, boardid: +params.boardid });
     }
 
-    history.push("/forums");
+    // history.push("/forums");
   };
   return (
     <>

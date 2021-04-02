@@ -1,5 +1,7 @@
 import axios from "axios";
 import * as actions from "../appActions";
+
+
 export function getUserData() {
   const userData = axios.get("http://127.0.0.1:8000/api/auth/users/");
 

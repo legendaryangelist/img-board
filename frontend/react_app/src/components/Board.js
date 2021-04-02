@@ -6,19 +6,24 @@ import { bindActionCreators } from "redux";
 import Posts from "./Posts";
 import { useSelector } from "react-redux";
 import Threads from "./Threads";
+
+
 const Board = (props) => {
   const params = useParams();
-
   const history = useHistory();
+
   const board = useSelector((state) => {
     return state.appstate.boardData.find((e) => e.id === params.boardid);
   });
+
   const favoritePosts = useSelector((state) => {
     return state.appstate.favoritePosts;
   });
+
   const addToFavorite = () => {
     favoritePosts.push(boards.id);
   };
+
   const boards = props.boards || board;
 
   // const boards = props.boards || history.location.state.boards;
@@ -63,14 +68,14 @@ const Board = (props) => {
             </Card.ImgOverlay>
           </Card>
           <Button
-            className="commentBu"
-            onClick={() => history.push(`/threadpost/${boards.id}`)}
+            className="commentButton"
+            onClick={() => history.push(`/thread-form/${boards.id}`)}
           >
             add thread
           </Button>
           <Button
             style={{ marginLeft: "3px" }}
-            className="commentBu"
+            className="commentButton"
             onClick={() => addToFavorite()}
           >
             add to favorites
@@ -84,5 +89,6 @@ const Board = (props) => {
     </div>
   );
 };
+
 const redux = (dispatch) => bindActionCreators({}, dispatch);
 export default connect(null, redux)(Board);

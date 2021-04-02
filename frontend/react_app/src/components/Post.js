@@ -4,8 +4,9 @@ import { connect, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addToFavorites, deletePost } from "../store/appActions";
 import { useHistory } from "react-router";
+
 const Post = (props) => {
-  const { posts, onaddToFavorites, ondeletePost } = props;
+  const { posts, onAddToFavorites, onDeletePost } = props;
   const history = useHistory();
   const postsData = useSelector((state) => {
     return state.appstate.postsData;
@@ -18,33 +19,27 @@ const Post = (props) => {
           style={{
             width: "18rem",
             backgroundColor: "#D8D8D8",
-
             margin: "10px 10px 10px 10px",
-          }}
-        >
+          }}>
+
           <Card.Body>
             <Card.Title>{posts.creator}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
               {posts.id}
             </Card.Subtitle>
 
-            <Button
-              className="postBu"
-              onClick={() =>
-                history.push(`/boardpost/${posts.boardid}/${posts.id}`)
-              }
-            >
-              edit
+            <Button className="postButton" onClick={() => history.push(`/board-form/${posts.boardid}/${posts.id}`)}>
+              Edit
             </Button>
-            <Button className="postBu" onClick={() => ondeletePost(posts.id)}>
-              delit
+
+            <Button className="postButton" onClick={() => onDeletePost(posts.id)}>
+              Delete
             </Button>
-            <Button
-              className="postBu"
-              onClick={() => onaddToFavorites(posts.id)}
-            >
-              fivorit
+
+            <Button className="postButton" onClick={() => onAddToFavorites(posts.id)}>
+              Favorite
             </Button>
+
           </Card.Body>
         </Card>
       </Row>
@@ -54,8 +49,8 @@ const Post = (props) => {
 const redux = (dispatch) =>
   bindActionCreators(
     {
-      onaddToFavorites: addToFavorites,
-      ondeletePost: deletePost,
+      onAddToFavorites: addToFavorites,
+      onDeletePost: deletePost,
     },
     dispatch
   );

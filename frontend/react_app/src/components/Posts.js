@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 import { getPost } from "../store/appReducer";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
-import { getPostDatas } from "../store/dataActions/postData";
+import { getPostData } from "../store/dataActions/postData";
+
+
 const Posts = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -22,7 +24,7 @@ const Posts = (props) => {
   );
   console.log(postData);
   useEffect(() => {
-    getPostDatas(thread.board.split("-").join(""), threadid)(dispatch);
+    getPostData(thread.board.split("-").join(""), threadid)(dispatch);
   }, []);
   return (
     <div

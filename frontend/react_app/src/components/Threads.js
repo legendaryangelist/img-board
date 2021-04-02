@@ -6,20 +6,22 @@ import { getThread } from "../store/appReducer";
 import { useHistory, Link, useParams } from "react-router-dom";
 import { getThreadDatas } from "../store/dataActions/threadData";
 
+
 const Threads = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
   const { boardid } = props;
-  const isLoading = useSelector((state) => {
-    return state.appstate.isLoading;
-  });
+
+  const isLoading = useSelector((state) => { return state.appstate.isLoading;});
+
   const threadData = useSelector((state) => {
     const currentThreads = state.appstate.threadData.filter(
       (t) => t.board.split("-").join("") === boardid
     );
     return currentThreads;
   });
+
   const threadSearch = useSelector((state) => state.appstate.threadSearch);
   useEffect(() => {
     getThreadDatas(boardid)(dispatch);

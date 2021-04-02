@@ -1,10 +1,13 @@
 import axios from "axios";
 import * as actions from "../appActions";
+import * as settings from "../../settings";
 import Board from "../../components/Board";
 import Thread from "../../components/Thread";
-export function getPostDatas(boardid, threadid) {
+
+
+export function getPostData(boardid, threadid) {
   const postData = axios.get(
-    `http://127.0.0.1:8000/api/app/boards/${boardid}/threads/${threadid}/posts/`
+    `${settings.API_SERVER}/api/app/boards/${boardid}/threads/${threadid}/posts/`
   );
 
   return (dispatch) => {
@@ -17,7 +20,7 @@ export function getPostDatas(boardid, threadid) {
 
 export function postPostDatas(boardid, threadid, post) {
   const postData = axios.post(
-    `http://127.0.0.1:8000/api/app/boards/${boardid}/${threadid}/post/`,
+    `${settings.API_SERVER}/api/app/boards/${boardid}/${threadid}/post/`,
     post
   );
 

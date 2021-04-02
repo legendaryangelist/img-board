@@ -6,7 +6,9 @@ import { getBoard } from "../store/appReducer";
 import { useHistory, Link, useParams } from "react-router-dom";
 import { getBoardData } from "../store/dataActions/boardData";
 import { getUserData } from "../store/dataActions/userData";
-import { getPostDatas } from "../store/dataActions/postData";
+import { getPostData } from "../store/dataActions/postData";
+
+
 const Boards = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -18,10 +20,11 @@ const Boards = (props) => {
     getBoardData()(dispatch);
     getUserData()(dispatch);
   }, []);
+  
   return (
     <div>
-      <Button className="commentBu" onClick={() => history.push("/boardForm")}>
-        add board
+      <Button className="commentButton" onClick={() => history.push("/board-form")}>
+        Add Board
       </Button>
       {boardSearch.length === 0
         ? boardData.map((e) => {

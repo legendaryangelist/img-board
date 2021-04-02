@@ -1,8 +1,9 @@
 import axios from "axios";
+import * as settings from "../../settings";
 import * as actions from "../appActions";
 
 export function getBoardData() {
-  const boardData = axios.get("http://127.0.0.1:8000/api/app/boards/");
+  const boardData = axios.get(`${settings.API_SERVER}/api/app/boards/`);
 
   return (dispatch) => {
     boardData.then((data) => {
@@ -13,7 +14,7 @@ export function getBoardData() {
 }
 
 export const postBoardData = (board) => {
-  const boardData = axios.post("http://127.0.0.1:8000/api/app/boards/", board);
+  const boardData = axios.post(`${settings.API_SERVER}/api/app/boards/`, board);
 
   return (dispatch) => {
     boardData.then((data) => {

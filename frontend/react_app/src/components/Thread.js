@@ -6,6 +6,8 @@ import { bindActionCreators } from "redux";
 import { useSelector } from "react-redux";
 import Posts from "./Posts";
 import Board from "./Board";
+
+
 const Thread = (props) => {
   const params = useParams();
   const history = useHistory();

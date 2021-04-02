@@ -39,7 +39,9 @@ function Login(props) {
   const [username, setuserName] = React.useState(null);
   const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState(null);
+  
   const dispatch = useDispatch();
+
   const handleFormFieldChange = (event) => {
     switch (event.target.id) {
       case "username":

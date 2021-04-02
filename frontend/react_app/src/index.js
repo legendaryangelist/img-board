@@ -10,6 +10,7 @@ import authReducer from "./store/authReducer";
 import reportWebVitals from "./reportWebVitals";
 import { appReducer } from "./store/appReducer";
 import "bootstrap/dist/css/bootstrap.css";
+
 const reducer = combineReducers({
   auth: authReducer,
   appstate: appReducer,

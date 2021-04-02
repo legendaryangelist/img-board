@@ -5,6 +5,8 @@ import { bindActionCreators } from "redux";
 import { addBoard } from "../store/appActions";
 import { useHistory } from "react-router-dom";
 import { postBoardData } from "../store/dataActions/boardData";
+
+
 const BoardForm = (props) => {
   const { addBoard } = props;
   const [title, settitle] = useState("");
@@ -24,7 +26,7 @@ const BoardForm = (props) => {
           onChange={(e) => settitle(e.target.value)}
           size="lg"
           type="text"
-          placeholder="title"
+          placeholder="Title"
           style={{
             backgroundColor: "#D8D8D8",
             color: "black",
@@ -39,7 +41,7 @@ const BoardForm = (props) => {
           size="xl"
           onChange={(e) => setdescription(e.target.value)}
           type="text"
-          placeholder=" text"
+          placeholder=" Text"
           style={{
             backgroundColor: "#D8D8D8",
             color: "black",
@@ -50,8 +52,8 @@ const BoardForm = (props) => {
         />
         <br />
         <Form.File id="exampleFormControlFile1" />
-        <Button className="commentBu" onClick={() => buttonfun()}>
-          send
+        <Button className="SendButton" onClick={() => buttonfun()}>
+          Send
         </Button>
       </Form.Group>
     </>

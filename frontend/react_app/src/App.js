@@ -13,9 +13,6 @@ function App(props) {
     props.setAuthenticatedIfRequired();
   });
 
-  // // const params = useParams();
-  // const history = useHistory();
-
   return (
     <div className="App">
       <BrowserRouter>

@@ -1,10 +1,11 @@
 import axios from "axios";
+import * as settings from "../../settings";
 import Board from "../../components/Board";
 import * as actions from "../appActions";
 
 export function getThreadDatas(boardid) {
   const threadData = axios.get(
-    `http://127.0.0.1:8000/api/app/boards/${boardid}/threads/`
+    `${settings.API_SERVER}/api/app/boards/${boardid}/threads/`
   );
 
   return (dispatch) => {
@@ -15,9 +16,9 @@ export function getThreadDatas(boardid) {
   };
 }
 
-export function postThreadDatas(boardid, thread) {
+export function postThreadData(boardid, thread) {
   const threadData = axios.post(
-    `http://127.0.0.1:8000/api/app/boards/${boardid}/threads/`,
+    `${settings.API_SERVER}/api/app/boards/${boardid}/threads/`,
     thread
   );
 
