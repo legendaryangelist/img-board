@@ -1,14 +1,6 @@
 import React from "react";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-  InputBase,
-  fade,
-  makeStyles,
-} from "@material-ui/core";
+import {AppBar, Toolbar, Typography, Button, 
+        IconButton, InputBase, fade, makeStyles} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import HomeIcon from "@material-ui/icons/Home";
@@ -17,10 +9,10 @@ import { MdForum } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
 import { useHistory, Link } from "react-router-dom";
 import MidBar from "./MidBar";
-import { searchBoard } from "../store/appActions";
+import { searchBoard } from "../../store/appActions";
 import { useDispatch } from "react-redux";
 import { Nav, NavDropdown } from "react-bootstrap";
-import { SidebarData } from "./UserBarData";
+import { SidebarData } from "../UserBarData";
 import { MdLocalGroceryStore } from "react-icons/md";
 const useStyles = makeStyles((theme) => ({
   root: {

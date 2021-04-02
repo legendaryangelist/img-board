@@ -1,19 +1,20 @@
 import React from "react";
 import { Route, Switch, Redirect, useHistory} from "react-router-dom";
-import Login from "./components/Login";
-import PasswordUpdate from "./components/PasswordUpdate";
-import Home from "./components/Home";
-import Posts from "./components/Posts";
-import PostForm from "./components/PostForm";
-import Favorites from "./components/Favorites";
-import Board from "./components/Board";
-import Boards from "./components/Boards";
-import BoardForm from "./components/BoardForm";
+import Login from "./components/Auth/Login";
+import PasswordUpdate from "./components/Auth/PasswordUpdate";
+import Home from "./components/Layout/Home";
+import Posts from "./components/Imageboard/Posts";
+import PostForm from "./components/Imageboard/PostForm";
+import Favorites from "./components/Imageboard/Favorites";
+import Board from "./components/Imageboard/Board";
+import Boards from "./components/Imageboard/Boards";
+import BoardForm from "./components/Imageboard/BoardForm";
 import { useDispatch } from "react-redux";
 import { getBoardData } from "./store/dataActions/boardData";
 import * as actions from "./store/appActions";
-import ThreadForm from "./components/ThreadForm";
-import Thread from "./components/Thread";
+import ThreadForm from "./components/Imageboard/ThreadForm";
+import Thread from "./components/Imageboard/Thread";
+
 
 // A wrapper for <Route> that redirects to the login screen if you're not yet authenticated.
 function PrivateRoute({ isAuthenticated, children, ...rest }) {

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { SidebarData } from "./UserBarData";
+import { SidebarData } from "../UserBarData";
 import { IconContext } from "react-icons";
 import { useSelector } from "react-redux";
-import "../css/midBar.css";
+import "./MidBar.css";
 
 
 const Midbar = () => {

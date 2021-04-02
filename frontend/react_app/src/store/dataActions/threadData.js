@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as settings from "../../settings";
-import Board from "../../components/Board";
+import Board from "../../components/Imageboard/Board";
 import * as actions from "../appActions";
 
 export function getThreadDatas(boardid) {

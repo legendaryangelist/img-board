@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import Thread from "./Thread";
 import { Button, Container, Row } from "react-bootstrap";
 import { connect, useSelector, useDispatch } from "react-redux";
-import { getThread } from "../store/appReducer";
+import { getThread } from "../../store/appReducer";
 import { useHistory, Link, useParams } from "react-router-dom";
-import { getThreadDatas } from "../store/dataActions/threadData";
+import { getThreadDatas } from "../../store/dataActions/threadData";
 
 
 const Threads = (props) => {

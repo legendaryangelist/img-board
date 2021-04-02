@@ -3,9 +3,9 @@ import { useHistory, useParams, Link } from "react-router-dom";
 import { Card, Button, Container, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import Posts from "./Posts";
 import { useSelector } from "react-redux";
 import Threads from "./Threads";
+import Posts from "./Posts";
 
 
 const Board = (props) => {

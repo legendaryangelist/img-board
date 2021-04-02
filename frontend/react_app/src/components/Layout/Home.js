@@ -1,6 +1,7 @@
 import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import CheckWeb3 from "./Web3Utils";
+import CheckWeb3 from "../Blockchain/Web3Utils";
+
 function Home() {
   return (
     <React.Fragment>

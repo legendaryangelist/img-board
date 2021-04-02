@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { connect, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { addBoard } from "../store/appActions";
 import { useHistory } from "react-router-dom";
-import { postBoardData } from "../store/dataActions/boardData";
+import { addBoard } from "../../store/appActions";
+import { postBoardData } from "../../store/dataActions/boardData";
 
 
 const BoardForm = (props) => {

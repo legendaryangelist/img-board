@@ -1,11 +1,11 @@
 import React from "react";
 import Urls from "./Urls";
-import Layout from "./components/Layout";
+import Layout from "./components/Layout/Layout";
 import { connect } from "react-redux";
 import * as actions from "./store/authActions";
 import { BrowserRouter, Switch, Route, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import "./css/app.css";
+import "./App.css";
 
 function App(props) {
   // Similar to componentDidMount and componentDidUpdate:

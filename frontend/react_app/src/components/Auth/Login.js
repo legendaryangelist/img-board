@@ -7,11 +7,12 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { getBoardData } from "../store/dataActions/boardData";
 import { connect } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import * as actions from "../store/authActions";
+import * as actions from "../../store/authActions";
+import { getBoardData } from "../../store/dataActions/boardData";
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {

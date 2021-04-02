@@ -1,8 +1,8 @@
 import axios from "axios";
 import * as actions from "../appActions";
 import * as settings from "../../settings";
-import Board from "../../components/Board";
-import Thread from "../../components/Thread";
+import Board from "../../components/Imageboard/Board";
+import Thread from "../../components/Imageboard/Thread";
 
 
 export function getPostData(boardid, threadid) {

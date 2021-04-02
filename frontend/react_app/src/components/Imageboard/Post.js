@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Button, Row } from "react-bootstrap";
 import { connect, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { addToFavorites, deletePost } from "../store/appActions";
+import { addToFavorites, deletePost } from "../../store/appActions";
 import { useHistory } from "react-router";
 
 const Post = (props) => {
