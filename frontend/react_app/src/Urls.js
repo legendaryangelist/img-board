@@ -65,7 +65,7 @@ function Urls(props) {
         <PrivateRoute exact path="/" isAuthenticated={props.isAuthenticated}>
           <Home {...props} />
         </PrivateRoute>
-        <Route exact path="/posts">
+        <Route exact path="/posts/:threadid">
           <Posts />
         </Route>
         <Route exact path="/boardpost/:boardsid/:postid">
@@ -80,7 +80,7 @@ function Urls(props) {
             <Thread />
           </Route>
         </Route>
-        <Route exact path="/boards/:boardid">
+        <Route exact path="/boards/:boardid/:all">
           <Board />
         </Route>
         <Route exact path="/boards">

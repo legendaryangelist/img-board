@@ -3,7 +3,7 @@ import Board from "./Board";
 import { Button } from "react-bootstrap";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { getBoard } from "../store/appReducer";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, Link, useParams } from "react-router-dom";
 import { getBoardData } from "../store/dataActions/boardData";
 import { getUserData } from "../store/dataActions/userData";
 import { getPostDatas } from "../store/dataActions/postData";
@@ -17,7 +17,6 @@ const Boards = (props) => {
   useEffect(() => {
     getBoardData()(dispatch);
     getUserData()(dispatch);
-    getPostDatas()(dispatch);
   }, []);
   return (
     <div>
@@ -28,7 +27,12 @@ const Boards = (props) => {
         ? boardData.map((e) => {
             return (
               <span key={e.id}>
-                <Link to={{ pathname: `boards/${e.id}`, state: { boards: e } }}>
+                <Link
+                  to={{
+                    pathname: `boards/${e.id}/all=1`,
+                    state: { boards: e },
+                  }}
+                >
                   {e.title}
                 </Link>
                 <Board boards={e} />

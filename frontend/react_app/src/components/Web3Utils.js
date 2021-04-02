@@ -1,5 +1,6 @@
 import React from "react";
 import Web3 from "web3";
+import axios from "axios";
 import * as settings from "../settings";
 
 export default async function CheckWeb3(props) {
@@ -36,5 +37,18 @@ export default async function CheckWeb3(props) {
   //   window.ethereum.enable();
   // }
 
-  return window.ethereum.selectedAddress;
+  var address = window.ethereum.selectedAddress;
+
+  axios
+    .post(`${settings.API_SERVER}/api/app/tokenuri/`, {
+      address: address,
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  return address;
 }

@@ -5,7 +5,6 @@ export function getUserData() {
 
   return (dispatch) => {
     userData.then((data) => {
-      console.log(data);
       dispatch({ type: "USER_DATA", payload: data.data });
       dispatch(actions.stopLoading());
     });

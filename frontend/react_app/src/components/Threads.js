@@ -3,13 +3,13 @@ import Thread from "./Thread";
 import { Button, Container, Row } from "react-bootstrap";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { getThread } from "../store/appReducer";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, Link, useParams } from "react-router-dom";
 import { getThreadDatas } from "../store/dataActions/threadData";
 
 const Threads = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const params = useParams();
   const { boardid } = props;
   const isLoading = useSelector((state) => {
     return state.appstate.isLoading;
@@ -22,7 +22,6 @@ const Threads = (props) => {
   });
   const threadSearch = useSelector((state) => state.appstate.threadSearch);
   useEffect(() => {
-    // console.log(boardid);
     getThreadDatas(boardid)(dispatch);
   }, []);
 
@@ -31,7 +30,7 @@ const Threads = (props) => {
     <div>
       <Row>
         {threadSearch.length === 0
-          ? threadData.slice(0, 4).map((e) => {
+          ? threadData.slice(0, params.all ? threadData.length : 4).map((e) => {
               return (
                 <span key={e.id}>
                   <Link

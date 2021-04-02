@@ -1,29 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Post from "./Post";
 import { connect } from "react-redux";
 import { getPost } from "../store/appReducer";
-import { useSelector } from "react-redux";
-import { useHistory } from "react-router";
-
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory, useParams } from "react-router";
+import { getPostDatas } from "../store/dataActions/postData";
 const Posts = (props) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const params = useParams();
+  let boardid;
+  let { threadid } = params;
+  if (!threadid) {
+    threadid = props.threadid;
+    boardid = props.boardid;
+  }
   const postSearch = useSelector((state) => state.appstate.postSearch);
-  const postArr = useSelector((state) => state.appstate.postArr);
-  const { boardid } = props;
+  const postData = useSelector((state) => state.appstate.postData);
+  const thread = useSelector((state) =>
+    state.appstate.threadData.find((e) => e.id === threadid)
+  );
+  console.log(postData);
+  useEffect(() => {
+    getPostDatas(thread.board.split("-").join(""), threadid)(dispatch);
+  }, []);
   return (
     <div
       className="grid-container"
       style={{ padding: "50px", paddingTop: "20px" }}
     >
-      {postSearch.length === 0
-        ? postArr
-            .filter((e) => e.boardid === boardid)
-            .map((a) => {
-              return <Post key={a.nickname} posts={a} />;
-            })
-        : postSearch.map((a) => {
-            return <Post key={a.nickname} posts={a} />;
-          })}
+      {postData.slice(0, 4).map((a) => {
+        return <Post posts={a} />;
+      })}
     </div>
   );
 };
