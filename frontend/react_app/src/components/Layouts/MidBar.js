@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { SidebarData } from "../UserBarData";
 import { IconContext } from "react-icons";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+// import { SidebarData } from "../Utils/UserBarData";
 import "./MidBar.css";
 
 
 const Midbar = () => {
-  const [sidebar, setSidebar] = useState(false);
-  const boardData = useSelector((state) => state.appstate.boardData);
+  const [sidebar, setSidebar] = useState(false);  
   const showSidebar = () => setSidebar(!sidebar);
+  // const boardData = useSelector((state) => state.appstate.boardData);
 
   return (
     <>
@@ -28,7 +28,7 @@ const Midbar = () => {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
-            {boardData.map((item, index) => {
+            {/* {boardData.map((item, index) => {
               return (
                 <li key={index}>
                   <Link to={`/boards/${item.id}`}>
@@ -37,7 +37,7 @@ const Midbar = () => {
                   </Link>
                 </li>
               );
-            })}
+            })} */}
           </ul>
         </nav>
       </IconContext.Provider>

@@ -1,6 +1,6 @@
 import React from "react";
 import Urls from "./Urls";
-import Layout from "./components/Layout/Layout";
+import Layout from "./components/Layouts/Layout";
 import { connect } from "react-redux";
 import * as actions from "./store/authActions";
 import { BrowserRouter, Switch, Route, useParams } from "react-router-dom";

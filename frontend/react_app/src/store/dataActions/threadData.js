@@ -1,9 +1,8 @@
 import axios from "axios";
 import * as settings from "../../settings";
-import Board from "../../components/Imageboard/Board";
 import * as actions from "../appActions";
 
-export function getThreadDatas(boardid) {
+export function getThreadData(boardid) {
   const threadData = axios.get(
     `${settings.API_SERVER}/api/app/boards/${boardid}/threads/`
   );

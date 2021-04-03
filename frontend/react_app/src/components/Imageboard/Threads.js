@@ -4,7 +4,7 @@ import { Button, Container, Row } from "react-bootstrap";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { getThread } from "../../store/appReducer";
 import { useHistory, Link, useParams } from "react-router-dom";
-import { getThreadDatas } from "../../store/dataActions/threadData";
+import { getThreadData } from "../../store/dataActions/threadData";
 
 
 const Threads = (props) => {
@@ -23,9 +23,7 @@ const Threads = (props) => {
   });
 
   const threadSearch = useSelector((state) => state.appstate.threadSearch);
-  useEffect(() => {
-    getThreadDatas(boardid)(dispatch);
-  }, []);
+  useEffect(() => { getThreadData(boardid)(dispatch); }, []);
 
   if (isLoading) return <div>Loading...</div>;
   return (

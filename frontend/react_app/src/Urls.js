@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch, Redirect, useHistory} from "react-router-dom";
 import Login from "./components/Auth/Login";
 import PasswordUpdate from "./components/Auth/PasswordUpdate";
-import Home from "./components/Layout/Home";
+import Home from "./components/Layouts/Home";
 import Posts from "./components/Imageboard/Posts";
 import PostForm from "./components/Imageboard/PostForm";
 import Favorites from "./components/Imageboard/Favorites";

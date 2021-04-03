@@ -1,10 +1,10 @@
 import axios from "axios";
 import * as actionsTypes from "./appActionTypes";
 import * as settings from "../settings";
-import boardDatas from "./dataActions/boardData";
-import threadDatas from "./dataActions/threadData";
-import postDatas from "./dataActions/postData";
-import userDatas from "./dataActions/userData";
+// import boardData from "./dataActions/boardData";
+// import threadData from "./dataActions/threadData";
+// import postData from "./dataActions/postData";
+// import userData from "./dataActions/userData";
 
 // Init Variables
 let boardData = [];
