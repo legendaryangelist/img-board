@@ -6,9 +6,13 @@ import * as settings from "../../settings";
 
 
 export function getPostData(boardid, threadid) {
-  const postData = axios.get(
-    `${settings.API_SERVER}/api/app/boards/${boardid}/threads/${threadid}/posts/`
-  );
+  const postData = axios.get(`${settings.API_SERVER}/api/app/boards/${boardid}/threads/${threadid}/posts/`)
+    .then((res) => {
+      console.log(res); // TODO: temp console log
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
   return (dispatch) => {
     postData.then((data) => {

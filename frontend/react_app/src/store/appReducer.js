@@ -31,11 +31,13 @@ export const appReducer = (
   action
 ) => {
   switch (action.type) {
+    
     case actionsTypes.ADD_POST: {
       action.post.id = Math.random() * 99999 + 9;
 
       return { ...state, postData: [...state.postData, action.post] };
     }
+
     case actionsTypes.ADD_BOARD: {
       action.payload.board.id = Math.random() * 99999 + 9;
       return {
@@ -43,15 +45,18 @@ export const appReducer = (
         boardData: [...state.boardData, action.payload.board],
       };
     }
+
     case actionsTypes.UPDATE_POST: {
       const a = state.post.filter((e) => e.nickname !== postData.post.nickname);
       a.push(action.post);
       return { ...state, postData: a };
     }
+
     case actionsTypes.ADD_TO_FAVORITES: {
       const fiv = state.postData.find((e) => e.id === action.id);
       return { ...state, favoriteposts: [...state.favoriteposts, fiv] };
     }
+
     case actionsTypes.DELETE_POST: {
       const a = state.postData.filter((e) => e.id !== action.id);
 
@@ -65,6 +70,7 @@ export const appReducer = (
       );
       return { ...state, value, postSearch };
     }
+
     case actionsTypes.SEARCH_BOARD: {
       const { value } = action;
       const boardSearch = state.boardData.filter(
@@ -80,27 +86,32 @@ export const appReducer = (
       arr1.push(action.post);
       return { ...state, postData: arr1 };
     }
+
     case actionsTypes.BOARD_DATA: {
       return { ...state, boardData: action.payload };
     }
+
     case actionsTypes.THREAD_DATA: {
       return {
         ...state,
         threadData: [...state.threadData, ...action.payload],
       };
     }
+
     case actionsTypes.POST_DATA: {
       return {
         ...state,
         postData: [...state.postData, ...action.payload],
       };
     }
+
     case actionsTypes.USER_DATA: {
       return {
         ...state,
         userData: [...state.userData, ...action.payload],
       };
     }
+
     case actionsTypes.LOADING: {
       return { ...state, isLoading: action.payload };
     }

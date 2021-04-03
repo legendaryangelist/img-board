@@ -1,11 +1,16 @@
 import axios from "axios";
-import * as settings from "../../settings";
 import * as actions from "../appActions";
+import * as settings from "../../settings";
+
 
 export function getThreadData(boardid) {
-  const threadData = axios.get(
-    `${settings.API_SERVER}/api/app/boards/${boardid}/threads/`
-  );
+  const threadData = axios.get(`${settings.API_SERVER}/api/app/boards/${boardid}/threads/`)
+    .then((res) => {
+      console.log(res); // TODO: temp console log
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
   return (dispatch) => {
     threadData.then((data) => {

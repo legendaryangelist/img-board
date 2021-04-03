@@ -10,7 +10,7 @@ import Board from "./components/Imageboard/Board";
 import Boards from "./components/Imageboard/Boards";
 import BoardForm from "./components/Imageboard/BoardForm";
 import { useDispatch } from "react-redux";
-import { getBoardData } from "./store/dataActions/boardData";
+import { GetBoardData } from "./store/dataActions/boardData";
 import * as actions from "./store/appActions";
 import ThreadForm from "./components/Imageboard/ThreadForm";
 import Thread from "./components/Imageboard/Thread";
@@ -40,7 +40,7 @@ function PrivateRoute({ isAuthenticated, children, ...rest }) {
 function Urls(props) {
   const dispatch = useDispatch();
   dispatch(actions.startLoading());
-  getBoardData()(dispatch);
+  // GetBoardData()(dispatch);
 
   return (
     <div>
