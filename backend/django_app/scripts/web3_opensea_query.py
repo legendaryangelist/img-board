@@ -36,8 +36,10 @@ def print_time(start):
 addressIndex = 2
 
 url = OPENSEA_API_URL # + "?X-API-KEY=" + OPENSEA_API_KEY
-querystring = {
+headers = {
     "X-API-KEY":OPENSEA_API_KEY,
+    }
+querystring = {  
     "owner":ETH_ADDRESS_LIST[addressIndex],
     "order_direction":"desc",
     "offset":"0",
@@ -48,7 +50,7 @@ print("Querying Opensea =>")
 print("URL: " + url)
 print("Address: " + ETH_ADDRESS_LIST[addressIndex])
 startTime = datetime.now()
-response = requests.request("GET", url, params=querystring)
+response = requests.request("GET", url=url, headers=headers, params=querystring)
 
 dumpFile = "scripts_dump.txt"
 print("Writing response to =>", dumpFile)

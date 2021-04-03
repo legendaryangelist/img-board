@@ -33,15 +33,17 @@ class WalletManager(models.Manager):
 
         LIMIT_OPENSEA = settings.LIMIT_OPENSEA
 
-        url = OPENSEA_API_URL
-        querystring = {
+        url = OPENSEA_API_URL # + "?X-API-KEY=" + OPENSEA_API_KEY
+        headers = {
             "X-API-KEY":OPENSEA_API_KEY,
+            }
+        querystring = {  
             "owner":address,
             "order_direction":"desc",
             "offset":"0",
             "limit":LIMIT_OPENSEA
-        }
-        response = requests.request("GET", url, params=querystring)
+            }
+        response = requests.request("GET", url=url, headers=headers, params=querystring)
         if response.ok:
             respJSON = response.json()
             for key in respJSON:
@@ -51,7 +53,8 @@ class WalletManager(models.Manager):
                         mutex.acquire()
                         try:
                             NFT.objects.get_or_create(
-                                wallet=walletID,
+                                address=address,
+                                wallet=walletID,                              
                                 erc_type=asset_contract["schema_name"],
                                 asset_object=item,
                             )[0]
@@ -140,9 +143,10 @@ class NFT(models.Model):
     Queried from Opensea API. 
     """
 
-    id      = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID'))
-    wallet  = models.ForeignKey(Wallet, related_name='NFT', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Wallet'))
+    id              = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID'))
+    wallet          = models.ForeignKey(Wallet, related_name='NFT', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Wallet'))
     
+    address         = models.CharField(default=None, max_length=255, verbose_name=_('Wallet Address'))
     erc_type        = models.CharField(default=None, max_length=7, verbose_name=_('ERC Type'))
     asset_object    = models.JSONField(default=dict, verbose_name=_('Asset Object'))
 
