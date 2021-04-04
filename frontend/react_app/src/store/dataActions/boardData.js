@@ -4,7 +4,8 @@ import * as actions from "../appActions";
 import * as settings from "../../settings";
 
 
-export function GetBoardData() {
+
+export function getBoardData() {
   const boardData = axios.get(`${settings.API_SERVER}/api/app/boards/`)
     .then((res) => {
       console.log(res); // TODO: temp console log

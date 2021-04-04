@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as actions from "../../store/authActions";
-import { GetBoardData } from "../../store/dataActions/boardData";
+import { getBoardData } from "../../store/dataActions/boardData";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -71,7 +71,7 @@ function Login(props) {
   React.useEffect(() => {
     if (props.isAuthenticated) {
       history.replace(from);
-      // GetBoardData()(dispatch);
+      // getBoardData()(dispatch);
     }
   });
 

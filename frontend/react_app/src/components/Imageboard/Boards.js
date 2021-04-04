@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { getBoard } from "../../store/appReducer";
 import { useHistory, Link, useParams } from "react-router-dom";
-import { GetBoardData } from "../../store/dataActions/boardData";
+import { getBoardData } from "../../store/dataActions/boardData";
 import { getUserData } from "../../store/dataActions/userData";
 import { getPostData } from "../../store/dataActions/postData";
 
@@ -17,7 +17,7 @@ const Boards = (props) => {
   const { board } = props;
 
   useEffect(() => {
-    GetBoardData()(dispatch);
+    getBoardData()(dispatch);
     // getUserData()(dispatch); // TODO: temporary
   }, [dispatch]);
   

@@ -16,6 +16,27 @@ const postSearch = [];
 const threadSearch = [];
 const favoritePosts = [];
 
+// ########################################################
+// Initial State
+// ########################################################
+
+export const initialState = {
+  boardData: [],
+  threadData: [],
+  postData: [],
+  userData: [],
+  favoritePosts: [],
+
+  boardSearch: [],
+  threadSearch: [],
+  postSearch: [],
+
+  isLoading: false,
+};
+
+// ########################################################
+// The Main Reducer
+// ########################################################
 export const appReducer = (
   state = {
     postData,
@@ -53,8 +74,8 @@ export const appReducer = (
     }
 
     case actionsTypes.ADD_TO_FAVORITES: {
-      const fiv = state.postData.find((e) => e.id === action.id);
-      return { ...state, favoriteposts: [...state.favoriteposts, fiv] };
+      const fav = state.postData.find((e) => e.id === action.id);
+      return { ...state, favoriteposts: [...state.favoriteposts, fav] };
     }
 
     case actionsTypes.DELETE_POST: {
