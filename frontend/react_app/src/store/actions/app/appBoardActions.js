@@ -1,7 +1,7 @@
 
 import axios from "axios";
-import * as actions from "../appActions";
-import * as settings from "../../settings";
+import * as actions from "./appActions";
+import * as settings from "../../../settings";
 
 // export const authLogin = (username, email, password) => {
 //   return (dispatch) => {

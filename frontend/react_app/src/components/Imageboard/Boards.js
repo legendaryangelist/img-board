@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import Board from "./Board";
 import { Button } from "react-bootstrap";
 import { connect, useSelector, useDispatch } from "react-redux";
-import { getBoard } from "../../store/appReducer";
+import { getBoard } from "../../store/reducers/appReducer";
 import { useHistory, Link, useParams } from "react-router-dom";
-import { getBoardData } from "../../store/dataActions/boardData";
-import { getUserData } from "../../store/dataActions/userData";
-import { getPostData } from "../../store/dataActions/postData";
+import { getBoardData } from "../../store/actions/app/appBoardActions";
+// import { getUserData } from "../../store/dataActions/userData";
+// import { getPostData } from "../../store/dataActions/postData";
 
 
 const Boards = (props) => {

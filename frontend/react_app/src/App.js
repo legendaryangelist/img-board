@@ -1,10 +1,10 @@
 import React from "react";
-import Urls from "./Urls";
-import Layout from "./components/Layouts/Layout";
 import { connect } from "react-redux";
-import * as actions from "./store/authActions";
 import { BrowserRouter, Switch, Route, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Urls from "./Urls";
+import Layout from "./components/Layouts/Layout";
+import * as actions from "./store/actions/auth/authActions";
 import "./App.css";
 
 function App(props) {

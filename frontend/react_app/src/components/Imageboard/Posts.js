@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import Post from "./Post";
 import { connect } from "react-redux";
-import { getPost } from "../../store/appReducer";
+import { getPost } from "../../store/reducers/appReducer";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
-import { getPostData } from "../../store/dataActions/postData";
+import { getPostData } from "../../store/actions/app/appPostActions";
 
 
 const Posts = (props) => {
@@ -25,7 +25,8 @@ const Posts = (props) => {
   
   useEffect(() => {
     getPostData(thread.board.split("-").join(""), threadid)(dispatch);
-  }, []);
+  }, [dispatch, thread.board, threadid]);
+
   return (
     <div
       className="grid-container"

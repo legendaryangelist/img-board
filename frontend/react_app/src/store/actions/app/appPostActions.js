@@ -1,9 +1,6 @@
 import axios from "axios";
-import * as actions from "../appActions";
-import * as settings from "../../settings";
-// import Board from "../../components/Imageboard/Board";
-// import Thread from "../../components/Imageboard/Thread";
-
+import * as actions from "./appActions";
+import * as settings from "../../../settings";
 
 export function getPostData(boardid, threadid) {
   const postData = axios.get(`${settings.API_SERVER}/api/app/boards/${boardid}/threads/${threadid}/posts/`)
@@ -24,7 +21,7 @@ export function getPostData(boardid, threadid) {
 
 export function postPostDatas(boardid, threadid, post) {
   const postData = axios.post(
-    `${settings.API_SERVER}/api/app/boards/${boardid}/${threadid}/post/`,
+    `${settings.API_SERVER}/api/app/boards/${boardid}/threads/${threadid}/post/`,
     post
   );
 

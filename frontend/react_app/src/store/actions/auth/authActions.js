@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./authActionTypes";
-import * as settings from "../settings";
+import * as settings from "../../../settings";
 
 const SESSION_DURATION = settings.SESSION_DURATION;
 

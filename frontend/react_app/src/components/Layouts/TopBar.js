@@ -8,7 +8,7 @@ import { MdForum } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import MidBar from "./MidBar";
-import { searchBoard } from "../../store/appActions";
+import { searchBoard } from "../../store/actions/app/appActions";
 import { useDispatch } from "react-redux";
 import { MdLocalGroceryStore } from "react-icons/md";
 // import MenuIcon from "@material-ui/icons/Menu";

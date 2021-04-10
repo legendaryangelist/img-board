@@ -10,8 +10,8 @@ import Container from "@material-ui/core/Container";
 import { connect } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import * as actions from "../../store/authActions";
-import { getBoardData } from "../../store/dataActions/boardData";
+import * as actions from "../../store/actions/auth/authActions";
+import { getBoardData } from "../../store/actions/app//appBoardActions";
 
 
 const useStyles = makeStyles((theme) => ({

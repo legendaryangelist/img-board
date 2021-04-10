@@ -1,9 +1,11 @@
+export const APP_START = "APP_START";
+
 export const ADD_BOARD = "ADD_BOARD";
 export const SEARCH_BOARD = "SEARCH_BOARD";
 export const BOARD_DATA = "BOARD_DATA";
 
 export const ADD_THREAD = "ADD_THREAD";
-export const THREAD_DATA = "THREAD_DATA";
+export const GET_THREADS = "GET_THREADS";
 
 export const ADD_POST = "ADD_POST";
 export const UPDATE_POST = "UPDATE_POST";

@@ -1,6 +1,6 @@
 import axios from "axios";
-import * as actions from "../appActions";
-import * as settings from "../../settings";
+import * as actions from "../../appActions";
+import * as settings from "../../../settings";
 
 
 export function getUserData() {

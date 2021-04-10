@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { connect, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { addPosts, editPost } from "../../store/appActions";
+import { addPosts, editPost } from "../../store/actions/app/appActions";
 import { useHistory, useParams } from "react-router-dom";
 
 
