@@ -1,11 +1,23 @@
 import * as actionsTypes from "./appActionTypes";
 
+export const addBoard = (board) => {
+  return { 
+    type: actionsTypes.ADD_BOARD, 
+    board 
+  };
+};
+
+export const searchBoard = (value) => {
+  return { 
+    type: actionsTypes.SEARCH_BOARD, 
+    value 
+  };
+};
+
 export const addPosts = (post) => {
   return { type: actionsTypes.ADD_POST, post };
 };
-export const addBoard = (board) => {
-  return { type: actionsTypes.ADD_BOARD, board };
-};
+
 export const updatePost = () => {
   return { type: actionsTypes.UPDATE_POST };
 };
@@ -21,9 +33,7 @@ export const editPost = (post) => {
 export const searchPost = (value) => {
   return { type: actionsTypes.SEARCH_POST, value };
 };
-export const searchBoard = (value) => {
-  return { type: actionsTypes.SEARCH_BOARD, value };
-};
+
 export const addThread = (thread) => {
   return { type: actionsTypes.ADD_THREAD, payload: thread };
 };

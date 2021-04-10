@@ -14,6 +14,7 @@ import { getBoardData } from "./store/dataActions/boardData";
 import * as actions from "./store/appActions";
 import ThreadForm from "./components/Imageboard/ThreadForm";
 import Thread from "./components/Imageboard/Thread";
+import Threads from "./components/Imageboard/Threads";
 
 
 // A wrapper for <Route> that redirects to the login screen if you're not yet authenticated.
@@ -78,6 +79,11 @@ function Urls(props) {
         {/* ----- Board Form ----- */}
         <Route exact path="/board-form">
           <BoardForm />
+        </Route>
+
+        {/* ----- Threads ----- */}
+        <Route exact path="/threads">
+          <Threads />
         </Route>
 
         {/* ----- Thread Form ----- */}

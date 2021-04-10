@@ -3,7 +3,19 @@ import * as actions from "../appActions";
 import * as settings from "../../settings";
 
 
-export function getThreadData(boardid) {
+export function getThreads() {
+  return (dispatch) => {
+    axios.get(`${settings.API_SERVER}/api/app/threads/`)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  };
+}
+
+export function getThreadsByBoard(boardid) {
   const threadData = axios.get(`${settings.API_SERVER}/api/app/boards/${boardid}/threads/`)
     .then((res) => {
       console.log(res); // TODO: temp console log
@@ -20,7 +32,7 @@ export function getThreadData(boardid) {
   };
 }
 
-export function postThreadData(boardid, thread) {
+export function postThreadByBoard(boardid, thread) {
   const threadData = axios.post(
     `${settings.API_SERVER}/api/app/boards/${boardid}/threads/`,
     thread

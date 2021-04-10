@@ -117,13 +117,13 @@ export default function TopBar(props) {
           >
             <HomeIcon />
           </IconButton>
-
-          <IconButton onClick={() => history.push("/posts")} color="inherit">
-            <BiComment />
-          </IconButton>
-
+          
           <IconButton onClick={() => history.push("/boards")} color="inherit">
             <MdForum />
+          </IconButton>
+
+          <IconButton onClick={() => history.push("/threads")} color="inherit">
+            <BiComment />
           </IconButton>
 
           <IconButton

@@ -20,6 +20,7 @@ const Thread = (props) => {
   return (
     <div>
       <Container>
+        {console.log('debug')}
         <Link to={{ pathname: `posts/${thread.id}` }}>{thread.id}</Link>
         <Card
           style={{ width: "18vw", height: "150px" }}

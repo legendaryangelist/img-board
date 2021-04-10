@@ -12,13 +12,13 @@ import { getPostData } from "../../store/dataActions/postData";
 const Boards = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const boardData = useSelector((state) => state.appstate.boardData);
-  const boardSearch = useSelector((state) => state.appstate.boardSearch);
-  const { board } = props;
+  // const boardData = useSelector((state) => state.appstate.boardData);
+  // const boardSearch = useSelector((state) => state.appstate.boardSearch);
+  // const { board } = props;
 
   useEffect(() => {
     getBoardData()(dispatch);
-    // getUserData()(dispatch); // TODO: temporary
+    // getUserData()(dispatch);
   }, [dispatch]);
   
   return (
@@ -26,27 +26,25 @@ const Boards = (props) => {
       <Button className="commentButton" onClick={() => history.push("/board-form")}>
         Add Board
       </Button>
-      {boardSearch.length === 0
+      {/* {boardSearch.length === 0
         ? boardData.map((e) => {
             return (
               <span key={e.id}>
-                <Link
-                  to={{
-                    pathname: `boards/${e.id}/all=1`,
-                    state: { boards: e },
-                  }}
-                >
+                <Link to={{pathname: `boards/${e.id}/all=1`, state: { boards: e }, }}>
                   {e.title}
                 </Link>
                 <Board boards={e} />
               </span>
             );
           })
-        : boardSearch.map((e) => <Board key={e.id} boards={e} />)}
+        : boardSearch.map((e) => <Board key={e.id} boards={e} />)} */}
       {"   "}
     </div>
   );
 };
-const Mapstate = (state) => ({ board: getBoard(state) });
+
+const Mapstate = (state) => ({ 
+  board: getBoard(state) 
+});
 
 export default connect(Mapstate, null)(Boards);

@@ -4,7 +4,7 @@ import { connect, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addBoard } from "../../store/appActions";
 import { useHistory } from "react-router-dom";
-import { postThreadData } from "../../store/dataActions/threadData";
+import { postThreadByBoard } from "../../store/dataActions/threadData";
 
 
 const ThreadForm = (props) => {
@@ -14,7 +14,7 @@ const ThreadForm = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const buttonFunc = () => {
-    postThreadData(boardid, { title, text })(dispatch);
+    postThreadByBoard(boardid, { title, text })(dispatch);
     history.push("/boards");
   };
   

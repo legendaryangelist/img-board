@@ -35,6 +35,17 @@ export const initialState = {
 };
 
 // ########################################################
+// A simple function to update the state with new values
+// ########################################################
+
+const updateObject = (oldObject, updatedProperties) => {
+  return {
+    ...oldObject,
+    ...updatedProperties,
+  };
+};
+
+// ########################################################
 // The Main Reducer
 // ########################################################
 export const appReducer = (
@@ -138,7 +149,7 @@ export const appReducer = (
     }
 
     default:
-      return { ...state };
+      return state;
   }
 };
 
