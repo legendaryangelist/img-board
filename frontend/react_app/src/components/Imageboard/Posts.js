@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Post from "./Post";
 import { connect } from "react-redux";
-import { getPost } from "../../store/reducers/appReducer";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { getPostData } from "../../store/actions/app/appPostActions";
@@ -39,6 +38,10 @@ const Posts = (props) => {
   );
 };
 
-const Mapstate = (state) => ({ postState: getPost(state) });
+const mapStateToProps = (state) => { 
+  return {
+    posts: state.posts
+  }
+};
 
-export default connect(Mapstate, null)(Posts);
+export default connect(mapStateToProps, null)(Posts);

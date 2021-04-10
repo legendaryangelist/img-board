@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Board from "./Board";
 import { Button } from "react-bootstrap";
 import { connect, useSelector, useDispatch } from "react-redux";
-import { getBoard } from "../../store/reducers/appReducer";
 import { useHistory, Link, useParams } from "react-router-dom";
 import { getBoardData } from "../../store/actions/app/appBoardActions";
 // import { getUserData } from "../../store/dataActions/userData";
@@ -43,8 +42,10 @@ const Boards = (props) => {
   );
 };
 
-const Mapstate = (state) => ({ 
-  board: getBoard(state) 
-});
+const mapStateToProps = (state) => { 
+  return {
+    boards: state.boards
+  }
+};
 
-export default connect(Mapstate, null)(Boards);
+export default connect(mapStateToProps, null)(Boards);

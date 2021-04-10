@@ -6,6 +6,29 @@ export const appStart = () => {
   };
 };
 
+export const appFail = (error) => {
+  return {
+    type: actionTypes.APP_FAIL,
+    error: error,
+  };
+};
+
+
+export const startLoading = () => {
+  return { 
+    type: actionTypes.LOADING, 
+    payload: true };
+};
+
+
+export const stopLoading = () => {
+  return { 
+    type: actionTypes.LOADING, 
+    payload: false };
+};
+
+
+
 export const addBoard = (board) => {
   return { 
     type: actionTypes.ADD_BOARD, 
@@ -33,19 +56,8 @@ export const addToFavorites = (id) => {
 export const deletePost = (id) => {
   return { type: actionTypes.DELETE_POST, id };
 };
-export const editPost = (post) => {
-  return { type: actionTypes.EDIT_POST, post };
-};
+
 export const searchPost = (value) => {
   return { type: actionTypes.SEARCH_POST, value };
 };
 
-export const addThread = (thread) => {
-  return { type: actionTypes.ADD_THREAD, payload: thread };
-};
-export const startLoading = () => {
-  return { type: actionTypes.LOADING, payload: true };
-};
-export const stopLoading = () => {
-  return { type: actionTypes.LOADING, payload: false };
-};

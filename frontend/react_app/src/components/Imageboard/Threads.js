@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Thread from "./Thread";
 import { Button, Container, Row } from "react-bootstrap";
 import { connect, useSelector, useDispatch } from "react-redux";
-import { getThreadsState } from "../../store/reducers/appReducer";
 import { useHistory, Link, useParams } from "react-router-dom";
 import { getThreads } from "../../store/actions/app/appThreadActions";
 
@@ -13,7 +12,7 @@ const Threads = (props) => {
   const params = useParams();
   const { boardid } = props;
 
-  const isLoading = useSelector((state) => { return state.app.isLoading;});
+  const isLoading = useSelector((state) => { return state.app.loading;});
 
   // const threadData = useSelector((state) => {
   //   const currentThreads = state.appstate.threadData.filter(
@@ -25,7 +24,7 @@ const Threads = (props) => {
   // const threadSearch = useSelector((state) => state.appstate.threadSearch);
 
   useEffect(() => { 
-    getThreads()(dispatch); 
+    getThreads({'limit': 25})(dispatch); 
   }, [dispatch]);
 
   if (isLoading) return <div>Loading...</div>;
@@ -54,15 +53,8 @@ const Threads = (props) => {
 
 const mapStateToProps = (state) => { 
   return {
-    threads: getThreadsState(state)
+    threads: state.threads
   }
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onAuth: (username, email, password) =>
-//       dispatch(actions.authLogin(username, email, password)),
-//   };
-// };
 
 export default connect(mapStateToProps, null)(Threads);

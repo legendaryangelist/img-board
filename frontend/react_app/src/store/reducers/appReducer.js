@@ -3,31 +3,16 @@ import * as actionTypes from "../actions/app/appActionTypes";
 import * as settings from "../../settings";
 
 
-export const getBoard = (state) => {
-  return state.boards;
-};
-
-export const getThreadsState = (state) => {
-  return state.threads;
-};
-
-export const getPost = (state) => {
-  return state;
-};
-
-
 // ########################################################
 // Initial State
 // ########################################################
 
 export const initialState = {
-  boards: [],
-  threads: [],
-  posts: [],
-  userData: [],
-  favoritePosts: [],
-
-  isLoading: false,
+  error: null,
+  loading: false,
+  boards: {},
+  threads: {},
+  posts: {},
 };
 
 // ########################################################
@@ -51,10 +36,23 @@ const appStartReducer = (state, action) => {
   });
 };
 
-const appGetThreadsReducer = (state, action) => {
+const appFailReducer = (state, action) => {
+  return updateObject(state, {
+    error: action.error,
+    loading: false,
+  });
+};
+
+const appLoadingReducer = (state, action) => {
+  return updateObject(state, {
+    loading: action.loading,
+  });
+};
+
+const appThreadsReducer = (state, action) => {
   return updateObject(state, {
     threads: action.threads,
-    isLoading: false,
+    loading: false,
   });
 };
 
@@ -72,8 +70,12 @@ const Reducer = (
     
     case actionTypes.APP_START:
       return appStartReducer(state, action);
+    case actionTypes.APP_FAIL:
+      return appFailReducer(state, action);
+    case actionTypes.LOADING:
+      return appLoadingReducer(state, action);
     case actionTypes.GET_THREADS:
-      return appGetThreadsReducer(state, action);
+      return appThreadsReducer(state, action);
 
     case actionTypes.ADD_POST: {
       action.post.id = Math.random() * 99999 + 9;
@@ -123,13 +125,7 @@ const Reducer = (
       );
       return { ...state, boardSearch };
     }
-
-    case actionTypes.EDIT_POST: {
-      const arr1 = state.posts.filter((e) => e.id !== action.post.id);
-      arr1.push(action.post);
-      return { ...state, posts: arr1 };
-    }
-
+    
     case actionTypes.BOARD_DATA: {
       return { ...state, boards: action.payload };
     }
@@ -148,9 +144,7 @@ const Reducer = (
       };
     }
 
-    case actionTypes.LOADING: {
-      return { ...state, isLoading: action.payload };
-    }
+    
 
     default:
       return state;

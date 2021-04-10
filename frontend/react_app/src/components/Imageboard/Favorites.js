@@ -5,7 +5,7 @@ import Board from "./Board";
 
 const Favorites = () => {
   const isLoading = useSelector((state) => {
-    return state.appstate.isLoading;
+    return state.app.loading;
   });
   const favoritePosts = useSelector((state) => {
     if (!state.appstate.favoritePosts) {

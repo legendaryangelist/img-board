@@ -28,15 +28,11 @@ const Board = (props) => {
 
   // const boards = props.boards || history.location.state.boards;
   const postsData = useSelector((state) => {
-    return state.appstate.postData;
+    return state.app.posts;
   });
 
   const isLoading = useSelector((state) => {
-    return state.appstate.isLoading;
-  });
-
-  const postSearch = useSelector((state) => {
-    return state.appstate.postSearch;
+    return state.app.loading;
   });
 
   if (isLoading) return <div>Loading...</div>;

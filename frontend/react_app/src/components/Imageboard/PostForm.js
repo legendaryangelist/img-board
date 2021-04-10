@@ -101,12 +101,13 @@ const PostForm = (props) => {
   );
 };
 
-const redux = (dispatch) =>
+const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       onAddPosts: addPosts,
-      editPost: editPost,
+      // editPost: editPost,
     },
     dispatch
   );
-export default connect(null, redux)(PostForm);
+
+export default connect(null, mapDispatchToProps)(PostForm);
