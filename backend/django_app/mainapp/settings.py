@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     # Apps
     'core',
     'users',
-    'boards',
+    'imageboards',
     'blockchain',
 ]
 

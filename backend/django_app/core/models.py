@@ -4,7 +4,7 @@
 from .models_base import *
 
 #  ----- Boards -----
-from .models_boards import *
+from .models_imageboards import *
 
 #  ----- Blockchain -----
 from .models_blockchain import *

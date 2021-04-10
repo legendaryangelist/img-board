@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from core.models import Post, Thread, Board
 
-from boards import serializers
+from imageboards import serializers
 
 
 # -----------------------------------------------------
