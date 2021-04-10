@@ -30,15 +30,34 @@ from blockchain.views import WalletViewSet, TokenURIViewSet
 
 default_router = DefaultRouter()
 
-## Boards Router, generates:
-# /boards/
-# /boards/{pk}/
-default_router.register('boards', BoardViewSet, basename='boards')
 
 ## Threads Router, generates:
 # /threads/
 # /threads/{pk}/
 default_router.register('threads', ThreadViewSet, basename='threads')
+
+## Posts Nested Router, generates:
+# threads/{threads_pk}/posts/
+# threads/{threads_pk}/posts/{posts_pk}/
+posts_thread_nested_router = NestedSimpleRouter(default_router, 'threads', lookup='threads')
+posts_thread_nested_router.register('posts', PostViewSet, basename='posts')
+
+## Boards Router, generates:
+# /boards/
+# /boards/{pk}/
+default_router.register('boards', BoardViewSet, basename='boards')
+
+## Threads Nested Router, generates:
+# /boards/{boards_pk}/threads/
+# /boards/{boards_pk}/threads/{threads_pk}/
+threads_nested_router = NestedSimpleRouter(default_router, 'boards', lookup='boards')
+threads_nested_router.register('threads', ThreadViewSet, basename='threads')
+
+## Posts Nested Router, generates:
+# /boards/{boards_pk}/threads/{threads_pk}/posts/
+# /boards/{boards_pk}/threads/{threads_pk}/posts/{posts_pk}/
+posts_board_nested_router = NestedSimpleRouter(threads_nested_router, 'threads', lookup='threads')
+posts_board_nested_router.register('posts', PostViewSet, basename='posts')
 
 ## Wallet Router, generates:
 # /wallets/
@@ -50,17 +69,6 @@ default_router.register('wallets', WalletViewSet, basename='wallets')
 # /tokenuri/{pk}/
 default_router.register('tokenuri', TokenURIViewSet, basename='tokenuri')
 
-## Threads Nested Router, generates:
-# /boards/{boards_pk}/threads/
-# /boards/{boards_pk}/threads/{threads_pk}/
-threads_nested_router = NestedSimpleRouter(default_router, 'boards', lookup='boards')
-threads_nested_router.register('threads', ThreadViewSet, basename='threads')
-
-## Posts Nested Router, generates:
-# /boards/{boards_pk}/threads/{threads_pk}/posts/
-# /boards/{boards_pk}/threads/{threads_pk}/posts/{posts_pk}/
-posts_nested_router = NestedSimpleRouter(threads_nested_router, 'threads', lookup='threads')
-posts_nested_router.register('posts', PostViewSet, basename='posts')
 
 
 urlpatterns = [
@@ -74,7 +82,8 @@ urlpatterns = [
     path('api/auth/me/', ManageUserView.as_view(), name='me'),
     path('api/app/', include(default_router.urls)),
     path('api/app/', include(threads_nested_router.urls)),
-    path('api/app/', include(posts_nested_router.urls)),
+    path('api/app/', include(posts_thread_nested_router.urls)),
+    path('api/app/', include(posts_board_nested_router.urls)),
 ]
 
 

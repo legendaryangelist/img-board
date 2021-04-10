@@ -68,9 +68,13 @@ class PostViewSet(viewsets.ModelViewSet):
     
     def get_queryset(self):
         """Retrieve the posts which apply to thread_id=threads_pk"""
-        if 'threads_pk' in self.kwargs:
+        if 'boards_pk' in self.kwargs:
             return Post.objects.filter(
                 board_id=self.kwargs['boards_pk'], 
+                thread_id=self.kwargs['threads_pk']
+            ).order_by('-updated')
+        elif 'threads_pk' in self.kwargs:
+            return Post.objects.filter(
                 thread_id=self.kwargs['threads_pk']
             ).order_by('-updated')
         else:
