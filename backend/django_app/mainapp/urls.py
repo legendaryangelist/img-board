@@ -30,17 +30,22 @@ from blockchain.views import WalletViewSet, TokenURIViewSet
 
 default_router = DefaultRouter()
 
-## Imageoards Router, generates:
+## Boards Router, generates:
 # /boards/
 # /boards/{pk}/
 default_router.register('boards', BoardViewSet, basename='boards')
+
+## Threads Router, generates:
+# /threads/
+# /threads/{pk}/
+default_router.register('threads', ThreadViewSet, basename='threads')
 
 ## Wallet Router, generates:
 # /wallets/
 # /wallets/{pk}/
 default_router.register('wallets', WalletViewSet, basename='wallets')
 
-## tokenuri Router, generates:
+## TokenURI Router, generates:
 # /tokenuri/
 # /tokenuri/{pk}/
 default_router.register('tokenuri', TokenURIViewSet, basename='tokenuri')

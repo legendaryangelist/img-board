@@ -23,7 +23,7 @@ class BoardViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """Retrieve the boards"""
-        return Board.objects.all().order_by('created')  # Return all boards queryset to reload REST Viewset
+        return Board.objects.all().order_by('-updated')  # Return all boards queryset to reload REST Viewset
     
     def get_serializer_class(self):
         """Return appropriate serializer class"""
@@ -46,9 +46,9 @@ class ThreadViewSet(viewsets.ModelViewSet):
         if 'boards_pk' in self.kwargs:
             return Thread.objects.filter(
                 board_id=self.kwargs['boards_pk']
-            ).order_by('created')
+            ).order_by('-updated')
         else:
-            return Thread.objects.all().order_by('created')
+            return Thread.objects.all().order_by('-updated')
     
     def get_serializer_class(self):
         """Return appropriate serializer class"""
@@ -72,9 +72,9 @@ class PostViewSet(viewsets.ModelViewSet):
             return Post.objects.filter(
                 board_id=self.kwargs['boards_pk'], 
                 thread_id=self.kwargs['threads_pk']
-            ).order_by('created')
+            ).order_by('-updated')
         else:
-            return Post.objects.all().order_by('created')
+            return Post.objects.all().order_by('-updated')
 
     def get_serializer_class(self):
         """Return appropriate serializer class"""
