@@ -197,9 +197,9 @@ class ThreadManager(BaseModelManager):
 
         if 'board_id' not in validated_data:
             raise ValidationError(message="Something went wrong with retrieving the Board id when creating a new Thread.")
-        board_id_query = Board.objects.get(id=validated_data['board_id'])
-        if board_id_query:
-            validated_data['board'] = board_id_query
+        board = Board.objects.get(id=validated_data['board_id'])
+        if board:
+            validated_data['board'] = board
         else:
             raise ValidationError(message="Something went wrong with retrieving the Board id when creating a new Thread.")
 
@@ -219,6 +219,11 @@ class ThreadManager(BaseModelManager):
                 board=validated_data['board'],
             )
         thread.save(using=self._db)
+
+        # Update board
+        board.updated=datetime.now(pytz.utc)
+        board.save(using=self._db)
+
         return thread
 
 class Thread(BaseModel):
@@ -235,9 +240,9 @@ class Thread(BaseModel):
     objects     = ThreadManager()
 
     def __str__(self):
-        board_id_query = Board.objects.get(tag=str(self.board).replace('/',''))
+        board = Board.objects.get(tag=str(self.board).replace('/',''))
         subjectShorter = (self.subject[:20] + '..') if len(self.subject) > 20 else self.subject
-        return str(str(board_id_query)+' '+subjectShorter)
+        return str(str(board)+' '+subjectShorter)
 
 
 
@@ -260,23 +265,23 @@ class PostManager(BaseModelManager):
         # Get Board ID
         if 'board_id' not in validated_data:
             raise ValidationError(message="Something went wrong with retrieving the Board id when creating a new Post.")
-        board_id_query = Board.objects.get(id=validated_data['board_id'])
-        if board_id_query:
-            validated_data['board'] = board_id_query
+        board = Board.objects.get(id=validated_data['board_id'])
+        if board:
+            validated_data['board'] = board
         else:
             raise ValidationError(message="Something went wrong with retrieving the Board id when creating a new Post.")
         
         # Get Thread ID
         if 'thread_id' not in validated_data:
             raise ValidationError(message="Something went wrong with retrieving the Thread id when creating a new Post.")
-        thread_id_query = Thread.objects.get(id=validated_data['thread_id'])
-        if thread_id_query:
-            validated_data['thread'] = thread_id_query
+        thread = Thread.objects.get(id=validated_data['thread_id'])
+        if thread:
+            validated_data['thread'] = thread
         else:
             raise ValidationError(message="Something went wrong with retrieving the Thread id when creating a new Post.")
         
-        # TODO Check at least text or image
-        # TODO Fix replyto
+        # TODO: Check at least text or image
+        # TODO: Fix replyto
 
         # Create object, save and return
         post = Post.objects.create(
@@ -292,6 +297,15 @@ class PostManager(BaseModelManager):
                 thread=validated_data['thread'],               
             )
         post.save(using=self._db)
+
+        # Update board
+        board.updated=datetime.now(pytz.utc)
+        board.save(using=self._db)
+
+        # Update thread
+        thread.updated=datetime.now(pytz.utc)
+        thread.save(using=self._db)
+
         return post
 
 
@@ -307,6 +321,6 @@ class Post(BaseModel):
     objects     = PostManager()
 
     def __str__(self):
-        board_id_query = Board.objects.get(tag=str(self.board).replace('/',''))
+        board = Board.objects.get(tag=str(self.board).replace('/',''))
         textShorter = (self.text[:20] + '..') if len(self.text) > 20 else self.text
-        return str(str(board_id_query)+' '+textShorter)
+        return str(str(board)+' '+textShorter)

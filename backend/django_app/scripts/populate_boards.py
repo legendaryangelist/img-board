@@ -23,7 +23,7 @@ def populateBoards(numBoards=10, numThreads=10, numPosts=10):
                 title=''.join(choice(ascii_letters) for i in range(100)),               
                 description=''.join(choice(ascii_letters) for i in range(255)),
                 maxThreads=randint(MIN_THREADS, MAX_THREADS),
-                # image=validated_data['image'],                    # TODO
+                # image=validated_data['image'],                    # TODO:
             )[0]
         print("Populate Boards - Created Board " + str(board))
         for nThreads in range(numThreads):
