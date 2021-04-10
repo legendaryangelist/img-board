@@ -39,7 +39,7 @@ function PrivateRoute({ isAuthenticated, children, ...rest }) {
 
 function Urls(props) {
   const dispatch = useDispatch();
-  dispatch(actions.startLoading());
+  // dispatch(actions.startLoading());
   // getBoardData()(dispatch);
 
   return (

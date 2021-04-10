@@ -76,7 +76,7 @@ export default function TopBar(props) {
   const history = useHistory();
   const dispatch = useDispatch();
   const searchAll = (text) => {
-    dispatch(searchBoard(text));
+    dispatch(searchBoard(text)); // TODO: questionabale
   };
 
   return (

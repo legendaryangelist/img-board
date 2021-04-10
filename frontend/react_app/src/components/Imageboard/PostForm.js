@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { connect, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { addPosts, editPost } from "../../store/actions/app/appActions";
+import { addPosts } from "../../store/actions/app/appActions";
 import { useHistory, useParams } from "react-router-dom";
 
 
 const PostForm = (props) => {
-  const { onAddPosts, editPost } = props;
+  const { onAddPosts } = props;
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
@@ -32,13 +32,13 @@ const PostForm = (props) => {
 
   const buttonFunc = () => {
     if (+params.postid > 0) {
-      editPost({
-        title,
-        text,
-        nickname,
-        forumid: +params.boardid,
-        id: +params.postid,
-      });
+      // editPost({
+      //   title,
+      //   text,
+      //   nickname,
+      //   forumid: +params.boardid,
+      //   id: +params.postid,
+      // });
     } else {
       onAddPosts({ title, text, nickname, boardid: +params.boardid });
     }

@@ -17,14 +17,16 @@ export const appFail = (error) => {
 export const startLoading = () => {
   return { 
     type: actionTypes.LOADING, 
-    payload: true };
+    loading: true 
+  };
 };
 
 
 export const stopLoading = () => {
   return { 
     type: actionTypes.LOADING, 
-    payload: false };
+    loading: false 
+  };
 };
 
 
