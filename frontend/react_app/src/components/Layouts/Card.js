@@ -51,7 +51,7 @@ export default function ImageboardCard(props) {
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
+          <Avatar aria-label="Creator" className={classes.avatar}>
             {props.creator ? props.creator.charAt(0) : 'A'}
           </Avatar>
         }
@@ -65,6 +65,7 @@ export default function ImageboardCard(props) {
       />
       <CardMedia
         className={classes.media}
+        component="img"
         image={props.thumbnail ? props.thumbnail : null}
         title={props.fileName ? props.fileName : null}
       />
