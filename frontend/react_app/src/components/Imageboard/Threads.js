@@ -4,9 +4,10 @@ import { Button, Container, Row, Col } from "react-bootstrap";
 import ImageboardCard from "../Layouts/Card"
 import { connect, useSelector, useDispatch } from "react-redux";
 import { useHistory, Link, useParams } from "react-router-dom";
-import {startLoading } from "../../store/actions/app/appActions"
+import {startLoading, stopLoading } from "../../store/actions/app/appActions"
 import { getThreads } from "../../store/actions/app/appThreadActions";
 import ReactLoading from "react-loading";
+import Divider from '@material-ui/core/Divider';
 
 
 const Threads = (props) => {
@@ -26,6 +27,7 @@ const Threads = (props) => {
     
     dispatch(startLoading());
     getThreads(threadObj)(dispatch); 
+    dispatch(stopLoading());
   }, [boardid, dispatch]);
 
 
@@ -36,7 +38,9 @@ const Threads = (props) => {
         return (
           <Row key={key} className="justify-content-md-center">
             <Col md="auto">
-              <ImageboardCard key={key} {...value}/>
+              <Divider light />
+                <ImageboardCard key={key} {...value}/>
+              <Divider />
             </Col>             
           </Row>
         );

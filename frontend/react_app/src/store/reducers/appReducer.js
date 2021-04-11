@@ -52,7 +52,7 @@ const appLoadingReducer = (state, action) => {
 const appThreadsReducer = (state, action) => {
   return updateObject(state, {
     threads: action.threads,
-    loading: false,
+    // loading: false,
   });
 };
 
@@ -125,7 +125,7 @@ const Reducer = (
       );
       return { ...state, boardSearch };
     }
-    
+
     case actionTypes.BOARD_DATA: {
       return { ...state, boards: action.payload };
     }

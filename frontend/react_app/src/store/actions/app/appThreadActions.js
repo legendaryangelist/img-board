@@ -46,6 +46,7 @@ export function getThreads(options = {}) {
       if (Array.isArray(results)){
         results.map((thread) => threads[thread.id] = thread);       
       }
+      
       dispatch(getThreadsAction(threads));
     })
     .catch((err) => {

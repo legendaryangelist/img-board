@@ -11,6 +11,10 @@ import MidBar from "./MidBar";
 import { searchBoard } from "../../store/actions/app/appActions";
 import { useDispatch } from "react-redux";
 import { MdLocalGroceryStore } from "react-icons/md";
+import Avatar from '@material-ui/core/Avatar';
+import Container from "@material-ui/core/Container";
+import DropdownUser from './Dropdown'
+import { Dropdown } from 'semantic-ui-react'
 // import MenuIcon from "@material-ui/icons/Menu";
 // import { Nav, NavDropdown } from "react-bootstrap";
 // import { SidebarData } from "../Utils/UserBarData";
@@ -76,7 +80,7 @@ export default function TopBar(props) {
   const history = useHistory();
   const dispatch = useDispatch();
   const searchAll = (text) => {
-    dispatch(searchBoard(text)); // TODO: questionabale
+    // dispatch(searchBoard(text)); // TODO: questionabale
   };
 
   return (
@@ -132,6 +136,7 @@ export default function TopBar(props) {
           >
             <MdFavorite />
           </IconButton>
+
           <IconButton color="inherit">
             <MdLocalGroceryStore />
           </IconButton>
@@ -145,6 +150,14 @@ export default function TopBar(props) {
             <Button color="inherit" onClick={() => props.logout()}>
               Logout
             </Button>
+          ) : null}
+          {props.isAuthenticated ? (
+            <div>
+              <Button color="inherit">
+                <Avatar className={classes.small} alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
+              </Button>              
+            </div>
+                  
           ) : null}
         </Toolbar>
         {/* <Nav pullRight>
