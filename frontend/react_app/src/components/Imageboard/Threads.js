@@ -8,6 +8,7 @@ import {startLoading } from "../../store/actions/app/appActions"
 import { getThreads } from "../../store/actions/app/appThreadActions";
 import ReactLoading from "react-loading";
 
+
 const Threads = (props) => {
   const getLimit = 100;
   const dispatch = useDispatch();
@@ -19,10 +20,13 @@ const Threads = (props) => {
   const threads = useSelector((state) => { return state.app.threads;});
 
   
-  useEffect(() => { 
+  useEffect(() => {
+    let threadObj = {'limit': getLimit};
+    if(boardid) threadObj['boardid'] = boardid;
+    
     dispatch(startLoading());
-    getThreads({'limit': getLimit})(dispatch); 
-  }, [dispatch]);
+    getThreads(threadObj)(dispatch); 
+  }, [boardid, dispatch]);
 
 
   return (
