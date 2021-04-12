@@ -8,10 +8,11 @@ import {startLoading, stopLoading } from "../../store/actions/app/appActions"
 import { getThreads } from "../../store/actions/app/appThreadActions";
 import ReactLoading from "react-loading";
 import Divider from '@material-ui/core/Divider';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 
 const Threads = (props) => {
-  const getLimit = 100;
+  const getLimit = 25;
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();

@@ -80,6 +80,11 @@ function Urls(props) {
           <BoardForm />
         </Route>
 
+        {/* ----- Thread ID ----- */}
+        <Route exact path="/thread/:threadid">
+          <Thread />  
+        </Route>
+        
         {/* ----- Threads ----- */}
         <Route exact path="/threads">
           <Threads />
@@ -103,9 +108,6 @@ function Urls(props) {
         {/* ----- Favorites ----- */}
         <Route exact path="/favorites">
           <Favorites />
-          <Route exact path="/thread/:threadid">
-            <Thread />
-          </Route>
         </Route>
 
       </Switch>

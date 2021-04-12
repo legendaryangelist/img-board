@@ -38,7 +38,7 @@ export function getThreads(options = {}) {
       getURI.concat(`boards/${boardid}/threads/?limit=${limit}`) :
       getURI.concat(`threads/?limit=${limit}`);
 
-    if (offset) getURI = getURI.concat(`&?offset=${offset}`);
+    if (offset) getURI = getURI.concat(`&offset=${offset}`);
   
     axios.get(getURI).then((res) => {
       let threads = {};
