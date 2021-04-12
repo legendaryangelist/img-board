@@ -28,7 +28,7 @@ export const getThreadsAction = (threads) => {
 
 export function getThreads(options = {}) {
   return (dispatch) => {
-    dispatch(actions.appStart());
+    dispatch(actions.startLoading());
     let getURI = `${settings.API_SERVER}/api/app/`;
     let boardid = ('boardid' in options) ? options.board : null;
     let limit = ('limit' in options) ? options.limit : 5;
@@ -40,18 +40,19 @@ export function getThreads(options = {}) {
 
     if (offset) getURI = getURI.concat(`&offset=${offset}`);
   
-    axios.get(getURI).then((res) => {
+    axios.get(getURI)
+    .then((res) => {
       let threads = {};
       const results = res.data.results;
       if (Array.isArray(results)){
         results.map((thread) => threads[thread.id] = thread);       
       }
-      
       dispatch(getThreadsAction(threads));
     })
     .catch((err) => {
       dispatch(actions.appFail(err));
     });
+    dispatch(actions.stopLoading());
   };
 }
 

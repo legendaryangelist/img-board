@@ -1,12 +1,20 @@
 
 html {
   /* this makes sure the padding and the border is included in the box sizing */
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   overflow-x: hidden;
+  height: 100%;
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+}
+
+body {
+  padding-top: 50px; /*changing this should come with changing the topbar */
 }
 
 .App {
   min-height: 100vh;
-  background-color: #242424;
+  /* background-color: #242424; "#18181b"  */
+  background-color: #1f1f27; 
   color: #d1dce6;
 }

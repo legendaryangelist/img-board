@@ -12,9 +12,9 @@ function Home() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "25vh",
-          width: "60vw",
-          marginTop: "50px",
+          height: "50vh",
+          width: "85vw",
+          // marginTop: "50px",
         }}
       >
         <h1>Hammer Down!</h1>

@@ -15,7 +15,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Container from "@material-ui/core/Container";
 import DropdownUser from './Dropdown'
 import { Dropdown } from 'semantic-ui-react'
-// import MenuIcon from "@material-ui/icons/Menu";
+import MenuIcon from "@material-ui/icons/Menu";
+import AccountCircle from '@material-ui/icons/AccountCircle';
 // import { Nav, NavDropdown } from "react-bootstrap";
 // import { SidebarData } from "../Utils/UserBarData";
 
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(1),
   },
   title: {
     flexGrow: 1,
@@ -79,26 +80,26 @@ export default function TopBar(props) {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-  const searchAll = (text) => {
-    // dispatch(searchBoard(text)); // TODO: questionabale
-  };
+  const searchAll = (text) => {};
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{ backgroundColor: "#000000" }}>
-        <Toolbar>
-          {/* <IconButton
+      <AppBar position="fixed" fixed='top' style={{ backgroundColor: "#18181b" }}>
+        <Toolbar variant="dense">
+          <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton> */}
-          <MidBar />
+          </IconButton>
+          {/* <MidBar /> */}
+          
           <Typography className={classes.title} variant="h6" noWrap>
             Shatter
           </Typography>
+
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -109,11 +110,11 @@ export default function TopBar(props) {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
-              onChange={(e) => searchAll(e.target.value)}
+              // onChange={(e) => searchAll(e.target.value)}
               inputProps={{ "aria-label": "search" }}
             />
           </div>
-
+          <div className={classes.grow} />
           <IconButton
             onClick={() => history.push("/")}
             aria-label="home page"
@@ -159,6 +160,14 @@ export default function TopBar(props) {
             </div>
                   
           ) : null}
+          {/* <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton> */}
         </Toolbar>
         {/* <Nav pullRight>
           <NavDropdown

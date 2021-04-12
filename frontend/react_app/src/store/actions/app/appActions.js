@@ -10,6 +10,7 @@ export const appFail = (error) => {
   return {
     type: actionTypes.APP_FAIL,
     error: error,
+    loading: false,
   };
 };
 
@@ -17,7 +18,7 @@ export const appFail = (error) => {
 export const startLoading = () => {
   return { 
     type: actionTypes.LOADING, 
-    loading: true 
+    loading: true, 
   };
 };
 
@@ -25,7 +26,7 @@ export const startLoading = () => {
 export const stopLoading = () => {
   return { 
     type: actionTypes.LOADING, 
-    loading: false 
+    loading: false ,
   };
 };
 
