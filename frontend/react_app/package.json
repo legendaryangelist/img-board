@@ -14,7 +14,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "react": "^17.0.1",
-    "react-bootstrap": "^1.4.3",
+    "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",
     "react-infinite-scroll-component": "^6.0.0",

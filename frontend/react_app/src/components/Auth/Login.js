@@ -16,13 +16,13 @@ import { getBoardData } from "../../store/actions/app//appBoardActions";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(-1),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   avatar: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(5),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {

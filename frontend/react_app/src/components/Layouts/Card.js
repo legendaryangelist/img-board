@@ -15,10 +15,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 725,
   },
   media: {
     height: 0,
@@ -37,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
+  button: {
+    display: 'block',
+    textAlign: 'initial'
+  },
 }));
 
 export default function ImageboardCard(props) {
@@ -47,8 +52,14 @@ export default function ImageboardCard(props) {
     setExpanded(!expanded);
   };
 
+  const handleCardClick = () => {
+
+  };
+  
   return (
     <Card className={classes.root}>
+      <ButtonBase onClick={handleCardClick} className={classes.cardAction} >
+      
       <CardHeader
         avatar={
           <Avatar aria-label="Creator" className={classes.avatar}>
@@ -63,17 +74,22 @@ export default function ImageboardCard(props) {
         title={props.subject ? props.subject : null}
         subheader={props.created ? props.created : null}
       />
-      <CardMedia
-        className={classes.media}
-        component="img"
-        image={props.thumbnail ? props.thumbnail : null}
-        title={props.fileName ? props.fileName : null}
-      />
+      </ButtonBase>
+      {props.thumbnail ? 
+        <CardMedia
+          className={classes.media}
+          component="img"
+          image={props.thumbnail ? props.thumbnail : null}
+          title={props.fileName ? props.fileName : null}
+        />
+      : null}
+      
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography paragraph variant="body2" component="p">
           {props.text ? props.text : null}
         </Typography>
       </CardContent>
+      
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
@@ -92,7 +108,7 @@ export default function ImageboardCard(props) {
           <ExpandMoreIcon />
         </IconButton>
       </CardActions>
-      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Method:</Typography>
           <Typography paragraph>
@@ -118,7 +134,8 @@ export default function ImageboardCard(props) {
             Set aside off of the heat to let rest for 10 minutes, and then serve.
           </Typography>
         </CardContent>
-      </Collapse> */}
+      </Collapse>
+      
     </Card>
   );
 }

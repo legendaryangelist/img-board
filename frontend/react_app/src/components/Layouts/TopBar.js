@@ -17,6 +17,7 @@ import DropdownUser from './Dropdown'
 import { Dropdown } from 'semantic-ui-react'
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 // import { Nav, NavDropdown } from "react-bootstrap";
 // import { SidebarData } from "../Utils/UserBarData";
 
@@ -84,7 +85,7 @@ export default function TopBar(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" fixed='top' style={{ backgroundColor: "#18181b" }}>
+      <AppBar position="relative" fixed='top' style={{ backgroundColor: "#18181b" }}>
         <Toolbar variant="dense">
           <IconButton
             edge="start"
@@ -156,6 +157,13 @@ export default function TopBar(props) {
             <div>
               <Button color="inherit">
                 <Avatar className={classes.small} alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
+                  {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+                      <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                      <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                      <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                  </NavDropdown> */}
               </Button>              
             </div>
                   

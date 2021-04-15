@@ -32,24 +32,28 @@ const Threads = (props) => {
 
   return (
     <div>
-      {(threads && !isLoading) 
-      ? Object.entries(threads).map(([key, value]) => {
-        return (
-          <Row key={key} className="justify-content-md-center">
+      <Container fluid>      
+        {(threads && !isLoading) 
+        ? Object.entries(threads).map(([key, value]) => {
+          return (
+            <Row key={key} className="justify-content-md-center">
+              <Col md="auto">
+                <Divider light />
+                  <ImageboardCard key={key} {...value}/>
+                <Divider />
+              </Col>             
+            </Row>
+          );
+        })
+        :
+          <Row className="justify-content-md-center" style={{ marginTop: "55px" }}>  
             <Col md="auto">
-              <Divider light />
-                <ImageboardCard key={key} {...value}/>
-              <Divider />
-            </Col>             
-          </Row>
-        );
-      })
-      : <Row className="justify-content-md-center">
-          <Col md="auto">
-            <ReactLoading type="spin" color="#9932CC" />
-          </Col>             
-        </Row>   
-      }
+              <ReactLoading type="spin" color="#9932CC" />
+            </Col>           
+          </Row> 
+        }
+        
+      </Container> 
     </div>
   );
 };
