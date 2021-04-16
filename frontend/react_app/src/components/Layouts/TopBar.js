@@ -14,7 +14,6 @@ import { MdLocalGroceryStore } from "react-icons/md";
 import Avatar from '@material-ui/core/Avatar';
 import Container from "@material-ui/core/Container";
 import DropdownUser from './Dropdown'
-import { Dropdown } from 'semantic-ui-react'
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -37,42 +36,40 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   search: {
-    position: "relative",
+    position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
+    '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
+    marginRight: theme.spacing(5),
     marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
-      width: "auto",
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
     },
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   inputRoot: {
-    color: "inherit",
+    color: 'inherit',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
     },
   },
 }));
@@ -85,7 +82,7 @@ export default function TopBar(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="relative" fixed='top' style={{ backgroundColor: "#18181b" }}>
+      <AppBar position="fixed" fixed='top' style={{ zindex: 1, backgroundColor: "#18181b"}}>
         <Toolbar variant="dense">
           <IconButton
             edge="start"
@@ -132,12 +129,12 @@ export default function TopBar(props) {
             <BiComment />
           </IconButton>
 
-          <IconButton
+          {/* <IconButton
             onClick={() => history.push("/favorites")}
             color="inherit"
           >
             <MdFavorite />
-          </IconButton>
+          </IconButton> */}
 
           <IconButton color="inherit">
             <MdLocalGroceryStore />

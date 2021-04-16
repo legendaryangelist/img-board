@@ -4,14 +4,17 @@ import Topbar from "./Navbar";
 import Footer from "./Footer";
 import { Divider } from '@material-ui/core';
 import CssBaseline from "@material-ui/core/CssBaseline";
+import { Container, Row, Col } from "react-bootstrap";
 
 function Layout(props) {
   return (
     <React.Fragment>
       <CssBaseline />
-      <TopBar {...props} />
-      <div>{props.children}</div>
-      <Footer />
+        <Container fluid className='vert-align'>
+            <Row><Col><TopBar {...props} /></Col></Row>
+            <Row><Col><div>{props.children}</div></Col></Row>
+            <Row><Col><Footer /></Col></Row>
+        </Container>
     </React.Fragment>
   );
 }
