@@ -95,7 +95,7 @@ export default function TopBar(props) {
           {/* <MidBar /> */}
           
           <Typography className={classes.title} variant="h6" noWrap>
-            Shatter
+            Shadder
           </Typography>
 
           <div className={classes.search}>
@@ -139,6 +139,17 @@ export default function TopBar(props) {
           <IconButton color="inherit">
             <MdLocalGroceryStore />
           </IconButton>
+          
+          {props.isAuthenticated ? null
+            : <Button color="inherit" href="/login">
+                Sign In
+              </Button>
+          }
+          {props.isAuthenticated ? null
+            : <Button color="inherit" href="/">
+                Sign Up
+              </Button>
+          }
 
           {props.isAuthenticated ? (
             <Button color="inherit" href="/password_update">

@@ -38,7 +38,7 @@ const Threads = (props) => {
           return (
             <Row key={key} className="justify-content-md-center">
               <Col md="auto">
-                <Divider light style={{ marginTop: "2px" }}/>
+                <Divider light style={{ marginTop: "1px" }}/>
                   <ImageboardCard key={key} {...value}/>
                 <Divider />
               </Col>             
@@ -49,7 +49,7 @@ const Threads = (props) => {
         <Container fluid>  
           <Row className="justify-content-md-center" style={{ marginTop: "60px" }}>  
             <Col md="auto">
-              <ReactLoading type="spin" color="#9932CC" />
+              <ReactLoading type="spin" color="#32CD32" />
             </Col>           
           </Row> 
         </Container>

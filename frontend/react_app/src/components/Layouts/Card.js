@@ -24,12 +24,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#242526",
     color: theme.palette.primary.contrastText,
   },
+  header: {
+    wordWrap: "break-word",
+  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: '#32CD32',
   },
   button: {
     display: 'block',
@@ -45,17 +48,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ImageboardCard(props) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
 
-  const handleCardClick = () => {
+  const handleLikeClick = () => {
+    // TODO: fill in
+  };
 
+  const handlePostClick = () => {
+    // TODO: fill in
+  };
+
+  const handleShareClick = () => {
+    // TODO: fill in
   };
   
   return (
-    <ButtonBase onClick={handleCardClick} className={classes.cardAction} >
     <Card className={classes.root}>
       
-      <CardHeader
+      <CardHeader className={classes.header}
         avatar={
           <Avatar aria-label="Creator" className={classes.avatar}>
             {props.creator ? props.creator.charAt(0) : 'A'}
@@ -66,8 +75,16 @@ export default function ImageboardCard(props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={props.subject ? props.subject : null}
-        subheader={props.created ? props.created : null}
+        title={
+          <Typography variant="body1" component="p" style={{ wordWrap: "break-word" }}>
+            {props.subject ? props.subject : null}
+          </Typography>         
+        }
+        subheader={
+          <Typography variant="body2">
+            {props.created ? props.created : null}
+          </Typography>          
+        }
       />
       
       {props.thumbnail ? 
@@ -80,14 +97,14 @@ export default function ImageboardCard(props) {
       : null}
       
       <CardContent>
-        <Typography paragraph variant="body2" component="p">
+        <Typography paragraph variant="body2" component="p" /*style={{ wordWrap: "break-word" }}*/>
           {props.text ? props.text : null}
         </Typography>
       </CardContent>
       
       <CardActions disableSpacing>
         <Container fluid>
-          <Row className="justify-content-md-center">
+          <Row className="justify-content-md-center" style={{ marginLeft: "50px" }}>
             <Col>
               <IconButton aria-label="Like" className={classes.icon}>
                 <BiHeart />
@@ -108,6 +125,5 @@ export default function ImageboardCard(props) {
       </CardActions>
       
     </Card>
-    </ButtonBase>
   );
 }

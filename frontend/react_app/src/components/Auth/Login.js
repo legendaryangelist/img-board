@@ -11,19 +11,24 @@ import { connect } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as actions from "../../store/actions/auth/authActions";
-import { getBoardData } from "../../store/actions/app//appBoardActions";
+import Card from '@material-ui/core/Card';
 
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    width: 500,
+    backgroundColor: "#303030",
+    color: theme.palette.primary.contrastText,    
+  },
   paper: {
-    marginTop: theme.spacing(-1),
+    marginTop: theme.spacing(0),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   avatar: {
-    margin: theme.spacing(5),
-    backgroundColor: theme.palette.secondary.main,
+    margin: theme.spacing(4),
+    backgroundColor: "#32CD32",
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -31,6 +36,19 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    marginLeft: 10,
+    marginRight: 10,
+    width: 480,
+    color:"inherit",
+    backgroundColor: "#32CD32"
+  },
+  multilineColor:{
+    color:'inherit'
+  },
+  textField: {
+    marginLeft: 10,
+    marginRight: 10,
+    width: 480,
   },
 }));
 
@@ -76,62 +94,70 @@ function Login(props) {
   });
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Login
-        </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="User Name"
-            name="username"
-            autoComplete="username"
-            autoFocus
-            onChange={handleFormFieldChange}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email"
-            name="email"
-            autoComplete="email@example.com"
-            onChange={handleFormFieldChange}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            onChange={handleFormFieldChange}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
+    <Container component="main" maxWidth="xs" style={{ marginTop: "75px" }}>
+      <Card className={classes.root}>
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
             Login
-          </Button>
-        </form>
-      </div>
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              // fullWidth
+              id="username"
+              label="User Name"
+              name="username"
+              autoComplete="username"
+              autoFocus
+              className={classes.textField}
+              InputProps={{className: classes.multilineColor}}
+              onChange={handleFormFieldChange}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email"
+              name="email"
+              className={classes.textField}
+              InputProps={{className: classes.multilineColor}}
+              autoComplete="email@example.com"
+              onChange={handleFormFieldChange}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              className={classes.textField}
+              InputProps={{className: classes.multilineColor}}
+              autoComplete="current-password"
+              onChange={handleFormFieldChange}
+            />
+            <Button
+              type="submit"
+              // fullWidth
+              variant="contained"
+              // color="secondary"
+              className={classes.submit}
+            >
+              Login
+            </Button>
+          </form>
+        </div>
+      </Card>
     </Container>
   );
 }
