@@ -149,7 +149,7 @@ export default function TopBar(props) {
           
           {props.isAuthenticated ? null
             : <Button disableRipple onClick={() => history.push("/login")} className={classes.button}>
-                Sign In
+                Log In
               </Button>
           }
           {props.isAuthenticated ? null

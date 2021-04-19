@@ -6,19 +6,20 @@ import TextField from "@material-ui/core/TextField";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import { connect } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as actions from "../../store/actions/auth/authActions";
 import Card from '@material-ui/core/Card';
+import { Container, Row, Col } from "react-bootstrap";
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 500,
-    backgroundColor: "#303030",
-    color: theme.palette.primary.contrastText,    
+    height: 485,
+    backgroundColor: "#EBEBEB",
+    color: '#242424'/*"inherit"*/, 
   },
   paper: {
     marginTop: theme.spacing(0),
@@ -28,28 +29,31 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(4),
-    backgroundColor: "#32CD32",
+    backgroundColor: "#4169E1",
   },
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
+  textField: {
+    marginLeft: 50,
+    marginRight: 50,
+    width: 400,
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    marginLeft: 10,
-    marginRight: 10,
-    width: 480,
-    color:"inherit",
-    backgroundColor: "#32CD32"
+    marginLeft: 50,
+    marginRight: 50,
+    width: 400,
+    color:"#efeff1",
+    backgroundColor: "#4169E1",
+    '&:hover': {
+      background: "#0000CD",
+   },  
   },
   multilineColor:{
     color:'inherit'
-  },
-  textField: {
-    marginLeft: 10,
-    marginRight: 10,
-    width: 480,
-  },
+  }, 
 }));
 
 function Login(props) {
@@ -94,70 +98,74 @@ function Login(props) {
   });
 
   return (
-    <Container component="main" maxWidth="xs" style={{ marginTop: "75px" }}>
-      <Card className={classes.root}>
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Login
-          </Typography>
-          <form className={classes.form} noValidate onSubmit={handleSubmit}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              // fullWidth
-              id="username"
-              label="User Name"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              className={classes.textField}
-              InputProps={{className: classes.multilineColor}}
-              onChange={handleFormFieldChange}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              className={classes.textField}
-              InputProps={{className: classes.multilineColor}}
-              autoComplete="email@example.com"
-              onChange={handleFormFieldChange}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              className={classes.textField}
-              InputProps={{className: classes.multilineColor}}
-              autoComplete="current-password"
-              onChange={handleFormFieldChange}
-            />
-            <Button
-              type="submit"
-              // fullWidth
-              variant="contained"
-              // color="secondary"
-              className={classes.submit}
-            >
-              Login
-            </Button>
-          </form>
-        </div>
-      </Card>
+    <Container fluid style={{ marginTop: "100px" }}>
+      <Row className="justify-content-md-center">
+        <Col md="auto">
+          <Card className={classes.root}>
+            <CssBaseline />
+            <div className={classes.paper}>
+              <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Login
+              </Typography>
+              <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  // fullWidth
+                  id="username"
+                  label="User Name"
+                  name="username"
+                  autoComplete="username"
+                  autoFocus
+                  className={classes.textField}
+                  InputProps={{className: classes.multilineColor}}
+                  onChange={handleFormFieldChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email"
+                  name="email"
+                  className={classes.textField}
+                  InputProps={{className: classes.multilineColor}}
+                  autoComplete="email@example.com"
+                  onChange={handleFormFieldChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  className={classes.textField}
+                  InputProps={{className: classes.multilineColor}}
+                  autoComplete="current-password"
+                  onChange={handleFormFieldChange}
+                />
+                <Button
+                  type="submit"
+                  // fullWidth
+                  variant="contained"
+                  // color="secondary"
+                  className={classes.submit}
+                >
+                  Login
+                </Button>
+              </form>
+            </div>
+          </Card>
+        </Col> 
+      </Row>
     </Container>
   );
 }
