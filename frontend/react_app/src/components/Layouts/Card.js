@@ -16,13 +16,17 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { Container, Row, Col } from "react-bootstrap";
+import Divider from '@material-ui/core/Divider';
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 600,
     backgroundColor: "#242526",
-    color: theme.palette.primary.contrastText,
+    color: "inherit",
+    '&:hover': {
+      background: "#313335",
+   },
   },
   header: {
     wordWrap: "break-word",
@@ -32,17 +36,33 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '56.25%', // 16:9
   },
   avatar: {
-    backgroundColor: '#32CD32',
+    // backgroundColor: '#228B22',
+    width: '38px',
+    height: '38px',
+  },
+  title: {
+    color: 'inherit',
+    wordWrap: "break-word"
+  },
+  subheader: {
+    color: 'inherit',
+
   },
   button: {
     display: 'block',
     textAlign: 'initial'
   },
-  icon: {
+  iconButton: {
     color: "inherit",
-    width: 50,
-    height: 50,
+    width: 55,
+    height: 55,
+    display: "flex", 
+    justifyContent: "center",
+    alignItems: "center",
   },
+  icon:{
+    marginRight: "50%",
+  }
 }));
 
 
@@ -62,12 +82,14 @@ export default function ImageboardCard(props) {
   };
   
   return (
-    <Card className={classes.root}>
-      
+    <Card hoverable className={classes.root}>
+      {/* <ButtonBase onClick={() => { }}> */}
       <CardHeader className={classes.header}
         avatar={
-          <Avatar aria-label="Creator" className={classes.avatar}>
-            {props.creator ? props.creator.charAt(0) : 'A'}
+          <Avatar 
+          aria-label="Creator" 
+          src={process.env.PUBLIC_URL + '/defAvatar.jpg'}
+          className={classes.avatar}>
           </Avatar>
         }
         action={
@@ -76,17 +98,23 @@ export default function ImageboardCard(props) {
           </IconButton>
         }
         title={
-          <Typography variant="body1" component="p" style={{ wordWrap: "break-word" }}>
+          <Typography variant="body1" component="p" className={classes.title}>
             {props.subject ? props.subject : null}
           </Typography>         
         }
         subheader={
-          <Typography variant="body2">
+          <Typography variant="body2" className={classes.subheader}>
             {props.created ? props.created : null}
           </Typography>          
         }
       />
       
+      <CardContent>
+        <Typography paragraph variant="body2" component="p" /*style={{ wordWrap: "break-word" }}*/>
+          {props.text ? props.text : null}
+        </Typography>
+      </CardContent>
+
       {props.thumbnail ? 
         <CardMedia
           className={classes.media}
@@ -94,35 +122,33 @@ export default function ImageboardCard(props) {
           image={props.thumbnail ? props.thumbnail : null}
           title={props.fileName ? props.fileName : null}
         />
-      : null}
+      : null} 
       
-      <CardContent>
-        <Typography paragraph variant="body2" component="p" /*style={{ wordWrap: "break-word" }}*/>
-          {props.text ? props.text : null}
-        </Typography>
-      </CardContent>
-      
-      <CardActions disableSpacing>
+      {/* </ButtonBase> */}
+
+      <Divider/>  
+
+      <div disableSpacing>
         <Container fluid>
-          <Row className="justify-content-md-center" style={{ marginLeft: "50px" }}>
+          <Row className="justify-content-md-center" style={{ marginLeft: "60px"}}>
             <Col>
-              <IconButton aria-label="Like" className={classes.icon}>
-                <BiHeart />
+              <IconButton size='small' aria-label="Like" disableRipple className={classes.iconButton}>
+                <BiHeart className={classes.icon}/>
               </IconButton>
             </Col>
             <Col>
-              <IconButton aria-label="Post" className={classes.icon}>
-                <BiComment />
+              <IconButton size='small' aria-label="Post" disableRipple className={classes.iconButton}>
+                <BiComment className={classes.icon}/>
               </IconButton>
             </Col>
             <Col>
-              <IconButton aria-label="Share" className={classes.icon}>
-                <BiShareAlt />
+              <IconButton size='small' aria-label="Share" disableRipple className={classes.iconButton}>
+                <BiShareAlt className={classes.icon}/>
               </IconButton>
             </Col>
           </Row>
         </Container> 
-      </CardActions>
+      </div>
       
     </Card>
   );

@@ -10,11 +10,14 @@ html {
 
 body {
   /* padding-top: 50px; changing this should come with changing the topbar */
+  margin:0;
+  padding:0;
+  height: 100%;
 }
 
 .App {
   min-height: 100vh;
   /* background-color: #242424; "#18181b"  */
-  background-color: #000000; 
-  color: #d1dce6;
+  background-color: #0e0e10; 
+  color: #efeff1; /*6f7983*/
 }

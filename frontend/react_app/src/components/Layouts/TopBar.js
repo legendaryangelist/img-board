@@ -4,21 +4,16 @@ import {AppBar, Toolbar, Typography, Button,
 import SearchIcon from "@material-ui/icons/Search";
 import HomeIcon from "@material-ui/icons/Home";
 import { BiComment } from "react-icons/bi";
-import { MdForum } from "react-icons/md";
-import { MdFavorite } from "react-icons/md";
+import { MdForum, MdLocalGroceryStore } from "react-icons/md";
+import { SiEthereum } from "react-icons/si";
 import { useHistory } from "react-router-dom";
 import MidBar from "./MidBar";
-import { searchBoard } from "../../store/actions/app/appActions";
 import { useDispatch } from "react-redux";
-import { MdLocalGroceryStore } from "react-icons/md";
 import Avatar from '@material-ui/core/Avatar';
-import Container from "@material-ui/core/Container";
-import DropdownUser from './Dropdown'
 import MenuIcon from "@material-ui/icons/Menu";
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-// import { Nav, NavDropdown } from "react-bootstrap";
-// import { SidebarData } from "../Utils/UserBarData";
+import CheckWeb3 from "../Blockchain/Web3Utils";
+import { lightTheme, darkTheme } from '../Themes/Theme';
+import Link from '@material-ui/core/Link';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   menuButton: {
+    color:'inherit',
     marginRight: theme.spacing(1),
   },
   title: {
@@ -35,6 +31,11 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
     },
   },
+  titleButton: {
+    color:'inherit',
+    fontSize: '18px',
+    marginLeft: theme.spacing(-3),
+  },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -42,12 +43,12 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing(5),
+    marginRight: theme.spacing(13),
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
-      width: 'auto',
+      width: '580px', /*auto*/
     },
   },
   searchIcon: {
@@ -72,6 +73,16 @@ const useStyles = makeStyles((theme) => ({
       width: '20ch',
     },
   },
+  button:{
+    color: 'inherit',
+  },
+  iconButton: {
+    color: 'inherit',
+  },
+  avatar: {
+    width: '38px',
+    height: '38px',
+  },
 }));
 
 export default function TopBar(props) {
@@ -87,23 +98,25 @@ export default function TopBar(props) {
           <IconButton
             edge="start"
             className={classes.menuButton}
-            color="inherit"
             aria-label="open drawer"
+            disableRipple
           >
             <MenuIcon />
           </IconButton>
           {/* <MidBar /> */}
           
           <Typography className={classes.title} variant="h6" noWrap>
-            Shadder
-          </Typography>
+            <IconButton disableRipple onClick={() => history.push("/")} className={classes.titleButton}>
+                Shadder
+            </IconButton>           
+          </Typography>         
 
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder="Search"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
@@ -113,65 +126,52 @@ export default function TopBar(props) {
             />
           </div>
           <div className={classes.grow} />
-          <IconButton
+          {/* <IconButton
             onClick={() => history.push("/")}
             aria-label="home page"
-            color="inherit"
+            disableRipple
+            className={classes.iconButton}
           >
             <HomeIcon />
-          </IconButton>
+          </IconButton> */}
           
-          <IconButton onClick={() => history.push("/boards")} color="inherit">
+          <IconButton disableRipple onClick={() => history.push("/boards")} className={classes.iconButton}>
             <MdForum />
           </IconButton>
 
-          <IconButton onClick={() => history.push("/threads")} color="inherit">
+          <IconButton disableRipple onClick={() => history.push("/threads")} className={classes.iconButton}>
             <BiComment />
           </IconButton>
 
-          {/* <IconButton
-            onClick={() => history.push("/favorites")}
-            color="inherit"
-          >
-            <MdFavorite />
-          </IconButton> */}
-
-          <IconButton color="inherit">
-            <MdLocalGroceryStore />
+          <IconButton disableRipple onClick={() => CheckWeb3()} className={classes.iconButton}>
+            <SiEthereum />
           </IconButton>
           
           {props.isAuthenticated ? null
-            : <Button color="inherit" href="/login">
+            : <Button disableRipple onClick={() => history.push("/login")} className={classes.button}>
                 Sign In
               </Button>
           }
           {props.isAuthenticated ? null
-            : <Button color="inherit" href="/">
+            : <Button disableRipple onClick={() => history.push("/sign_up")} className={classes.button}>
                 Sign Up
               </Button>
           }
 
           {props.isAuthenticated ? (
-            <Button color="inherit" href="/password_update">
+            <Button disableRipple onClick={() => history.push("/password_update")} className={classes.button}>
               Update Password
             </Button>
           ) : null}
           {props.isAuthenticated ? (
-            <Button color="inherit" onClick={() => props.logout()}>
+            <Button disableRipple onClick={() => props.logout()} className={classes.button} >
               Logout
             </Button>
           ) : null}
           {props.isAuthenticated ? (
             <div>
-              <Button color="inherit">
-                <Avatar className={classes.small} alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
-                  {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                      <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                      <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                      <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                      <NavDropdown.Divider />
-                      <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                  </NavDropdown> */}
+              <Button disableRipple className={classes.button}>
+                <Avatar className={classes.avatar} src={process.env.PUBLIC_URL + '/defAvatar.jpg'}/>
               </Button>              
             </div>
                   

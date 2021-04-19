@@ -23,8 +23,6 @@ function Home() {
           alt="rein"
           height="200"
         />
-
-        <button onClick={() => CheckWeb3()}>meta</button>
       </div>
     </React.Fragment>
   );

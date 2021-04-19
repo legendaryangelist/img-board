@@ -13,7 +13,9 @@ function Layout(props) {
         <Container fluid className='vert-align'>
             <Row><Col><TopBar {...props} /></Col></Row>
             <Row><Col><div>{props.children}</div></Col></Row>
+            <Divider style={{ marginTop: "25px" }}/>
             <Row><Col><Footer /></Col></Row>
+            <Divider style={{ marginTop: "25px" }}/>
         </Container>
     </React.Fragment>
   );
