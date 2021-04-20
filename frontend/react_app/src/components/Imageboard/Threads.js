@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 import Thread from "./Thread";
-import { Button, Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import ImageboardCard from "../Layouts/Card"
 import { connect, useSelector, useDispatch } from "react-redux";
 import { useHistory, Link, useParams } from "react-router-dom";

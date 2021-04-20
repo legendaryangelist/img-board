@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Avatar from '@material-ui/core/Avatar';
 import MenuIcon from "@material-ui/icons/Menu";
+import { Container, Row, Col } from "react-bootstrap";
 import CheckWeb3 from "../Blockchain/Web3Utils";
 import { lightTheme, darkTheme } from '../Themes/Theme';
 
@@ -18,13 +19,19 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
 
-  menuButton: {
+  appbar: {
+    zindex: 1, 
+    backgroundColor: "#18181b"
+  },
+
+  logo: {
     color:'inherit',
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(-1),
   },
 
   title: {
     flexGrow: 1,
+    zIndex: 1,
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block",
@@ -32,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   titleButton: {
+    zIndex: 1,
     color:'inherit',
     fontSize: '18px',
     marginLeft: theme.spacing(-1),
@@ -44,12 +52,12 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing(39.5),
+    marginRight: theme.spacing(45),
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: '580px', /*auto*/
+      marginLeft: theme.spacing(25),
+      width: '500px', /*auto*/
     },
   },
 
@@ -74,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '440px',
     },
   },
 
@@ -120,23 +128,30 @@ export default function TopBar(props) {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-  const searchAll = (text) => {};
+  // const searchAll = (text) => {};
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" fixed='top' style={{ zindex: 1, backgroundColor: "#18181b"}}>
+      <AppBar position="fixed" fixed='top' className={classes.appbar}>
         <Toolbar variant="dense">
+
           <IconButton
             edge="start"
-            className={classes.menuButton}
-            aria-label="open drawer"
+            aria-label="Logo"
             disableRipple
+            onClick={() => history.push("/")}
+            className={classes.logo}
           >
-            <MenuIcon />
+            <img alt="shadder" height="22.5" src={process.env.PUBLIC_URL + "shatter.jpg"} />
           </IconButton>
           
           <Typography className={classes.title} variant="h6" noWrap>
-            <IconButton disableRipple onClick={() => history.push("/")} className={classes.titleButton}>
+            <IconButton 
+              aria-label="Shadder"
+              disableRipple 
+              onClick={() => history.push("/")} 
+              className={classes.titleButton}
+            >            
                 Shadder
             </IconButton>           
           </Typography>         

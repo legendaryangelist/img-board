@@ -21,13 +21,13 @@ import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 600,
+    width: 625,
     backgroundColor: "#0e0e10", /* #242526 */
     color: "inherit",
     '&:hover': {
       background: "#242526", /* #313335 */
     },
-    borderRadius: 2,
+    borderRadius: 5,
     border: '1px groove #626567', /* #626567 */
   },
 
@@ -52,8 +52,14 @@ const useStyles = makeStyles((theme) => ({
   },
 
   subheader: {
-    color: 'inherit',
+    color: '#A0A0A0',
+    '&:hover': {
+      color: '#B0B0B0',
+   },
+  },
 
+  divider: {
+    background: '#626567',
   },
 
   button: {
@@ -160,7 +166,7 @@ export default function ImageboardCard(props) {
         />
       : null} 
 
-      <Divider/>  
+      <Divider style={{ background: '#303030' }} variant="middle" />  
 
       <div disableSpacing>
         <Container fluid>

@@ -1,8 +1,6 @@
 import React from "react";
 import TopBar from "./TopBar";
-import Topbar from "./Navbar";
 import Footer from "./Footer";
-import { Divider } from '@material-ui/core';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Container, Row, Col } from "react-bootstrap";
 
