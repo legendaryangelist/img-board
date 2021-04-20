@@ -2,8 +2,10 @@
 html {
   /* this makes sure the padding and the border is included in the box sizing */
   /* box-sizing: border-box; */
-  overflow-x: hidden;
   height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
   overscroll-behavior: none;
   overscroll-behavior-y: none;
 }

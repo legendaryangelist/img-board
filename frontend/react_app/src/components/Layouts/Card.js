@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
 
   likeButton: {
     '&:hover': {
-      color: '#c0392b',
+      color: '#ff1a1a',
    },
   },
 
