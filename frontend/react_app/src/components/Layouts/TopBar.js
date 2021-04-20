@@ -109,6 +109,9 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     width: '38px',
     height: '38px',
+    // '&:hover': {
+    //   backgroundColor: fade(theme.palette.common.white, 0.25),
+    // },
   },
 }));
 

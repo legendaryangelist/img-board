@@ -22,11 +22,13 @@ import Divider from '@material-ui/core/Divider';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 600,
-    backgroundColor: "#242526",
+    backgroundColor: "#0e0e10", /* #242526 */
     color: "inherit",
     '&:hover': {
-      background: "#313335",
-   },
+      background: "#242526", /* #313335 */
+    },
+    borderRadius: 2,
+    border: '1px groove #626567', /* #626567 */
   },
 
   header: {
@@ -117,7 +119,7 @@ export default function ImageboardCard(props) {
   };
   
   return (
-    <Card hoverable className={classes.root}>
+    <Card className={classes.root}>
       <CardHeader className={classes.header}
         avatar={
           <Avatar 

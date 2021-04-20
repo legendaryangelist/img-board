@@ -48,7 +48,7 @@ const Threads = (props) => {
                 <Col md="auto">
                   <Divider light style={{ marginTop: "1px" }}/>
                     <ImageboardCard key={key} {...value}/>
-                  <Divider />
+                  {/* <Divider /> */}
                 </Col>             
               </Row>
             );
