@@ -100,6 +100,10 @@ const useStyles = makeStyles((theme) => ({
   iconButton: {
     color: 'inherit',
     marginRight: theme.spacing(1),
+    borderRadius: 0,
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
   },
 
   avatar: {
@@ -149,14 +153,6 @@ export default function TopBar(props) {
             />
           </div>
           <div className={classes.grow} />
-          {/* <IconButton
-            onClick={() => history.push("/")}
-            aria-label="home page"
-            disableRipple
-            className={classes.iconButton}
-          >
-            <HomeIcon />
-          </IconButton> */}
           
           <IconButton disableRipple onClick={() => history.push("/threads")} className={classes.iconButton}>
             <MdForum />

@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
    },
   },
 
-  viewButton: {
+  viewsButton: {
     '&:hover': {
       color: '#f7dc6f',
    },
@@ -111,10 +111,13 @@ export default function ImageboardCard(props) {
   const handleShareClick = () => {
     // TODO: fill in
   };
+
+  const handleViewsClick = () => {
+    // TODO: fill in
+  };
   
   return (
     <Card hoverable className={classes.root}>
-      {/* <ButtonBase onClick={() => { }}> */}
       <CardHeader className={classes.header}
         avatar={
           <Avatar 
@@ -154,8 +157,6 @@ export default function ImageboardCard(props) {
           title={props.fileName ? props.fileName : null}
         />
       : null} 
-      
-      {/* </ButtonBase> */}
 
       <Divider/>  
 
@@ -163,22 +164,46 @@ export default function ImageboardCard(props) {
         <Container fluid>
           <Row className="justify-content-md-center" style={{ marginLeft: "60px"}}>
             <Col>
-              <IconButton size='small' aria-label="Like" disableRipple className={`${classes.iconButton} ${classes.likeButton}`}>
+              <IconButton 
+                size='small' 
+                aria-label="Like" 
+                disableRipple 
+                onClick={() => handleLikeClick}
+                className={`${classes.iconButton} ${classes.likeButton}`}
+              >
                 <BiHeart/>
               </IconButton>
             </Col>
             <Col>
-              <IconButton size='small' aria-label="Post" disableRipple className={`${classes.iconButton} ${classes.postButton}`}>
+              <IconButton 
+                size='small' 
+                aria-label="Post" 
+                disableRipple 
+                onClick={() => handlePostClick}
+                className={`${classes.iconButton} ${classes.postButton}`}
+              >
                 <BiComment/>
               </IconButton>
             </Col>
             <Col>
-              <IconButton size='small' aria-label="Share" disableRipple className={`${classes.iconButton} ${classes.shareButton}`}>
+              <IconButton 
+               size='small'
+               aria-label="Share"
+               disableRipple 
+               onClick={() => handleShareClick}
+               className={`${classes.iconButton} ${classes.shareButton}`}
+              >
                 <BiShare/>
               </IconButton>
             </Col>
             <Col>
-              <IconButton size='small' aria-label="Views" disableRipple className={`${classes.iconButton} ${classes.viewButton}`}>
+              <IconButton 
+                size='small' 
+                aria-label="Views" 
+                disableRipple 
+                onClick={() => handleViewsClick}
+                className={`${classes.iconButton} ${classes.viewsButton}`}
+              >
                 <FiEye/>
               </IconButton>
             </Col>
