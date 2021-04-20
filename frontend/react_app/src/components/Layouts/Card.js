@@ -10,8 +10,8 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import { BiHeart, BiComment, BiShareAlt } from "react-icons/bi";
+import { BiHeart, BiComment, BiShare } from "react-icons/bi";
+import { FiEye } from "react-icons/fi";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -28,30 +28,37 @@ const useStyles = makeStyles((theme) => ({
       background: "#313335",
    },
   },
+
   header: {
     wordWrap: "break-word",
   },
+
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
+
   avatar: {
     // backgroundColor: '#228B22',
     width: '38px',
     height: '38px',
   },
+
   title: {
     color: 'inherit',
     wordWrap: "break-word"
   },
+
   subheader: {
     color: 'inherit',
 
   },
+
   button: {
     display: 'block',
     textAlign: 'initial'
   },
+
   iconButton: {
     color: "inherit",
     width: 55,
@@ -59,10 +66,34 @@ const useStyles = makeStyles((theme) => ({
     display: "flex", 
     justifyContent: "center",
     alignItems: "center",
+    '&:hover': {
+      backgroundColor: 'transparent',
+   },
   },
-  icon:{
-    marginRight: "50%",
-  }
+
+  likeButton: {
+    '&:hover': {
+      color: '#c0392b',
+   },
+  },
+
+  postButton: {
+    '&:hover': {
+      color: '#27ae60',
+   },
+  },
+
+  shareButton: {
+    '&:hover': {
+      color: '#5dade2',
+   },
+  },
+
+  viewButton: {
+    '&:hover': {
+      color: '#f7dc6f',
+   },
+  },
 }));
 
 
@@ -132,18 +163,23 @@ export default function ImageboardCard(props) {
         <Container fluid>
           <Row className="justify-content-md-center" style={{ marginLeft: "60px"}}>
             <Col>
-              <IconButton size='small' aria-label="Like" disableRipple className={classes.iconButton}>
-                <BiHeart className={classes.icon}/>
+              <IconButton size='small' aria-label="Like" disableRipple className={`${classes.iconButton} ${classes.likeButton}`}>
+                <BiHeart/>
               </IconButton>
             </Col>
             <Col>
-              <IconButton size='small' aria-label="Post" disableRipple className={classes.iconButton}>
-                <BiComment className={classes.icon}/>
+              <IconButton size='small' aria-label="Post" disableRipple className={`${classes.iconButton} ${classes.postButton}`}>
+                <BiComment/>
               </IconButton>
             </Col>
             <Col>
-              <IconButton size='small' aria-label="Share" disableRipple className={classes.iconButton}>
-                <BiShareAlt className={classes.icon}/>
+              <IconButton size='small' aria-label="Share" disableRipple className={`${classes.iconButton} ${classes.shareButton}`}>
+                <BiShare/>
+              </IconButton>
+            </Col>
+            <Col>
+              <IconButton size='small' aria-label="Views" disableRipple className={`${classes.iconButton} ${classes.viewButton}`}>
+                <FiEye/>
               </IconButton>
             </Col>
           </Row>
