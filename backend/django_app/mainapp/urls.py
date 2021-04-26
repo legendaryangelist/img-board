@@ -24,7 +24,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_nested.routers import NestedSimpleRouter
 
 from users.views import LoginUserView, LogoutUserView, PasswordUpdateUserView, CreateUserView, ListUserView, CreateTokenView, ManageUserView
-from imageboards.views import BoardViewSet, ThreadViewSet, PostViewSet
+from imageboards.views import BoardViewSet, ThreadViewSet, ThreadFeedViewSet, PostViewSet
 from blockchain.views import WalletViewSet, TokenURIViewSet
 
 
@@ -35,6 +35,10 @@ default_router = DefaultRouter()
 # /threads/
 # /threads/{pk}/
 default_router.register('threads', ThreadViewSet, basename='threads')
+
+# /threadfeed/
+# /threadfeed/{pk}/
+default_router.register('threadfeed', ThreadFeedViewSet, basename='threadfeed')
 
 ## Posts Nested Router, generates:
 # threads/{threads_pk}/posts/

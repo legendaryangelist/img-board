@@ -69,6 +69,35 @@ class ThreadSerializer(serializers.ModelSerializer):
         return Thread.objects.create_thread(**validated_data)
 
 
+class ThreadFeedSerializer(serializers.ModelSerializer):
+    """Serializer for the thread feed objects"""
+    id = serializers.UUIDField(format='hex', read_only=True)
+    # posts = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = Thread
+        fields = (
+            'id',
+            'creator', 'created', 'updated',
+            'subject', 'text',
+            'fileName', 'thumbnail', 'image',
+            'board',
+        )
+        read_only_Fields = ('id', )
+        extra_kwargs = {
+            'id': {'read_only': True, },
+            'board': {'read_only': True, },
+            'isPruned': {'read_only': True, },
+            'link': {'read_only': True, },
+            'fileName': {'read_only': True, },
+            'thumbnail': {'read_only': True, },
+        }
+
+    def create(self, validated_data):
+        """Create a new thread and return it"""
+        return Thread.objects.create_thread(**validated_data)
+
+
 class PostSerializer(serializers.ModelSerializer):
     """Serializer for post object"""
     id = serializers.UUIDField(format='hex', read_only=True)

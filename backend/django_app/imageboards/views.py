@@ -59,6 +59,35 @@ class ThreadViewSet(viewsets.ModelViewSet):
         serializer.save(board_id=self.kwargs['boards_pk'])
 
 
+# -----------------------------------------------------------
+# ------------------- Thread Feed Viewset -------------------
+# -----------------------------------------------------------
+class ThreadFeedViewSet(viewsets.ModelViewSet):
+    """A viewset that provides the standard actions for 'Thread' model"""
+    serializer_class = serializers.ThreadFeedSerializer
+
+    def get_queryset(self):
+        """Retrieve the threads which apply to board_id=boards_pk"""
+        # query_params = self.request.query_params
+        # isPruned = query_params.get('isPruned', False)
+        # print(isPruned, type(isPruned))
+        # if isPruned is 'True' or isPruned is 'true':
+        #     isPruned = True
+        #     print(isPruned, type(isPruned))
+        # else:
+        #     isPruned = False
+        # return Thread.objects.filter(isPruned=isPruned).order_by('-updated')
+        return Thread.objects.filter().order_by('-updated')       
+    
+    def get_serializer_class(self):
+        """Return appropriate serializer class"""
+        return self.serializer_class
+    
+    def perform_create(self, serializer):
+        """Create a new thread"""
+        serializer.save(board_id=self.kwargs['boards_pk'])
+
+
 # ----------------------------------------------------
 # ------------------- Post Viewset -------------------
 # ----------------------------------------------------

@@ -33,7 +33,7 @@ def populateBoards(numBoards=10, numThreads=10, numPosts=10):
                 isPinned=randint(0, 1),
                 isPruned=randint(0, 1),
                 subject=''.join(choice(ascii_letters) for i in range(255)),
-                text=''.join(choice(ascii_letters) for i in range(40000)),            
+                text=''.join(choice(ascii_letters) for i in range(10000)),            
                 maxPosts=randint(MIN_POSTS, MAX_POSTS),          
             )[0]
             print("Populate Boards - Created Thread " + str(thread))
@@ -42,7 +42,7 @@ def populateBoards(numBoards=10, numThreads=10, numPosts=10):
                     board=board,
                     thread=thread,
                     creator=''.join(choice(ascii_letters) for i in range(30)) if randint(0, 1) else "Anonymous",
-                    text=''.join(choice(ascii_letters) for i in range(40000)),
+                    text=''.join(choice(ascii_letters) for i in range(10000)),
                 )[0]
                 print("Populate Boards - Created Post " + str(post))
 
