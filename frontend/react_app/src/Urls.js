@@ -14,7 +14,7 @@ import * as actions from "./store/actions/app/appActions";
 import ThreadForm from "./components/Imageboard/ThreadForm";
 import Thread from "./components/Imageboard/Thread";
 import Threads from "./components/Imageboard/Threads";
-
+import ThreadScroll from "./components/Imageboard/ThreadScroll";
 
 // A wrapper for <Route> that redirects to the login screen if you're not yet authenticated.
 function PrivateRoute({ isAuthenticated, children, ...rest }) {

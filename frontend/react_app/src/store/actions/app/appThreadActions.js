@@ -25,8 +25,7 @@ export const getThreadsAction = (threads) => {
   };
 };
 
-
-export function getThreads(options = {}) {
+export function getThreadsDispatch(options = {}) {
   return (dispatch) => {
     dispatch(actions.startLoading());
     let getURI = `${settings.API_SERVER}/api/app/`;

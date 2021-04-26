@@ -5,7 +5,7 @@ import ImageboardCard from "../Layouts/Card"
 import { connect, useSelector, useDispatch } from "react-redux";
 import { useHistory, Link, useParams } from "react-router-dom";
 import { startLoading, stopLoading } from "../../store/actions/app/appActions"
-import { getThreads } from "../../store/actions/app/appThreadActions";
+import { getThreadsDispatch, getThreads } from "../../store/actions/app/appThreadActions";
 import ReactLoading from "react-loading";
 import Divider from '@material-ui/core/Divider';
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -27,7 +27,7 @@ const Threads = (props) => {
     let threadObj = {'limit': getLimit};
     if(boardid) threadObj['boardid'] = boardid;
     
-    getThreads(threadObj)(dispatch); // async GET from server
+    getThreadsDispatch(threadObj)(dispatch); // async GET from server
 
     // loader timer padding
     const timer = setTimeout(() => {    
@@ -39,7 +39,8 @@ const Threads = (props) => {
 
   return (
     <div>
-        <Divider light style={{ marginTop: "52px" }}/>   
+        <Divider light style={{ marginTop: "52px" }}/> 
+        <div id="scrollableDiv" style={{ height: '95vh', overflowY: "scroll", overflowX: "hidden" }}> 
         {(threads && !isLoading && !loaderPadding) 
         ? <Container fluid> 
           {Object.entries(threads).map(([key, value]) => {
@@ -62,7 +63,8 @@ const Threads = (props) => {
             </Col>           
           </Row> 
         </Container>
-        }             
+        }
+       </div>           
     </div>
   );
 };
