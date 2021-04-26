@@ -168,7 +168,7 @@ export default function ImageboardCard(props) {
 
       <Divider style={{ background: '#303030' }} variant="middle" />  
 
-      <div disableSpacing>
+      <div>
         <Container fluid>
           <Row className="justify-content-md-center" style={{ marginLeft: "60px"}}>
             <Col>

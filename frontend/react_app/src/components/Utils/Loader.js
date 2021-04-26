@@ -3,12 +3,10 @@ import { Container, Row, Col } from "react-bootstrap";
 import ReactLoading from "react-loading";
 
 const Loader = (props) => {
-    
-    let marginTop = props.marginTop ? props.marginTop : "60px";
 
     return (
-        <Container fluid>  
-        <Row className="justify-content-md-center" style={{ marginTop: {marginTop} }}>  
+      <Container fluid>  
+        <Row className="justify-content-md-center" style={{ marginTop: '60px' }}>  
           <Col md="auto">
             <ReactLoading type="spin" color="#DCDCDC" />
           </Col>           
