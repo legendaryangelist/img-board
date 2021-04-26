@@ -7,7 +7,7 @@ import { getThreads } from "../../store/actions/app/appThreadActions";
 import Loader from "../Utils/Loader";
 import Divider from '@material-ui/core/Divider';
 // import InfiniteScroll from "react-infinite-scroll-component";
-import InfiniteScroll from 'react-infinite-scroller';
+// import InfiniteScroll from 'react-infinite-scroller';
 import axios from "axios";
 import * as settings from "../../settings";
 
@@ -64,7 +64,7 @@ const Threads = (props) => {
     <div>     
         <Divider light style={{ marginTop: "52px" }}/>  
         <div id="scrollableDiv" style={{ height: '95vh', overflowY: "scroll", overflowX: "hidden" }}>
-        {!loaderPadding ?
+        {/* {!loaderPadding ?
           <InfiniteScroll
             pageStart={0}
             loadMore={handleFetchMoreData}
@@ -84,7 +84,7 @@ const Threads = (props) => {
           </InfiniteScroll>
           :
           <Loader/>
-        }
+        } */}
           
         </div>   
     </div>
