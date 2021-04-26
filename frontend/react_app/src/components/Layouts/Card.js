@@ -152,7 +152,7 @@ export default function ImageboardCard(props) {
       />
       
       <CardContent>
-        <Typography paragraph variant="body2" component="p" style={{ wordWrap: "break-word" }}>
+        <Typography paragraph variant="body2" component="p" /*style={{ wordWrap: "break-word" }}*/>
           {props.text ? props.text : null}
         </Typography>
       </CardContent>
