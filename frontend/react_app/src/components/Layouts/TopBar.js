@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {AppBar, Toolbar, Typography, Button, 
         IconButton, InputBase, fade, makeStyles} from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
+import { RiGridFill, RiLayout2Fill } from "react-icons/ri";
 import { FaClipboard } from "react-icons/fa";
 import { MdForum } from "react-icons/md";
 import { SiEthereum } from "react-icons/si";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Avatar from '@material-ui/core/Avatar';
 import MenuIcon from "@material-ui/icons/Menu";
 import { Container, Row, Col } from "react-bootstrap";
 import CheckWeb3 from "../Blockchain/Web3Utils";
 import { lightTheme, darkTheme } from '../Themes/Theme';
+import { fetchState, switchLayout } from "../../store/actions/app/appActions";
+import Tooltip from "@material-ui/core/Tooltip";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     color:'inherit',
     marginRight: theme.spacing(-1),
+    // '&:hover': {
+    //   opacity: '85%',
+    // },
   },
 
   title: {
@@ -35,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block",
+    },
+    '&:hover': {
+      opacity: '85%',
     },
   },
 
@@ -52,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing(45),
+    marginRight: theme.spacing(40),
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -104,22 +113,26 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     // marginleft: theme.spacing(1),
   }, 
+  
+  tooltip: {
+    
+  },
 
   iconButton: {
     color: 'inherit',
     marginRight: theme.spacing(1),
     borderRadius: 0,
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.white, 0.10),
     },
   },
 
   avatar: {
     width: '38px',
     height: '38px',
-    // '&:hover': {
-    //   backgroundColor: fade(theme.palette.common.white, 0.25),
-    // },
+    '&:hover': {
+      opacity: '85%',
+    },
   },
 }));
 
@@ -128,7 +141,43 @@ export default function TopBar(props) {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-  // const searchAll = (text) => {};
+
+  useEffect(() => {
+    dispatch(fetchState());
+  }, [dispatch]);
+
+  // get layout
+  const layout = useSelector((state) => { 
+    if(state.app.layout)
+      return state.app.layout;
+    else
+      return 'rows';
+  });
+  
+  // set layout icon
+  let layoutIcon;
+  if(layout === 'rows'){
+    layoutIcon = <RiGridFill />
+  }
+  else if (layout === 'grid'){
+    layoutIcon = <RiLayout2Fill />
+  }
+  else{
+    layoutIcon = <RiGridFill />
+  }
+  
+  // handle layout change, rows or grid
+  const handleGridLayout = (e) => {
+    // e.preventDefault();
+    switch(layout){
+      case 'rows':
+        return dispatch(switchLayout('grid'));
+      case 'grid':
+        return dispatch(switchLayout('rows'));
+      default:
+        return dispatch(switchLayout('rows'));
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -170,19 +219,31 @@ export default function TopBar(props) {
               inputProps={{ "aria-label": "search" }}
             />
           </div>
-          <div className={classes.grow} />
+          <div className={classes.grow} />      
           
-          <IconButton disableRipple onClick={() => history.push("/threads")} className={classes.iconButton}>
-            <MdForum />
-          </IconButton>
+          <Tooltip arrow title="Threads" placement="bottom" className={classes.tooltip}>
+            <IconButton disableRipple onClick={() => history.push("/threads")} className={classes.iconButton}>
+              <MdForum />
+            </IconButton>
+          </Tooltip>
+          
+          <Tooltip arrow title="Boards" placement="bottom" className={classes.tooltip}>
+            <IconButton disableRipple onClick={() => history.push("/boards")} className={classes.iconButton}>
+              <FaClipboard />
+            </IconButton>     
+          </Tooltip>
+          
+          <Tooltip arrow title="Switch Layout" placement="bottom" className={classes.tooltip}>
+            <IconButton disableRipple onClick={handleGridLayout} className={classes.iconButton}>
+              {layoutIcon}
+            </IconButton>
+          </Tooltip>
 
-          <IconButton disableRipple onClick={() => history.push("/boards")} className={classes.iconButton}>
-            <FaClipboard />
-          </IconButton>     
-          
-          <IconButton disableRipple onClick={() => CheckWeb3()} className={classes.iconButton}>
-            <SiEthereum />
-          </IconButton>
+          <Tooltip arrow title="Connect Wallet" placement="bottom" className={classes.tooltip}>
+            <IconButton disableRipple onClick={() => CheckWeb3()} className={classes.iconButton}>            
+              <SiEthereum /> 
+            </IconButton>        
+          </Tooltip>
 
           {/* TODO: implement Sign Up */}
           {/* {props.isAuthenticated ? null

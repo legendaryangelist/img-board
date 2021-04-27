@@ -1,5 +1,12 @@
 import * as actionTypes from "./appActionTypes";
 
+
+export const fetchState = () => {
+  return {
+    type: actionTypes.FETCH_STATE,
+  };
+}
+
 export const appStart = () => {
   return {
     type: actionTypes.APP_START,
@@ -27,6 +34,13 @@ export const stopLoading = () => {
   return { 
     type: actionTypes.LOADING, 
     loading: false ,
+  };
+};
+
+export const switchLayout = (layout) => {
+  return { 
+    type: actionTypes.SWITCH_LAYOUT, 
+    layout: layout,
   };
 };
 

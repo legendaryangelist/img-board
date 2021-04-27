@@ -10,6 +10,7 @@ import * as settings from "../../settings";
 export const initialState = {
   error: null,
   loading: false,
+  layout: 'rows',
   boards: {},
   threads: {},
   posts: {},
@@ -29,6 +30,12 @@ const updateObject = (oldObject, updatedProperties) => {
 // ########################################################
 // Different Reducer Functions which change the store state
 // ########################################################
+const appFetchStateReducer = (state, action) => {
+  return {
+    ...state, 
+  }
+};
+
 const appStartReducer = (state, action) => {
   return updateObject(state, {
     error: null,
@@ -56,6 +63,11 @@ const appThreadsReducer = (state, action) => {
   });
 };
 
+const appSwitchLayout = (state, action) => {
+  return updateObject(state, {
+    layout: action.layout,
+  });
+};
 
 // ########################################################
 // The Main Reducer
@@ -68,14 +80,19 @@ const Reducer = (
 ) => {
   switch (action.type) {
     
+    case actionTypes.FETCH_STATE:
+      return appFetchStateReducer(state, action);
     case actionTypes.APP_START:
       return appStartReducer(state, action);
     case actionTypes.APP_FAIL:
       return appFailReducer(state, action);
     case actionTypes.LOADING:
       return appLoadingReducer(state, action);
+    case actionTypes.SWITCH_LAYOUT:
+      return appSwitchLayout(state, action);
     case actionTypes.GET_THREADS:
       return appThreadsReducer(state, action);
+    
 
     case actionTypes.ADD_POST: {
       action.post.id = Math.random() * 99999 + 9;

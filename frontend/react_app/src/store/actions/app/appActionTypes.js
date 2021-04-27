@@ -1,7 +1,9 @@
 // App
+export const FETCH_STATE = "FETCH_STATE";
 export const APP_START = "APP_START";
 export const APP_FAIL = "APP_FAIL";
 export const LOADING = "LOADING";
+export const SWITCH_LAYOUT = "SWITCH_LAYOUT";
 // Boards
 export const ADD_BOARD = "ADD_BOARD";
 export const UPDATE_BOARD = "UPDATE_BOARD";

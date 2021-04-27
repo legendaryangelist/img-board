@@ -1,14 +1,12 @@
 import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Row, Col } from "react-bootstrap";
-import CardMedia from '@material-ui/core/CardMedia';
 
 
 const useStyles = makeStyles((theme) => ({
   dividerTop: {
-    marginTop: "100px"
+    marginTop: "55px"
   },
   dividerBottom: {
     marginTop: "25px"
@@ -24,7 +22,7 @@ function Home() {
       <CssBaseline />
 
       <Container fluid className='vert-align'>
-        <Divider className={classes.dividerTop}/>
+        <div className={classes.dividerTop}/>
           <Row className="justify-content-md-center">
             <Col md="auto">
                 <img
@@ -34,7 +32,7 @@ function Home() {
                 />
             </Col>
           </Row>
-        <Divider className={classes.dividerBottom}/>
+        <div className={classes.dividerBottom}/>
     </Container>
 
     </React.Fragment>

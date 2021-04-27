@@ -19,9 +19,10 @@ import { Container, Row, Col } from "react-bootstrap";
 import Divider from '@material-ui/core/Divider';
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
-    width: 625,
+    width: props => props.width,
+    height: props => props.height,
     backgroundColor: "#0e0e10", /* #242526 */
     color: "inherit",
     '&:hover': {
@@ -30,9 +31,15 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 5,
     border: '1px groove #626567', /* #626567 */
   },
+  
+  hoverableDiv: {
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
 
   header: {
-    wordWrap: "break-word",
+    wordBreak: "break-word",
   },
 
   media: {
@@ -44,17 +51,25 @@ const useStyles = makeStyles((theme) => ({
     // backgroundColor: '#228B22',
     width: '38px',
     height: '38px',
+    '&:hover': {
+      opacity: '85%',
+    },
   },
 
   title: {
     color: 'inherit',
-    wordWrap: "break-word"
+    wordBreak: "break-word",
+    '&:hover': {
+      textDecoration: 'underline',
+    },    
   },
 
   subheader: {
-    color: '#A0A0A0',
+    color: '#cdd8f2',
     '&:hover': {
-      color: '#B0B0B0',
+      opacity: '65%',
+      color: '#bed2fb',
+      textDecoration: 'underline',
    },
   },
 
@@ -66,7 +81,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     textAlign: 'initial'
   },
-
+  
+  rowMargin: {
+    marginLeft: "60px",
+  },
+  
   iconButton: {
     color: "inherit",
     width: 55,
@@ -87,13 +106,13 @@ const useStyles = makeStyles((theme) => ({
 
   postButton: {
     '&:hover': {
-      color: '#27ae60',
+      color: '#5dade2',
    },
   },
 
   shareButton: {
     '&:hover': {
-      color: '#5dade2',
+      color: '#27ae60',
    },
   },
 
@@ -102,12 +121,12 @@ const useStyles = makeStyles((theme) => ({
       color: '#f7dc6f',
    },
   },
-}));
+});
 
 
 export default function ImageboardCard(props) {
-  const classes = useStyles();
-
+  const classes = useStyles(props);
+  
   const handleLikeClick = () => {
     // TODO: fill in
   };
@@ -126,6 +145,7 @@ export default function ImageboardCard(props) {
   
   return (
     <Card className={classes.root}>
+      <div onClick={() => console.log(`clicked -> ${props.id}`)} className={classes.hoverableDiv}>
       <CardHeader className={classes.header}
         avatar={
           <Avatar 
@@ -141,7 +161,8 @@ export default function ImageboardCard(props) {
         }
         title={
           <Typography variant="body1" component="p" className={classes.title}>
-            {props.subject ? props.subject : null}
+            {/* {props.subject ? props.subject : null} */}
+            {props.creator ? props.creator : "Anonymous"}
           </Typography>         
         }
         subheader={
@@ -150,12 +171,14 @@ export default function ImageboardCard(props) {
           </Typography>          
         }
       />
-      
       <CardContent>
-        <Typography paragraph variant="body2" component="p" /*style={{ wordWrap: "break-word" }}*/>
-          {props.text ? props.text : null}
+        <Typography paragraph variant="body2" component="p" style={{ wordWrap: "break-word" }}>
+          {props.subject ? props.subject : null} 
+          {/* {props.text ? props.text : null} */}
         </Typography>
       </CardContent>
+      
+      </div>
 
       {props.thumbnail ? 
         <CardMedia
@@ -170,7 +193,7 @@ export default function ImageboardCard(props) {
 
       <div>
         <Container fluid>
-          <Row className="justify-content-md-center" style={{ marginLeft: "60px"}}>
+          <Row className="justify-content-md-center" style={{ marginLeft: props.rowMargin}}>
             <Col>
               <IconButton 
                 size='small' 
