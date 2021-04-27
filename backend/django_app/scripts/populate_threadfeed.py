@@ -19,7 +19,7 @@ def populateThreads(numThreads=200):
             isPrivate=randint(0, 1),
             tag=''.join(choice(ascii_letters) for i in range(10)),
             title=''.join(choice(ascii_letters) for i in range(100)),               
-            description=''.join(choice(ascii_letters) for i in range(255)),
+            description=''.join(choice(ascii_letters) for i in range(randint(0, settings.MAX_SUBJECT_CHAR_COUNT))),
             maxThreads=randint(MIN_THREADS, MAX_THREADS),
             # image=validated_data['image'],                    # TODO:
         )[0]
@@ -29,7 +29,7 @@ def populateThreads(numThreads=200):
             creator=''.join(choice(ascii_letters) for i in range(30)) if randint(0, 1) else "Anonymous",
             isPinned=randint(0, 1),
             isPruned=randint(0, 1),
-            subject=''.join(choice(ascii_letters) for i in range(255)),
+            subject=''.join(choice(ascii_letters) for i in range(randint(0, settings.MAX_SUBJECT_CHAR_COUNT))),
             text=''.join(choice(ascii_letters) for i in range(randint(0, settings.MAX_CHAR_COUNT))),            
             maxPosts=randint(MIN_POSTS, MAX_POSTS),   
             # image=validated_data['image'],                    # TODO:       

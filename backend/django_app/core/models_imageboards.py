@@ -147,7 +147,7 @@ class Board(BaseModel):
     isPrivate   = models.BooleanField(default=False, verbose_name=_('Is Private'))
     tag         = models.CharField(default=None, max_length=10, unique=True, verbose_name=_('Tag'))     # Must field
     title       = models.CharField(default=None, max_length=100, unique=True, verbose_name=_('Title'))  # Must field
-    description = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('Description'))
+    description = models.CharField(default=None, max_length=settings.MAX_SUBJECT_CHAR_COUNT, blank=True, null=True, verbose_name=_('Description'))
     maxThreads  = models.IntegerField(default=MAX_THREADS, blank=True, null=True, verbose_name=_('Max Threads'))
 
     # Registering Manager to objects
@@ -230,7 +230,7 @@ class Thread(BaseModel):
     creator     = models.CharField(default='Anonymous', max_length=30, blank=True, null=True, verbose_name=_('Creator'))  
     isPinned    = models.BooleanField(default=False, verbose_name=_('Is Pinned'))
     isPruned    = models.BooleanField(default=False, verbose_name=_('Is Pruned'))
-    subject     = models.CharField(default=None, max_length=255, verbose_name=_('Subject'))
+    subject     = models.CharField(default=None, max_length=settings.MAX_SUBJECT_CHAR_COUNT, verbose_name=_('Subject'))
     text        = models.TextField(default=None, max_length=settings.MAX_CHAR_COUNT, blank=True, null=True, verbose_name=_('Text'))
     maxPosts    = models.IntegerField(default=MAX_POSTS, verbose_name=_('Max Posts'))
     board       = models.ForeignKey("Board", related_name='threads', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Board'))

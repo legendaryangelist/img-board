@@ -17,6 +17,8 @@ REST_FRAMEWORK = {
 # --------------------- Boards Params ---------------------
 # ---------------------------------------------------------
 
+MAX_SUBJECT_CHAR_COUNT = 255
+
 MAX_CHAR_COUNT = 20000
 
 MIN_THREADS = 1
