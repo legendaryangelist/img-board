@@ -23,13 +23,14 @@ const useStyles = makeStyles({
   root: {
     width: props => props.width,
     height: props => props.height,
-    backgroundColor: "#0e0e10", /* #242526 */
+    backgroundColor: "#0e0e10", /* #242526, 0e0e10, 282a2e */
     color: "inherit",
     '&:hover': {
       background: "#242526", /* #313335 */
     },
     borderRadius: 5,
     border: '1px groove #626567', /* #626567 */
+    // fontSize: 'medium',
   },
   
   hoverableDiv: {
@@ -97,6 +98,12 @@ const useStyles = makeStyles({
       backgroundColor: 'transparent',
    },
   },
+ 
+  moreButton: {
+    '&:hover': {
+      color: '#5dade2',
+   },
+  },
 
   likeButton: {
     '&:hover': {
@@ -127,6 +134,10 @@ const useStyles = makeStyles({
 export default function ImageboardCard(props) {
   const classes = useStyles(props);
   
+  const handleMoreClick = () => {
+    // TODO: fill in
+  };
+
   const handleLikeClick = () => {
     // TODO: fill in
   };
@@ -149,13 +160,18 @@ export default function ImageboardCard(props) {
       <CardHeader className={classes.header}
         avatar={
           <Avatar 
+          size='small'
           aria-label="Creator" 
           src={process.env.PUBLIC_URL + '/defAvatar.jpg'}
           className={classes.avatar}>
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
+          <IconButton 
+              aria-label="settings"
+              disableRipple 
+              onClick={() => handleMoreClick}
+              className={`${classes.iconButton} ${classes.moreButton}`}>
             <MoreVertIcon />
           </IconButton>
         }
