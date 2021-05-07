@@ -15,7 +15,7 @@ class BoardSerializer(serializers.ModelSerializer):
             'creator', 'created', 'updated',
             'isPrivate',
             'tag', 'title', 'link',  # 'slug',
-            'description', 'maxThreads',
+            'description',
             'fileName', 'thumbnail', 'image',
             'threads',
         )
@@ -50,8 +50,8 @@ class ThreadSerializer(serializers.ModelSerializer):
             'creator', 'created', 'updated',
             'isPinned', 'isPruned',
             'subject', 'text',
-            'maxPosts',
             'fileName', 'thumbnail', 'image',
+            'likesCount', 'postsCount', 'sharesCount', 'viewsCount',
             'board', 'posts',
         )
         read_only_Fields = ('id', )
@@ -69,7 +69,7 @@ class ThreadSerializer(serializers.ModelSerializer):
         return Thread.objects.create_thread(**validated_data)
 
 
-class ThreadFeedSerializer(serializers.ModelSerializer):
+class ThreadsFeedSerializer(serializers.ModelSerializer):
     """Serializer for the thread feed objects"""
     id = serializers.UUIDField(format='hex', read_only=True)
     # posts = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
@@ -79,9 +79,9 @@ class ThreadFeedSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'creator', 'created', 'updated',
-            'subject', 'text',
+            'subject',
             'fileName', 'thumbnail', 'image',
-            'board',
+            'likesCount', 'postsCount', 'sharesCount', 'viewsCount',
         )
         read_only_Fields = ('id', )
         extra_kwargs = {

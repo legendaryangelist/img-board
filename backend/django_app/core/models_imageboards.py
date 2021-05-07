@@ -55,16 +55,16 @@ class BoardManager(BaseModelManager):
         if 'description' not in validated_data:
             validated_data['description'] = None
         
-        if 'maxThreads' in validated_data:
-            if validated_data['maxThreads']:
-                if validated_data['maxThreads'] < MIN_THREADS:
-                    validated_data['maxThreads'] = MIN_THREADS
-                elif validated_data['maxThreads'] > MAX_THREADS:
-                    validated_data['maxThreads'] = MAX_THREADS
-            else:
-                validated_data['maxThreads'] = MAX_THREADS
-        else:
-            validated_data['maxThreads'] = MAX_THREADS
+        # if 'maxThreads' in validated_data:
+        #     if validated_data['maxThreads']:
+        #         if validated_data['maxThreads'] < MIN_THREADS:
+        #             validated_data['maxThreads'] = MIN_THREADS
+        #         elif validated_data['maxThreads'] > MAX_THREADS:
+        #             validated_data['maxThreads'] = MAX_THREADS
+        #     else:
+        #         validated_data['maxThreads'] = MAX_THREADS
+        # else:
+        #     validated_data['maxThreads'] = MAX_THREADS
         
         # Create object, save and return
         print("Creating Board - /" + str(validated_data['tag']) + "/")
@@ -77,7 +77,7 @@ class BoardManager(BaseModelManager):
                 tag=validated_data['tag'],
                 title=validated_data['title'],               
                 description=validated_data['description'],
-                maxThreads=validated_data['maxThreads'],
+                # maxThreads=validated_data['maxThreads'],
                 image=validated_data['image'],
                 thumbnail=validated_data['thumbnail'],
                 fileName=validated_data["fileName"],
@@ -122,15 +122,15 @@ class BoardManager(BaseModelManager):
                 board.fileName=validated_data["fileName"]
                 updated = 1
         
-        if 'maxThreads' in validated_data:
-            if board.maxThreads != validated_data['maxThreads']:
-                if validated_data['maxThreads'] < MIN_THREADS:
-                    board.maxThreads = MIN_THREADS
-                elif validated_data['maxThreads'] > MAX_THREADS:
-                    board.maxThreads = MAX_THREADS
-                else:
-                    board.maxThreads = validated_data['maxThreads']
-                updated = 1
+        # if 'maxThreads' in validated_data:
+        #     if board.maxThreads != validated_data['maxThreads']:
+        #         if validated_data['maxThreads'] < MIN_THREADS:
+        #             board.maxThreads = MIN_THREADS
+        #         elif validated_data['maxThreads'] > MAX_THREADS:
+        #             board.maxThreads = MAX_THREADS
+        #         else:
+        #             board.maxThreads = validated_data['maxThreads']
+        #         updated = 1
 
         if updated:
             print("Updating Board - /" + str(instance.tag) + "/")
@@ -148,7 +148,7 @@ class Board(BaseModel):
     tag         = models.CharField(default=None, max_length=10, unique=True, verbose_name=_('Tag'))     # Must field
     title       = models.CharField(default=None, max_length=100, unique=True, verbose_name=_('Title'))  # Must field
     description = models.CharField(default=None, max_length=settings.MAX_SUBJECT_CHAR_COUNT, blank=True, null=True, verbose_name=_('Description'))
-    maxThreads  = models.IntegerField(default=MAX_THREADS, blank=True, null=True, verbose_name=_('Max Threads'))
+    # maxThreads  = models.IntegerField(default=MAX_THREADS, blank=True, null=True, verbose_name=_('Max Threads'))
 
     # Registering Manager to objects
     objects = BoardManager()
@@ -183,16 +183,16 @@ class ThreadManager(BaseModelManager):
         if 'text' not in validated_data:
             validated_data['text'] = ''
         
-        if 'maxPosts' in validated_data:
-            if validated_data['maxPosts']:
-                if validated_data['maxPosts'] < MIN_POSTS:
-                    validated_data['maxPosts'] = MIN_POSTS
-                elif validated_data['maxPosts'] > MAX_POSTS:
-                    validated_data['maxPosts'] = MAX_POSTS
-            else:
-                validated_data['maxPosts'] = MAX_POSTS
-        else:
-            validated_data['maxPosts'] = MAX_POSTS
+        # if 'maxPosts' in validated_data:
+        #     if validated_data['maxPosts']:
+        #         if validated_data['maxPosts'] < MIN_POSTS:
+        #             validated_data['maxPosts'] = MIN_POSTS
+        #         elif validated_data['maxPosts'] > MAX_POSTS:
+        #             validated_data['maxPosts'] = MAX_POSTS
+        #     else:
+        #         validated_data['maxPosts'] = MAX_POSTS
+        # else:
+        #     validated_data['maxPosts'] = MAX_POSTS
 
         if 'board_id' not in validated_data:
             raise ValidationError(message="Something went wrong with retrieving the Board id when creating a new Thread.")
@@ -211,7 +211,7 @@ class ThreadManager(BaseModelManager):
                 isPruned=validated_data['isPruned'],
                 subject=validated_data['subject'],
                 text=validated_data['text'],               
-                maxPosts=validated_data['maxPosts'],
+                # maxPosts=validated_data['maxPosts'],
                 image=validated_data['image'],
                 thumbnail=validated_data['thumbnail'],
                 fileName=validated_data["fileName"],
@@ -232,17 +232,23 @@ class Thread(BaseModel):
     isPruned    = models.BooleanField(default=False, verbose_name=_('Is Pruned'))
     subject     = models.CharField(default=None, max_length=settings.MAX_SUBJECT_CHAR_COUNT, verbose_name=_('Subject'))
     text        = models.TextField(default=None, max_length=settings.MAX_CHAR_COUNT, blank=True, null=True, verbose_name=_('Text'))
-    maxPosts    = models.IntegerField(default=MAX_POSTS, verbose_name=_('Max Posts'))
+    # maxPosts    = models.IntegerField(default=MAX_POSTS, verbose_name=_('Max Posts'))
     board       = models.ForeignKey("Board", related_name='threads', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Board'))
+
+    likesCount  = models.IntegerField(default=0, verbose_name=_('Likes'))
+    postsCount  = models.IntegerField(default=0, verbose_name=_('Posts'))
+    sharesCount = models.IntegerField(default=0, verbose_name=_('Shares'))
+    viewsCount  = models.IntegerField(default=0, verbose_name=_('Views'))
 
     # Registering Manager to objects
     objects     = ThreadManager()
 
     def __str__(self):
-        # TODO: change this if no board is present
-        board = Board.objects.get(tag=str(self.board).replace('/','')) 
-        subjectShorter = (self.subject[:20] + '..') if len(self.subject) > 20 else self.subject
-        return str(str(board)+' '+subjectShorter)
+        # board = Board.objects.get(tag=str(self.board).replace('/','')) 
+        subjectShorter = (self.subject[:20] + '...') if len(self.subject) > 20 else self.subject
+        return str(subjectShorter)
+        # return str(str(board)+' '+subjectShorter)
+        
 
 
 
@@ -315,13 +321,17 @@ class Post(BaseModel):
     text        = models.TextField(default=None, max_length=settings.MAX_CHAR_COUNT, blank=True, verbose_name=_('Text'))
     board       = models.ForeignKey("Board", related_name='posts', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Board'))
     thread      = models.ForeignKey("Thread", related_name='posts', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Thread'))
-    replyto     = models.ForeignKey("Post", related_name='posts', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Replies To'))
+    repliesto   = models.ForeignKey("Post", related_name='posts', blank=True, null=True, on_delete=models.CASCADE, verbose_name=_('Replies To'))
+
+    likesCount  = models.IntegerField(default=0, verbose_name=_('Likes'))
+    postsCount  = models.IntegerField(default=0, verbose_name=_('Posts'))
+    sharesCount = models.IntegerField(default=0, verbose_name=_('Shares'))
+    viewsCount  = models.IntegerField(default=0, verbose_name=_('Views'))
 
     # Registering Manager to objects
     objects     = PostManager()
 
     def __str__(self):
-        # TODO: change this if no board is present
-        board = Board.objects.get(tag=str(self.board).replace('/',''))
+        # board = Board.objects.get(tag=str(self.board).replace('/',''))
         textShorter = (self.text[:20] + '..') if len(self.text) > 20 else self.text
-        return str(str(board)+' '+textShorter)
+        return str(textShorter)

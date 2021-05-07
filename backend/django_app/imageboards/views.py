@@ -62,9 +62,9 @@ class ThreadViewSet(viewsets.ModelViewSet):
 # -----------------------------------------------------------
 # ------------------- Thread Feed Viewset -------------------
 # -----------------------------------------------------------
-class ThreadFeedViewSet(viewsets.ModelViewSet):
-    """A viewset that provides the standard actions for 'Thread' model"""
-    serializer_class = serializers.ThreadFeedSerializer
+class ThreadsFeedViewSet(viewsets.ModelViewSet):
+    """A viewset that provides the feed properties for the 'Thread' model"""
+    serializer_class = serializers.ThreadsFeedSerializer
 
     def get_queryset(self):
         """Retrieve the threads which apply to board_id=boards_pk"""
