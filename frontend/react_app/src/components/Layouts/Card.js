@@ -98,7 +98,11 @@ const useStyles = makeStyles({
       backgroundColor: 'transparent',
    },
   },
- 
+  
+  countNum : {
+    marginLeft: '.5rem' 
+  },
+
   moreButton: {
     '&:hover': {
       color: '#5dade2',
@@ -219,7 +223,11 @@ export default function ImageboardCard(props) {
                 className={`${classes.iconButton} ${classes.likeButton}`}
               >
                 <BiHeart/>
+                <Typography variant="body2" className={classes.countNum}>
+                  {props.likesCount ? props.likesCount.toString() :  '0'}
+                </Typography>                 
               </IconButton>
+              
             </Col>
             <Col>
               <IconButton 
@@ -230,6 +238,9 @@ export default function ImageboardCard(props) {
                 className={`${classes.iconButton} ${classes.postButton}`}
               >
                 <BiComment/>
+                <Typography variant="body2" className={classes.countNum}>
+                  {props.postsCount ? props.postsCount.toString() :  '0'}
+                </Typography>
               </IconButton>
             </Col>
             <Col>
@@ -241,6 +252,9 @@ export default function ImageboardCard(props) {
                className={`${classes.iconButton} ${classes.shareButton}`}
               >
                 <BiShare/>
+                <Typography variant="body2" className={classes.countNum}>
+                  {props.sharesCount ? props.sharesCount.toString() :  '0'}
+                </Typography>
               </IconButton>
             </Col>
             <Col>
@@ -252,6 +266,9 @@ export default function ImageboardCard(props) {
                 className={`${classes.iconButton} ${classes.viewsButton}`}
               >
                 <FiEye/>
+                <Typography variant="body2" className={classes.countNum}>
+                  {props.viewsCount ? props.viewsCount.toString() :  '0'}
+                </Typography>
               </IconButton>
             </Col>
           </Row>

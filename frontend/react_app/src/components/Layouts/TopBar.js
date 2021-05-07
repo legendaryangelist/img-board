@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
     '&:hover': {
       opacity: '85%',
+      filter: 'brightness(120%)',
     },
   },
 
