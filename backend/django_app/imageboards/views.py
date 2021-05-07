@@ -67,7 +67,7 @@ class ThreadsFeedViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ThreadsFeedSerializer
 
     def get_queryset(self):
-        """Retrieve the threads which apply to board_id=boards_pk"""
+        """Retrieve the threads to display feed"""
         # query_params = self.request.query_params
         # isPruned = query_params.get('isPruned', False)
         # print(isPruned, type(isPruned))
