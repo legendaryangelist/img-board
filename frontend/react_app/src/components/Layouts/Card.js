@@ -165,6 +165,25 @@ export default function ImageboardCard(props) {
     createdDateTime = localTime.concat(', ', localDate);
   }
   
+  function nFormatter(num, digits) {
+    var si = [
+      { value: 1, symbol: "" },
+      { value: 1E3, symbol: "k" },
+      { value: 1E6, symbol: "M" },
+      { value: 1E9, symbol: "G" },
+      { value: 1E12, symbol: "T" },
+      { value: 1E15, symbol: "P" },
+      { value: 1E18, symbol: "E" }
+    ];
+    var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+    var i;
+    for (i = si.length - 1; i > 0; i--) {
+      if (num >= si[i].value) {
+        break;
+      }
+    }
+    return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+  }
 
   const openInNewTab = (url) => {
     const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
@@ -250,7 +269,7 @@ export default function ImageboardCard(props) {
         // <img src={props.image} alt='' className={classes.media}/>
       : null} 
 
-      <Divider variant="middle" style={{ background: '#303030', marginTop: '0.2rem'}} />  
+      {/* <Divider variant="middle" style={{ background: '#303030', marginTop: '0.5rem'}} />   */}
 
       <div>
         <Container fluid>
@@ -266,7 +285,7 @@ export default function ImageboardCard(props) {
                 >
                   <BiHeart/>
                   <Typography variant="body2" className={classes.countNum}>
-                    {props.likesCount ? props.likesCount.toString() : '0'}
+                    {props.likesCount ? nFormatter(props.likesCount, 1) : '0'}
                   </Typography>                 
                 </IconButton>
               </Tooltip>                     
@@ -282,7 +301,7 @@ export default function ImageboardCard(props) {
                 >
                   <BiComment/>
                   <Typography variant="body2" className={classes.countNum}>
-                    {props.postsCount ? props.postsCount.toString() :  '0'}
+                    {props.postsCount ? nFormatter(props.postsCount, 1) :  '0'}
                   </Typography>
                 </IconButton>
               </Tooltip>             
@@ -298,7 +317,7 @@ export default function ImageboardCard(props) {
                   >
                     <BiShare/>
                     <Typography variant="body2" className={classes.countNum}>
-                      {props.sharesCount ? props.sharesCount.toString() :  '0'}
+                      {props.sharesCount ? nFormatter(props.sharesCount, 1) :  '0'}
                     </Typography>
                   </IconButton>
               </Tooltip>      
@@ -314,7 +333,7 @@ export default function ImageboardCard(props) {
               >
                 <FiEye/>
                 <Typography variant="body2" className={classes.countNum}>
-                  {props.viewsCount ? props.viewsCount.toString() :  '0'}
+                  {props.viewsCount ? nFormatter(props.viewsCount, 1) :  '0'}
                 </Typography>
               </IconButton>
             </Tooltip>         
