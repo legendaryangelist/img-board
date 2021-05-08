@@ -244,7 +244,7 @@ export default function ImageboardCard(props) {
           className={classes.media}
           component="img"
           onClick={handleImageClick}
-          src={props.thumbnail ? props.thumbnail : null}
+          src={props.image ? props.image : null}
           title={props.fileName ? props.fileName : null}
         />
         // <img src={props.image} alt='' className={classes.media}/>

@@ -87,7 +87,8 @@ function Urls(props) {
         
         {/* ----- Threads ----- */}
         <Route exact path="/threads">
-          <Threads />
+          {/* <Threads /> */}
+          <ThreadScroll />
         </Route>
 
         {/* ----- Thread Form ----- */}
