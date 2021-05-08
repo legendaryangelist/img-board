@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     backgroundColor: "#0e0e10", /* #242526, 0e0e10, 282a2e */
     color: "inherit",
     '&:hover': {
-      background: "#242526", /* #313335 */
+      background: "#212121", /* #313335 */
     },
     borderRadius: 5,
     border: '1px groove #626567', /* #626567 */
@@ -191,157 +191,164 @@ export default function ImageboardCard(props) {
   }
 
   const handleThreadClick = () => {
-    console.log(`clicked -> ${props.id}`);
+    console.log(`clicked Thread -> ${props.id}`);
+  };
+
+  const handleUserClick = () => {
+    console.log(`clicked User -> ${props.id}`);
   };
 
   const handleImageClick = () => {
-    openInNewTab(`${props.image}`); // TODO: set an open image handler
+    openInNewTab(`${props.image}`); 
   };
 
   const handleMoreClick = () => {
-    // TODO: fill in
+    console.log(`clicked More -> ${props.id}`);
   };
 
   const handleLikeClick = () => {
-    // TODO: fill in
+    console.log(`clicked Like -> ${props.id}`);
   };
 
   const handlePostClick = () => {
-    // TODO: fill in
+    console.log(`clicked Post -> ${props.id}`);
   };
 
   const handleShareClick = () => {
-    // TODO: fill in
+    console.log(`clicked Share -> ${props.id}`);
   };
 
   const handleViewsClick = () => {
-    // TODO: fill in
+    console.log(`clicked Views -> ${props.id}`);
   };
   
   return (
     <Card className={classes.root}>
       <div onClick={handleThreadClick} className={classes.hoverableDiv}>
-      <CardHeader className={classes.header}
-        avatar={
-          <Avatar 
-          size='small'
-          aria-label="Creator" 
-          src={process.env.PUBLIC_URL + '/defAvatar.jpg'}
-          className={classes.avatar}>
-          </Avatar>
-        }
-        action={
-          <IconButton 
-              aria-label="settings"
-              disableRipple 
-              onClick={() => handleMoreClick}
-              className={`${classes.iconButton} ${classes.moreButton}`}>
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={
-          <Typography variant="body1" component="p" className={classes.title}>
-            {props.creator ? props.creator : "Anonymous"}
-          </Typography>         
-        }
-        subheader={
-          <Typography variant="body2" className={classes.subheader}>
-            {props.created ? createdDateTime : null}
-          </Typography>          
-        }
-      />
-      <CardContent>
-        <Typography paragraph variant="body2" component="p" style={{ wordWrap: "break-word" }}>
-          {props.subject ? props.subject : null} 
-        </Typography>
-      </CardContent>
-      
-      </div>
-
-      {props.image ? 
-        <CardMedia
-          className={classes.media}
-          component="img"
-          onClick={handleImageClick}
-          src={props.image ? props.image : null}
-          title={props.fileName ? props.fileName : null}
+        <CardHeader className={classes.header}
+          avatar={
+            <Avatar 
+            size='small'
+            aria-label="Creator" 
+            onClick={(e) => {e.stopPropagation(); handleUserClick()}}
+            src={process.env.PUBLIC_URL + '/defAvatar.jpg'}
+            className={classes.avatar}>
+            </Avatar>
+          }
+          action={
+            <IconButton 
+                aria-label="settings"
+                disableRipple 
+                onClick={(e) => {e.stopPropagation(); handleMoreClick()}}
+                className={`${classes.iconButton} ${classes.moreButton}`}>
+              <MoreVertIcon />
+            </IconButton>
+          }
+          title={
+            <Typography 
+              variant="body1" 
+              component="p" 
+              onClick={(e) => {e.stopPropagation(); handleUserClick()}}
+              className={classes.title}>
+              {props.creator ? props.creator : "Anonymous"}
+            </Typography>         
+          }
+          subheader={
+            <Typography variant="body2" className={classes.subheader}>
+              {props.created ? createdDateTime : null}
+            </Typography>          
+          }
         />
-        // <img src={props.image} alt='' className={classes.media}/>
-      : null} 
+        <CardContent>
+          <Typography paragraph variant="body2" component="p" style={{ wordWrap: "break-word" }}>
+            {props.subject ? props.subject : null} 
+          </Typography>
+        </CardContent>
+        
+        {props.image ? 
+          <CardMedia
+            className={classes.media}
+            component="img"
+            onClick={(e) => {e.stopPropagation(); handleImageClick()}}
+            src={props.image ? props.image : null}
+            title={props.fileName ? props.fileName : null}
+          />
+          // <img src={props.image} alt='' className={classes.media}/>
+        : null} 
 
-      {/* <Divider variant="middle" style={{ background: '#303030', marginTop: '0.5rem'}} />   */}
+        {/* <Divider variant="middle" style={{ background: '#303030', marginTop: '0.5rem'}} />   */}
 
-      <div>
-        <Container fluid>
-          <Row className="justify-content-md-center" style={{ marginLeft: props.rowMargin}}>
-            <Col>
-              <Tooltip title="Like" placement="right" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
-                <IconButton 
-                  size='small' 
-                  aria-label="Like" 
-                  disableRipple 
-                  onClick={() => handleLikeClick}
-                  className={`${classes.iconButton} ${classes.likeButton}`}
-                >
-                  <BiHeart/>
-                  <Typography variant="body2" className={classes.countNum}>
-                    {props.likesCount ? nFormatter(props.likesCount, 1) : '0'}
-                  </Typography>                 
-                </IconButton>
-              </Tooltip>                     
-            </Col>
-            <Col>
-              <Tooltip title="Post" placement="right" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
-                <IconButton 
-                  size='small' 
-                  aria-label="Post" 
-                  disableRipple 
-                  onClick={() => handlePostClick}
-                  className={`${classes.iconButton} ${classes.postButton}`}
-                >
-                  <BiComment/>
-                  <Typography variant="body2" className={classes.countNum}>
-                    {props.postsCount ? nFormatter(props.postsCount, 1) :  '0'}
-                  </Typography>
-                </IconButton>
-              </Tooltip>             
-            </Col>
-            <Col>
-              <Tooltip title="Share" placement="right" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
-                <IconButton 
-                  size='small'
-                  aria-label="Share"
-                  disableRipple 
-                  onClick={() => handleShareClick}
-                  className={`${classes.iconButton} ${classes.shareButton}`}
+        <div>
+          <Container fluid>
+            <Row className="justify-content-md-center" style={{ marginLeft: props.rowMargin}}>
+              <Col>
+                <Tooltip title="Like" placement="right" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
+                  <IconButton 
+                    size='small' 
+                    aria-label="Like" 
+                    disableRipple 
+                    onClick={(e) => {e.stopPropagation(); handleLikeClick()}}
+                    className={`${classes.iconButton} ${classes.likeButton}`}
                   >
-                    <BiShare/>
+                    <BiHeart/>
                     <Typography variant="body2" className={classes.countNum}>
-                      {props.sharesCount ? nFormatter(props.sharesCount, 1) :  '0'}
+                      {props.likesCount ? nFormatter(props.likesCount, 1) : '0'}
+                    </Typography>                 
+                  </IconButton>
+                </Tooltip>                     
+              </Col>
+              <Col>
+                <Tooltip title="Post" placement="right" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
+                  <IconButton 
+                    size='small' 
+                    aria-label="Post" 
+                    disableRipple 
+                    onClick={(e) => {e.stopPropagation(); handlePostClick()}}
+                    className={`${classes.iconButton} ${classes.postButton}`}
+                  >
+                    <BiComment/>
+                    <Typography variant="body2" className={classes.countNum}>
+                      {props.postsCount ? nFormatter(props.postsCount, 1) :  '0'}
                     </Typography>
                   </IconButton>
-              </Tooltip>      
-            </Col>
-            <Col>
-            <Tooltip title="Views" placement="right" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
-              <IconButton 
-                size='small' 
-                aria-label="Views" 
-                disableRipple 
-                onClick={() => handleViewsClick}
-                className={`${classes.iconButton} ${classes.viewsButton}`}
-              >
-                <FiEye/>
-                <Typography variant="body2" className={classes.countNum}>
-                  {props.viewsCount ? nFormatter(props.viewsCount, 1) :  '0'}
-                </Typography>
-              </IconButton>
-            </Tooltip>         
-            </Col>
-          </Row>
-        </Container> 
+                </Tooltip>             
+              </Col>
+              <Col>
+                <Tooltip title="Share" placement="right" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
+                  <IconButton 
+                    size='small'
+                    aria-label="Share"
+                    disableRipple 
+                    onClick={(e) => {e.stopPropagation(); handleShareClick()}}
+                    className={`${classes.iconButton} ${classes.shareButton}`}
+                    >
+                      <BiShare/>
+                      <Typography variant="body2" className={classes.countNum}>
+                        {props.sharesCount ? nFormatter(props.sharesCount, 1) :  '0'}
+                      </Typography>
+                    </IconButton>
+                </Tooltip>      
+              </Col>
+              <Col>
+              <Tooltip title="Views" placement="right" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
+                <IconButton 
+                  size='small' 
+                  aria-label="Views" 
+                  disableRipple 
+                  onClick={(e) => {e.stopPropagation(); handleViewsClick()}}
+                  className={`${classes.iconButton} ${classes.viewsButton}`}
+                >
+                  <FiEye/>
+                  <Typography variant="body2" className={classes.countNum}>
+                    {props.viewsCount ? nFormatter(props.viewsCount, 1) :  '0'}
+                  </Typography>
+                </IconButton>
+              </Tooltip>         
+              </Col>
+            </Row>
+          </Container> 
+        </div>
       </div>
-      
     </Card>
   );
 }
