@@ -133,8 +133,9 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     width: '38px',
     height: '38px',
+    opacity: '90%',
     '&:hover': {
-      opacity: '85%',
+      opacity: '100%',
     },
   },
 }));

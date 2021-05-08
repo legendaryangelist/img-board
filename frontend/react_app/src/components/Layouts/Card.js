@@ -65,8 +65,9 @@ const useStyles = makeStyles({
     // backgroundColor: '#228B22',
     width: '38px',
     height: '38px',
+    opacity: '90%',
     '&:hover': {
-      opacity: '85%',
+      opacity: '100%',
     },
   },
 
@@ -81,9 +82,9 @@ const useStyles = makeStyles({
   subheader: {
     color: '#cdd8f2',
     '&:hover': {
-      opacity: '65%',
+      opacity: '85%',
       color: '#bed2fb',
-      textDecoration: 'underline',
+      // textDecoration: 'underline',
    },
   },
 
@@ -154,7 +155,17 @@ const useStyles = makeStyles({
 
 export default function ImageboardCard(props) {
   const classes = useStyles(props);
+  var createdDateTime = 'Unknown Time';
   
+  if(props.created){
+    var utcDateTime = `${props.created}`;  // ISO-8601 formatted date returned from server
+    var localDateTime = new Date(utcDateTime);
+    var localDate = localDateTime.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' });
+    var localTime = localDateTime.toLocaleTimeString('en-GB', { hour12: false });
+    createdDateTime = localTime.concat(', ', localDate);
+  }
+  
+
   const openInNewTab = (url) => {
     const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
     if (newWindow) newWindow.opener = null
@@ -216,7 +227,7 @@ export default function ImageboardCard(props) {
         }
         subheader={
           <Typography variant="body2" className={classes.subheader}>
-            {props.created ? props.created : null}
+            {props.created ? createdDateTime : null}
           </Typography>          
         }
       />
