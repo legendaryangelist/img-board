@@ -89,7 +89,10 @@ class ThreadsFeedViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         """Create a new thread"""
-        serializer.save(board_id=self.kwargs['boards_pk'])
+        if 'boards_pk' in self.kwargs:
+            serializer.save(board_id=self.kwargs['boards_pk'])
+        else:
+            serializer.save()
 
 
 # ----------------------------------------------------

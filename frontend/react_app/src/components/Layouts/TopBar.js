@@ -16,6 +16,7 @@ import CheckWeb3 from "../Blockchain/Web3Utils";
 import { lightTheme, darkTheme } from '../Themes/Theme';
 import { fetchState, switchLayout } from "../../store/actions/app/appActions";
 import Tooltip from "@material-ui/core/Tooltip";
+import Fade from '@material-ui/core/Fade';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -224,25 +225,25 @@ export default function TopBar(props) {
           </div>
           <div className={classes.grow} />      
           
-          <Tooltip arrow title="Threads" placement="bottom" className={classes.tooltip}>
+          <Tooltip arrow title="Threads" placement="bottom" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
             <IconButton disableRipple onClick={() => history.push("/threads")} className={classes.iconButton}>
               <MdForum />
             </IconButton>
           </Tooltip>
           
-          <Tooltip arrow title="Boards" placement="bottom" className={classes.tooltip}>
+          <Tooltip arrow title="Boards" placement="bottom" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
             <IconButton disableRipple onClick={() => history.push("/boards")} className={classes.iconButton}>
               <FaClipboard />
             </IconButton>     
           </Tooltip>
           
-          <Tooltip arrow title="Switch Layout" placement="bottom" className={classes.tooltip}>
+          <Tooltip arrow title="Switch Layout" placement="bottom" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
             <IconButton disableRipple onClick={handleGridLayout} className={classes.iconButton}>
               {layoutIcon}
             </IconButton>
           </Tooltip>
 
-          <Tooltip arrow title="Connect Wallet" placement="bottom" className={classes.tooltip}>
+          <Tooltip arrow title="Connect Wallet" placement="bottom" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
             <IconButton disableRipple onClick={() => CheckWeb3()} className={classes.iconButton}>            
               <SiEthereum /> 
             </IconButton>        

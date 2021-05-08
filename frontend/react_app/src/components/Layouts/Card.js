@@ -17,6 +17,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { Container, Row, Col } from "react-bootstrap";
 import Divider from '@material-ui/core/Divider';
+import Tooltip from "@material-ui/core/Tooltip";
+import Fade from '@material-ui/core/Fade';
 
 
 const useStyles = makeStyles({
@@ -112,6 +114,10 @@ const useStyles = makeStyles({
   
   countNum : {
     marginLeft: '.5rem' 
+  },
+  
+  tooltip: {
+    
   },
 
   moreButton: {
@@ -239,49 +245,55 @@ export default function ImageboardCard(props) {
         <Container fluid>
           <Row className="justify-content-md-center" style={{ marginLeft: props.rowMargin}}>
             <Col>
-              <IconButton 
-                size='small' 
-                aria-label="Like" 
-                disableRipple 
-                onClick={() => handleLikeClick}
-                className={`${classes.iconButton} ${classes.likeButton}`}
-              >
-                <BiHeart/>
-                <Typography variant="body2" className={classes.countNum}>
-                  {props.likesCount ? props.likesCount.toString() :  '0'}
-                </Typography>                 
-              </IconButton>
-              
+              <Tooltip title="Like" placement="right" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
+                <IconButton 
+                  size='small' 
+                  aria-label="Like" 
+                  disableRipple 
+                  onClick={() => handleLikeClick}
+                  className={`${classes.iconButton} ${classes.likeButton}`}
+                >
+                  <BiHeart/>
+                  <Typography variant="body2" className={classes.countNum}>
+                    {props.likesCount ? props.likesCount.toString() : '0'}
+                  </Typography>                 
+                </IconButton>
+              </Tooltip>                     
             </Col>
             <Col>
-              <IconButton 
-                size='small' 
-                aria-label="Post" 
-                disableRipple 
-                onClick={() => handlePostClick}
-                className={`${classes.iconButton} ${classes.postButton}`}
-              >
-                <BiComment/>
-                <Typography variant="body2" className={classes.countNum}>
-                  {props.postsCount ? props.postsCount.toString() :  '0'}
-                </Typography>
-              </IconButton>
+              <Tooltip title="Post" placement="right" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
+                <IconButton 
+                  size='small' 
+                  aria-label="Post" 
+                  disableRipple 
+                  onClick={() => handlePostClick}
+                  className={`${classes.iconButton} ${classes.postButton}`}
+                >
+                  <BiComment/>
+                  <Typography variant="body2" className={classes.countNum}>
+                    {props.postsCount ? props.postsCount.toString() :  '0'}
+                  </Typography>
+                </IconButton>
+              </Tooltip>             
             </Col>
             <Col>
-              <IconButton 
-               size='small'
-               aria-label="Share"
-               disableRipple 
-               onClick={() => handleShareClick}
-               className={`${classes.iconButton} ${classes.shareButton}`}
-              >
-                <BiShare/>
-                <Typography variant="body2" className={classes.countNum}>
-                  {props.sharesCount ? props.sharesCount.toString() :  '0'}
-                </Typography>
-              </IconButton>
+              <Tooltip title="Share" placement="right" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
+                <IconButton 
+                  size='small'
+                  aria-label="Share"
+                  disableRipple 
+                  onClick={() => handleShareClick}
+                  className={`${classes.iconButton} ${classes.shareButton}`}
+                  >
+                    <BiShare/>
+                    <Typography variant="body2" className={classes.countNum}>
+                      {props.sharesCount ? props.sharesCount.toString() :  '0'}
+                    </Typography>
+                  </IconButton>
+              </Tooltip>      
             </Col>
             <Col>
+            <Tooltip title="Views" placement="right" enterDelay={500} TransitionComponent={Fade} className={classes.tooltip}>
               <IconButton 
                 size='small' 
                 aria-label="Views" 
@@ -294,6 +306,7 @@ export default function ImageboardCard(props) {
                   {props.viewsCount ? props.viewsCount.toString() :  '0'}
                 </Typography>
               </IconButton>
+            </Tooltip>         
             </Col>
           </Row>
         </Container> 
