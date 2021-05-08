@@ -8,6 +8,7 @@ html {
   scroll-snap-type: y proximity;
   overscroll-behavior: none;
   overscroll-behavior-y: none;
+  font-size: 100%;
 }
 
 body {

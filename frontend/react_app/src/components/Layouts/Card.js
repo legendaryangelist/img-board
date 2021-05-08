@@ -44,8 +44,19 @@ const useStyles = makeStyles({
   },
 
   media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
+    flex: 1,
+    marginLeft: props => props.width/10,
+    // marginRight: '50px',
+    // height: '50%',
+    width: '80%',
+    borderRadius: 5,
+    border: '1px groove #525557',
+    '&:hover': {
+      cursor: 'pointer',
+    },
+    // aspectRatio: '56.25%', // 16:9
+    // resizeMode: 'contain',
+    // paddingLeft: 'rem',
   },
 
   avatar: {
@@ -138,6 +149,19 @@ const useStyles = makeStyles({
 export default function ImageboardCard(props) {
   const classes = useStyles(props);
   
+  const openInNewTab = (url) => {
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+    if (newWindow) newWindow.opener = null
+  }
+
+  const handleThreadClick = () => {
+    console.log(`clicked -> ${props.id}`);
+  };
+
+  const handleImageClick = () => {
+    openInNewTab(`${props.image}`); // TODO: set an open image handler
+  };
+
   const handleMoreClick = () => {
     // TODO: fill in
   };
@@ -160,7 +184,7 @@ export default function ImageboardCard(props) {
   
   return (
     <Card className={classes.root}>
-      <div onClick={() => console.log(`clicked -> ${props.id}`)} className={classes.hoverableDiv}>
+      <div onClick={handleThreadClick} className={classes.hoverableDiv}>
       <CardHeader className={classes.header}
         avatar={
           <Avatar 
@@ -181,7 +205,6 @@ export default function ImageboardCard(props) {
         }
         title={
           <Typography variant="body1" component="p" className={classes.title}>
-            {/* {props.subject ? props.subject : null} */}
             {props.creator ? props.creator : "Anonymous"}
           </Typography>         
         }
@@ -194,22 +217,23 @@ export default function ImageboardCard(props) {
       <CardContent>
         <Typography paragraph variant="body2" component="p" style={{ wordWrap: "break-word" }}>
           {props.subject ? props.subject : null} 
-          {/* {props.text ? props.text : null} */}
         </Typography>
       </CardContent>
       
       </div>
 
-      {props.thumbnail ? 
+      {props.image ? 
         <CardMedia
           className={classes.media}
           component="img"
-          image={props.thumbnail ? props.thumbnail : null}
+          onClick={handleImageClick}
+          src={props.thumbnail ? props.thumbnail : null}
           title={props.fileName ? props.fileName : null}
         />
+        // <img src={props.image} alt='' className={classes.media}/>
       : null} 
 
-      <Divider style={{ background: '#303030' }} variant="middle" />  
+      <Divider variant="middle" style={{ background: '#303030', marginTop: '0.2rem'}} />  
 
       <div>
         <Container fluid>

@@ -165,7 +165,7 @@ class ThreadManager(BaseModelManager):
     """Thread Manager object"""
     def create_thread(self, **validated_data):
         self.update_validated_data(validated_data)
-
+        
         if 'creator' in validated_data:
             validated_data['creator'] = "Anonymous" if not validated_data['creator'] else validated_data['creator']
         else:
@@ -194,13 +194,16 @@ class ThreadManager(BaseModelManager):
         # else:
         #     validated_data['maxPosts'] = MAX_POSTS
 
-        if 'board_id' not in validated_data:
-            raise ValidationError(message="Something went wrong with retrieving the Board id when creating a new Thread.")
-        board = Board.objects.get(id=validated_data['board_id'])
-        if board:
-            validated_data['board'] = board
+        if 'board_id' in validated_data:
+            board = Board.objects.get(id=validated_data['board_id'])
+            if board:
+                validated_data['board'] = board
+            else:
+                raise ValidationError(message="Something went wrong with retrieving the Board id when creating a new Thread.")
         else:
-            raise ValidationError(message="Something went wrong with retrieving the Board id when creating a new Thread.")
+            validated_data['board'] = None
+            # raise ValidationError(message="Something went wrong with retrieving the Board id when creating a new Thread.")
+        
 
         # Create object, save and return
         thread = Thread.objects.create(
@@ -220,8 +223,9 @@ class ThreadManager(BaseModelManager):
         thread.save(using=self._db)
 
         # Update board
-        board.updated=datetime.now(pytz.utc)
-        board.save(using=self._db)
+        if validated_data['board']:
+            board.updated=datetime.now(pytz.utc)
+            board.save(using=self._db)
 
         return thread
 

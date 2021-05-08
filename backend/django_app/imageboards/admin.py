@@ -19,11 +19,10 @@ class BoardAdmin(admin.ModelAdmin):
     fieldsets = [
         (_('Base Info'), {'fields': ('tag', 'id_hex',)}),
         (_('Creation Info'), {'fields': ('creator','created','updated', 'link',)}),
-        (_('Board Info'), {'fields': ('isPrivate','title','description', 'maxThreads',)}),
+        (_('Board Info'), {'fields': ('isPrivate','title','description',)}),
         (_('Image Info'), {'fields': ('fileName', 'thumbnail', 'avatar', 'image',)}),
     ]
-    form = BoardForm
-
+    # form = BoardForm
     formfield_overrides = {
         ThumbnailerImageField: {'widget': ImageClearableFileInput},
     }
@@ -42,10 +41,10 @@ class ThreadAdmin(admin.ModelAdmin):
     fieldsets = [
         (_('Base Info'), {'fields': ('id_hex', )}),
         (_('Creation Info'), {'fields': ('creator','created','updated', 'link',)}),
-        (_('Thread Info'), {'fields': ('isPinned','isPruned','subject', 'text', 'maxPosts', 'board',)}),
+        (_('Thread Info'), {'fields': ('isPinned','isPruned','subject', 'text', 'board',)}),
         (_('Image Info'), {'fields': ('fileName', 'thumbnail', 'avatar', 'image',)}),
     ]
-    form = BoardForm
+    # form = BoardForm
     formfield_overrides = {
         ThumbnailerImageField: {'widget': ImageClearableFileInput},
     }
@@ -68,7 +67,7 @@ class PostAdmin(admin.ModelAdmin):
         (_('Post Info'), {'fields': ('text', 'board', 'thread', 'replyto',)}),
         (_('Image Info'), {'fields': ('fileName', 'thumbnail', 'avatar', 'image',)}),
     ]
-    form = BoardForm
+    # form = BoardForm
     formfield_overrides = {
         ThumbnailerImageField: {'widget': ImageClearableFileInput},
     }

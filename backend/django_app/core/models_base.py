@@ -25,6 +25,12 @@ class BaseModelManager(models.Manager):
     
     def update_image_data(self, validated_data):
         if validated_data.get("image"):
+            print(
+                validated_data['image'].name, 
+                validated_data['image'].content_type,
+                validated_data['image'].size, 
+                validated_data['image'].charset,
+            )
             if validated_data["image"].name.find(".") == -1 or \
                validated_data["image"].name.split(".")[-1].lower() not in ALLOWED_EXTENSIONS:
                 raise ValidationError(message="Image must be '.jpg', '.jpeg', '.gif', or '.png'")
@@ -81,15 +87,16 @@ class BaseModel(models.Model):
     id          = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, verbose_name=_('Unique ID')) 
     created     = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation date'))
     updated     = models.DateTimeField(auto_now=True, verbose_name=_('Update date'))
-    link        = models.URLField(default=None, null=True, blank=True, verbose_name=_('Link'))
-    image       = VersatileImageField(default=None, blank=True, null=True, verbose_name=_('Image'),
-                                        placeholder_image=OnStoragePlaceholderImage(path='rein.jpg'),
-                                        ppoi_field='ppoi')
+    link        = models.URLField(default=None, null=True, blank=True, verbose_name=_('Link'))  
+    image       = models.ImageField(default=None, blank=True, null=True, verbose_name=_('Image'))
     thumbnail   = ThumbnailerImageField(default=None, blank=True, null=True, verbose_name=_('Thumbnail'), resize_source=dict(size=(200, 200)))
     avatar      = ThumbnailerImageField(default=None, blank=True, null=True, verbose_name=_('Avatar'), resize_source=dict(size=(50, 50)))
     fileName    = models.CharField(default=None, max_length=255, blank=True, null=True, verbose_name=_('File name'))
-    ppoi        = PPOIField('Image PPOI')
-
+    
+    # image       = VersatileImageField(default=None, blank=True, null=True, verbose_name=_('Image'),
+    #                                     placeholder_image=OnStoragePlaceholderImage(path='rein.jpg'),
+    #                                     ppoi_field='ppoi')
+    # ppoi        = PPOIField('Image PPOI')
     # slug        = models.SlugField(unique=True, max_length=255, blank=True, null=True, verbose_name=_('Slug'))
     # creator     = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     # image       = models.ImageField(default=None, blank=True, null=True, verbose_name=_('Image'))
