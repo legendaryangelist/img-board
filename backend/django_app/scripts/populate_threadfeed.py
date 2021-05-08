@@ -66,6 +66,10 @@ def populateThreads(numThreads=200):
             image=imageRes['image'],
             fileName = imageRes['fileName'],
             thumbnail = imageRes['thumbnail'],
+            likesCount  = randint(0, 100) if randint(0, 100) < 70 else randint(0, 1500),
+            postsCount  = randint(0, 100) if randint(0, 100) < 70 else randint(0, 300),
+            sharesCount = randint(0, 100) if randint(0, 100) < 70 else randint(0, 1500),
+            viewsCount  = randint(0, 1000) if randint(0, 100) < 70 else randint(0, 10000),
             # maxPosts=randint(MIN_POSTS, MAX_POSTS),    
         )[0]
         print("Populate Threads - Created Thread " + str(thread))
