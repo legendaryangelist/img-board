@@ -3,6 +3,7 @@ import {AppBar, Toolbar, Typography, Button,
         IconButton, InputBase, fade, makeStyles} from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { RiGridFill, RiLayout2Fill } from "react-icons/ri";
+import { HiViewList } from "react-icons/hi";
 import { FaClipboard } from "react-icons/fa";
 import { MdForum } from "react-icons/md";
 import { SiEthereum } from "react-icons/si";
@@ -161,7 +162,8 @@ export default function TopBar(props) {
     layoutIcon = <RiGridFill />
   }
   else if (layout === 'grid'){
-    layoutIcon = <RiLayout2Fill />
+    // layoutIcon = <RiLayout2Fill />
+    layoutIcon = <HiViewList />
   }
   else{
     layoutIcon = <RiGridFill />
