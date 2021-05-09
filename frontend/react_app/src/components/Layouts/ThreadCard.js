@@ -1,22 +1,17 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
+import { nFormatter } from '../Utils/nFormatter';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { BiHeart, BiComment, BiShare } from "react-icons/bi";
 import { FiEye } from "react-icons/fi";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import { Container, Row, Col } from "react-bootstrap";
-import Divider from '@material-ui/core/Divider';
 import Tooltip from "@material-ui/core/Tooltip";
 import Fade from '@material-ui/core/Fade';
 
@@ -25,7 +20,7 @@ const useStyles = makeStyles({
   root: {
     width: props => props.width,
     height: props => props.height,
-    backgroundColor: "#0e0e10", /* #242526, 0e0e10, 282a2e */
+    backgroundColor: "inherit", /* #242526, 0e0e10, 282a2e */
     color: "inherit",
     '&:hover': {
       background: "#212121", /* #313335 */
@@ -76,9 +71,8 @@ const useStyles = makeStyles({
     // backgroundColor: '#228B22',
     width: '38px',
     height: '38px',
-    opacity: '90%',
     '&:hover': {
-      opacity: '100%',
+      filter: `brightness(110%)`,
     },
   },
 
@@ -175,7 +169,7 @@ const useStyles = makeStyles({
 });
 
 
-export default function ImageboardCard(props) {
+export default function ThreadCard(props) {
   const classes = useStyles(props);
   var createdDateTime = 'Unknown Time';
   
@@ -186,26 +180,7 @@ export default function ImageboardCard(props) {
     var localTime = localDateTime.toLocaleTimeString('en-GB', { hour12: false });
     createdDateTime = localTime.concat(', ', localDate);
   }
-  
-  function nFormatter(num, digits) {
-    var si = [
-      { value: 1, symbol: "" },
-      { value: 1E3, symbol: "k" },
-      { value: 1E6, symbol: "M" },
-      { value: 1E9, symbol: "G" },
-      { value: 1E12, symbol: "T" },
-      { value: 1E15, symbol: "P" },
-      { value: 1E18, symbol: "E" }
-    ];
-    var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-    var i;
-    for (i = si.length - 1; i > 0; i--) {
-      if (num >= si[i].value) {
-        break;
-      }
-    }
-    return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
-  }
+
 
   const openInNewTab = (url) => {
     const newWindow = window.open(url, '_blank', 'noopener,noreferrer')

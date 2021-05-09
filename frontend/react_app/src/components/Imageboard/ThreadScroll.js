@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import Thread from "./Thread";
 import { Container, Row, Col } from "react-bootstrap";
-import ImageboardCard from "../Layouts/Card"
+import ThreadCard from "../Layouts/ThreadCard"
+import GridThreadCard from "../Layouts/GridThreadCard"
 import { connect, useSelector, useDispatch } from "react-redux";
 import { useHistory, Link, useParams } from "react-router-dom";
 import { getThreadsDispatch } from "../../store/actions/app/appThreadActions";
@@ -13,7 +14,7 @@ import * as settings from "../../settings";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    marginTop: "2px",
+    // marginTop: ".5rem",
   },
   gridContainer: {
     // paddingLeft: '40px',
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Threads = (props) => {
   let currCount = 0;
-  const getLimit = 25;
+  const getLimit = 40;
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
@@ -83,13 +84,16 @@ const Threads = (props) => {
         <div className={classes.root}>
           <Grid 
             container 
+            direction="row"
+            justify="center"
+            alignItems="center"
             spacing={4} 
             className={classes.gridContainer}
           >
             {Object.entries(threadsObj).map(([key, value]) => {
               return (
-                <Grid item xs={12} sm={2} md={3}>
-                  <ImageboardCard key={key} {...value} layout='grid' width={400} height={300}/>
+                <Grid item>
+                  <GridThreadCard key={key} {...value}/>
                 </Grid>
               );
             })} 
@@ -102,7 +106,7 @@ const Threads = (props) => {
               <Row key={key} className="justify-content-md-center">
                 <Col md="auto">
                   <div style={{ marginTop: "2px" }}/>
-                  <ImageboardCard key={key} {...value} width={625} rowMargin="50px" />
+                  <ThreadCard key={key} {...value} width={625} rowMargin="50px" />
                 </Col>             
               </Row>
             );

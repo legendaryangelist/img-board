@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Thread from "./Thread";
 import { Container, Row, Col } from "react-bootstrap";
-import ImageboardCard from "../Layouts/Card"
+import ThreadCard from "../Layouts/ThreadCard"
 import { connect, useSelector, useDispatch } from "react-redux";
 import { useHistory, Link, useParams } from "react-router-dom";
 import { getThreadsDispatch } from "../../store/actions/app/appThreadActions";
@@ -61,7 +61,7 @@ const Threads = (props) => {
             {Object.entries(threads).map(([key, value]) => {
               return (
                 <Grid item xs={12} sm={2} md={3}>
-                  <ImageboardCard key={key} {...value} width={400} height={300}/>
+                  <ThreadCard key={key} {...value} width={400} height={300}/>
                 </Grid>
               );
             })} 
@@ -74,7 +74,7 @@ const Threads = (props) => {
               <Row key={key} className="justify-content-md-center">
                 <Col md="auto">
                   <div style={{ marginTop: "2px" }}/>
-                  <ImageboardCard key={key} {...value} width={625} rowMargin="50px" />
+                  <ThreadCard key={key} {...value} width={625} rowMargin="50px" />
                 </Col>             
               </Row>
             );
