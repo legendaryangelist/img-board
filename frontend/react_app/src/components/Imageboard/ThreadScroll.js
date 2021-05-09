@@ -36,26 +36,25 @@ const Threads = (props) => {
   const [threadsObj, setThreadsObj] = React.useState({});
 
 
-  const fetchData = (options={}) => {
+  const fetchData = (offset=null) => {
     setIsLoading(true);
-    let getURI = `${settings.API_SERVER}/api/app/threads/?limit=${getLimit}`;
-    let board_id = boardid ? boardid : null;
-    // let offset = ('offset' in options) ? options.offset : null; 
+    let getURI = `${settings.API_SERVER}/api/app/`;
     
-    // getURI = (board_id) ? 
-    //   getURI.concat(`boards/${board_id}/threads/?limit=${getLimit}`) :
-    //   getURI.concat(`threads/?limit=${getLimit}`);
+    if(boardid) getURI = getURI.concat(`boards/${boardid}/threads/?limit=${getLimit}`);
+    else getURI = getURI.concat(`threadsfeed/?limit=${getLimit}`);  
   
-    // if (offset) getURI = getURI.concat(`&offset=${offset}`);
-  
+    if (offset) getURI = getURI.concat(`&offset=${offset}`);
+    
+    console.log(getURI);
+
     axios.get(getURI)
     .then((res) => {
-      let threads = {};
+      // let threads = {};
       const results = res.data.results;
       if (Array.isArray(results)){
-        results.map((thread) => threads[thread.id] = thread);       
+        results.map((thread) => threadsObj[thread.id] = thread);       
       }
-      setThreadsObj(threads);
+      // setThreadsObj(threads);
     })
     .catch((err) => {
       console.log(err);     
@@ -90,7 +89,7 @@ const Threads = (props) => {
             {Object.entries(threadsObj).map(([key, value]) => {
               return (
                 <Grid item xs={12} sm={2} md={3}>
-                  <ImageboardCard key={key} {...value} width={400} height={300}/>
+                  <ImageboardCard key={key} {...value} layout='grid' width={400} height={300}/>
                 </Grid>
               );
             })} 

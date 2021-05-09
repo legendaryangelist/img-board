@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     },
     borderRadius: 5,
     border: '1px groove #626567', /* #626567 */
-    // fontSize: 'medium',
+    // fontSize: 'small',
   },
   
   hoverableDiv: {
@@ -60,6 +60,17 @@ const useStyles = makeStyles({
     // resizeMode: 'contain',
     // paddingLeft: 'rem',
   },
+  
+  mediaGrid: {
+    flex: 1,
+    marginLeft: props => props.width/5,
+    width: '45%',
+    borderRadius: 5,
+    border: '1px groove #525557',
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
 
   avatar: {
     // backgroundColor: '#228B22',
@@ -81,11 +92,22 @@ const useStyles = makeStyles({
 
   subheader: {
     color: '#cdd8f2',
+    fontSize: 'small',
     '&:hover': {
       opacity: '85%',
       color: '#bed2fb',
       // textDecoration: 'underline',
    },
+  },
+
+  subject: {
+    wordWrap: "break-word",
+    // fontSize: 'small',
+  },
+
+  subjectGrid: {
+    wordWrap: "break-word",
+    fontSize: 'small',
   },
 
   divider: {
@@ -260,14 +282,19 @@ export default function ImageboardCard(props) {
           }
         />
         <CardContent>
-          <Typography paragraph variant="body2" component="p" style={{ wordWrap: "break-word" }}>
+          <Typography 
+            paragraph 
+            variant="body2" 
+            component="p" 
+            className={props.layout === 'grid' ? classes.subjectGrid : classes.subject}
+          >
             {props.subject ? props.subject : null} 
           </Typography>
         </CardContent>
         
         {props.image ? 
           <CardMedia
-            className={classes.media}
+            className={props.layout === 'grid' ? classes.mediaGrid : classes.media}
             component="img"
             onClick={(e) => {e.stopPropagation(); handleImageClick()}}
             src={props.image ? props.image : null}
