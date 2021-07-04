@@ -1,5 +1,6 @@
 # Parameters
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # -----------------------------------------------------------------
 # --------------------- Django REST Framework ---------------------
